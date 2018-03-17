@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import * as actions from '../../actions';
 
 class MessageBar extends Component {
 
@@ -22,6 +23,8 @@ class MessageBar extends Component {
 	onSubmitMessage(event) {
 		event.preventDefault();
 		// send the message to the server and/or socket
+		sendMessage(this.state.text, this.props.currentChannel)
+
 		this.setState({ text: '' });
 	}
 
@@ -43,5 +46,11 @@ class MessageBar extends Component {
 		)
 	}
 }
+
+function mapStateToProps({ currentChannel }) {
+	return { currentChannel }
+};
+
+export default connect(mapStateToProps)(SingleMessage);
 
 export default MessageBar

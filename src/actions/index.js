@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { FETCH_CHANNELS, FETCH_CURRENT_CHANNEL, FETCH_CURRENT_USER, FETCH_USER_LIST, FETCH_MESSAGE_LIST } from './types';
+import { FETCH_CHANNELS, FETCH_CURRENT_CHANNEL, FETCH_CURRENT_USER, FETCH_USER_LIST, FETCH_MESSAGE_LIST, SET_CURRENT_CHANNEL } from './types';
 
 export const fetchChannels = () => async dispatch => {
   const res = await axios.get('/api/user/channels?channel');
@@ -30,3 +30,14 @@ export const fetchUserList = () => async dispatch => {
 
   dispatch({ type: FETCH_USER_LIST, payload: res.data });
 };
+
+export const sendMessage = (messageText, channelId) => async dispatch => {
+  const res = await axios.post(`/api/channels/${channelId}`, messageText)
+
+  dispatch({ type: FETCH_CURRENT_CHANNEL, payload: res.data })
+};
+
+export const setCurrentChannel = channelId => dispatch => {
+  dispatch({  type: SET_CURRENT_CHANNEL, payload: channelId })
+};
+
