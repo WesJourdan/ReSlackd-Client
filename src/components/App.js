@@ -6,10 +6,8 @@ import './App.css';
 import Header from './Header';
 import MessageBar from './MessageBar';
 import MessageBoard from './MessageBoard';
+import Channels from './Channels';
 
-const Channels = () => <h2>Channels</h2>;
-const ChannelSettings = () => <h2>ChannelSettings</h2>;
-const DirectMessages = () => <h2>DirectMessages</h2>;
   
 
 class App extends Component {
