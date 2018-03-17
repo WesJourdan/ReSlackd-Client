@@ -19,7 +19,7 @@ class App extends Component {
             <Header />
             <Route exact path="/" />
             <Route exact path="/Messages" component={MessageBoard} />
-            <Route path="/Channels/new" component={Channels} />
+            <Route path="/Channels" component={Channels} />
           </div>
         </BrowserRouter>
       </div>
