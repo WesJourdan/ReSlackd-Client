@@ -4,13 +4,13 @@ import { connect } from 'react-redux';
 import * as actions from '../actions';
 import './App.css';
 import Header from './Header';
+import MessageBar from './MessageBar';
+//import MessageBoard from './MessageBoard';
 
 const Channels = () => <h2>Channels</h2>;
 const ChannelSettings = () => <h2>ChannelSettings</h2>;
 const DirectMessages = () => <h2>DirectMessages</h2>;
-const MessageBar = () => <h2>MessageBar</h2>;
 const MessageBoard = () => <h2>MessageBoard</h2>;
-
 
 class App extends Component {
  
@@ -20,7 +20,7 @@ class App extends Component {
         <BrowserRouter>
           <div>
             <Header />
-            <Route exact path="/" component={MessageBar} />
+            <Route exact path="/" />
             <Route exact path="/Messages" component={MessageBoard} />
             <Route path="/Channels/new" component={Channels} />
           </div>
