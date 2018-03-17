@@ -3,11 +3,11 @@ import { BrowserRouter, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as actions from '../actions';
 import './App.css';
+import Header from './Header';
 
 const Channels = () => <h2>Channels</h2>;
 const ChannelSettings = () => <h2>ChannelSettings</h2>;
 const DirectMessages = () => <h2>DirectMessages</h2>;
-const Header = () => <h2>Header</h2>;
 const MessageBar = () => <h2>MessageBar</h2>;
 const MessageBoard = () => <h2>MessageBoard</h2>;
 
