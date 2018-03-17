@@ -12,15 +12,29 @@ const MESSAGES_DUMMY_DATA = [
 class SingleMessage extends Component {
 
 	render() {
-		return this.props.messages.map((message, index) => {
+		return MESSAGES_DUMMY_DATA.map((message, index) => {
 			let newMessage = (
 				<div>
+					{message.username}
+					{message.text}
 				</div>
 			)
-			
+
 			return newMessage
 		});
 	};
+
+
+// 	render() {
+// 		return this.props.messages.map((message, index) => {
+// 			let newMessage = (
+// 				<div>
+// 				</div>
+// 			)
+			
+// 			return newMessage
+// 		});
+// 	};
 };
 
 function mapStateToProps({ messages }) {
