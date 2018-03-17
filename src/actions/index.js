@@ -13,8 +13,8 @@ export const fetchMessageList = () => async dispatch => {
   dispatch({ type: FETCH_MESSAGE_LIST, payload: res.data });
 };
 
-export const fetchCurrentChannel = (id) => async dispatch => {
-  const res = await axios.get(`/api/user/channel/${id}`);
+export const fetchCurrentChannel = (channelId) => async dispatch => {
+  const res = await axios.get(`/api/user/channel/${channelId}`);
 
   dispatch({ type: FETCH_CURRENT_CHANNEL, payload: res.data });
 };

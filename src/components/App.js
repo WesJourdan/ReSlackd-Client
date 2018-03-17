@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import * as actions from '../actions';
 import './App.css';
 import Header from './Header';
-import MessageBar from './MessageBar';
 import MessageBoard from './MessageBoard';
 import Channels from './Channels';
 
