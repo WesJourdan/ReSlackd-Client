@@ -1,22 +1,26 @@
 import React, { Component } from "react";
 import { connect } from 'react-redux';
-
-const MESSAGES_DUMMY_DATA = [
-	{ username: 'Wes', userId: '213', text: 'Hey guys!', timestamp: new Date(), image:'https://furtaev.ru/preview/user_3_small.png' },
-	{ username: 'Justin', userId: '234', text: 'Hello.', timestamp: new Date(), image: 'https://furtaev.ru/preview/user_3_small.png' },
-	{ username: 'Austin', userId: '432', text: 'Howdy!', timestamp: new Date(), image: 'https://furtaev.ru/preview/user_3_small.png' },
-	{ username: 'Ashley', userId: '123', text: 'Morning!', timestamp: new Date(), image: 'https://furtaev.ru/preview/user_3_small.png' },
-	{ username: 'John Doe', userId: '543', text: 'Huh?', timestamp: new Date(), image: 'https://furtaev.ru/preview/user_3_small.png' }
-]
+const DUMMY = require('../DUMMY_DATA');
 
 class SingleMessage extends Component {
 
+	convertTime (timestamp) {
+		let date = new Date(timestamp);
+		let options = {
+			weekday: "long", year: "numeric", month: "short",
+			day: "numeric", hour: "2-digit", minute: "2-digit"
+		};
+		return date.toLocaleTimeString("en-us", options); 
+	};
+
 	render() {
-		return MESSAGES_DUMMY_DATA.map((message, index) => {
+		return DUMMY.MESSAGES.map(	message => {
 			let newMessage = (
 				<div>
+					<img src={message.imageURL}></img>
 					{message.username}
 					{message.text}
+					{this.convertTime(message.timestamp)}
 				</div>
 			)
 
