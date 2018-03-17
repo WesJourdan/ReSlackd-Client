@@ -16,14 +16,14 @@ class ChannelSettings extends Component {
 
   render() {
     return (
-      <div className="App">
+      <div>
         <button onClick={this.toggleModal}>
-          Open the modal
+          Create a Channel
         </button>
 
         <Modal show={this.state.isOpen}
           onClose={this.toggleModal}>
-          Here's some content for the modal
+          Create a channel
         </Modal>
       </div>
     );
