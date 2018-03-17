@@ -5,7 +5,7 @@ import * as actions from '../actions';
 import './App.css';
 import Header from './Header';
 import MessageBar from './MessageBar';
-//import MessageBoard from './MessageBoard';
+import MessageBoard from './MessageBoard';
 
 const Channels = () => <h2>Channels</h2>;
 const ChannelSettings = () => <h2>ChannelSettings</h2>;

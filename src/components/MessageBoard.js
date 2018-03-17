@@ -14,3 +14,5 @@ class MessageBoard extends Component {
 	};
 
 };
+
+export default MessageBoard;
