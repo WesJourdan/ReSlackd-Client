@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import * as actions from '../actions';
+import { connect } from 'react-redux';
 
 class MessageBar extends Component {
 
@@ -8,6 +10,7 @@ class MessageBar extends Component {
 			text: ''
 		};
 		this.onInputChange = this.onInputChange.bind(this)
+		
 	}
 
 
@@ -22,6 +25,8 @@ class MessageBar extends Component {
 	onSubmitMessage(event) {
 		event.preventDefault();
 		// send the message to the server and/or socket
+		this.props.sendMessage(this.state.text, this.props.currentChannel)
+
 		this.setState({ text: '' });
 	}
 
@@ -44,4 +49,9 @@ class MessageBar extends Component {
 	}
 }
 
-export default MessageBar
+function mapStateToProps({ currentChannel }) {
+	return { currentChannel }
+};
+
+export default connect(mapStateToProps, actions)(MessageBar);
+
