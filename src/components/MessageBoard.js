@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import SingleMessage from './SingleMessage'
+import SingleMessage from './SingleMessage';
+import MessageBar from './MessageBar';
 
 class MessageBoard extends Component {
 	
@@ -7,6 +8,7 @@ class MessageBoard extends Component {
 		return (
 			<div>
 				<SingleMessage />
+				<MessageBar />
 			</div>
 		);
 	};
