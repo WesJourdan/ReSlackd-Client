@@ -16,7 +16,7 @@ export const fetchCurrentChannel = (id) => async dispatch => {
 export const fetchCurrentUser = () => async dispatch => {
   const res = await axios.get('/api/current_user');
 
-  dispatch({ type: FETCH_USER, payload: res.data });
+  dispatch({ type: FETCH_CURRENT_USER, payload: res.data });
 };
 
 export const fetchUserList = () => async dispatch => {
