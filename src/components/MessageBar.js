@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
 class MessageBar extends Component {
-	
+
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -13,7 +13,10 @@ class MessageBar extends Component {
 
 	onInputChange(event) {
 		this.setState({ text: event.target.value });
+
+		if (event.target.value !== '') {
 		// here is where we would broadcast to the socket that a user is typing a message
+		}
 	}
 
 	onSubmitMessage(event) {
