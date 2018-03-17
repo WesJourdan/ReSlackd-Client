@@ -18,12 +18,11 @@ class ChannelSettings extends Component {
     return (
       <div>
         <button onClick={this.toggleModal}>
-          Create a Channel
+          +
         </button>
 
         <Modal show={this.state.isOpen}
           onClose={this.toggleModal}>
-          Create a channel
         </Modal>
       </div>
     );

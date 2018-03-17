@@ -6,6 +6,8 @@ import { bindActionCreators } from "redux";
 import PropTypes from 'prop-types';
 import { fetchChannels } from '../actions/index';
 import './App.css';
+import Channels from './Channels';
+const DUMMY = require('../DUMMY_DATA');
 
 class Modal extends React.Component {
     constructor(props) {
@@ -17,29 +19,34 @@ class Modal extends React.Component {
           members: ''
         }
         
-        //apparently none of this works yet, so I will keep working on it until its fix, 
-        //but at least you can see what I have working thus far.
-        
-        // this.handleNameChange = this.handleNameChange.bind(this);
-        // this.handlePurposeChange = this.handlePurposeChange.bind(this);
-        // this.handleMembersChange = this.handleMembersChange.bind(this);
+        // apparently none of this works yet, so I will keep working on it until its fix, 
+        // but at least you can see what I have working thus far.
+
+        this.handleNameChange = this.handleNameChange.bind(this);
+        this.handlePurposeChange = this.handlePurposeChange.bind(this);
+        this.handleMembersChange = this.handleMembersChange.bind(this);
+        this.handleOnClick = this.handleOnClick.bind(this);
     }
 
-    // handleDietChange(event) {
-    //     this.setState({name: event.target.value});
-    // }
-    // handleExcludeChange(event) {
-    //     console.log(event.target.value);
-    //     this.setState({purpose: event.target.value});
-    // }
-    // handleCaloriesChange(event) {
-    //     this.setState({members: event.target.value});
-    // }
+    handleOnClick(event) {
+        event.stopPropagation();
+    }
+    handleNameChange(event) {
+        this.setState({name: event.target.value});
+    }
+    handlePurposeChange(event) {
+        console.log(event.target.value);
+        this.setState({purpose: event.target.value});
+    }
+    handleMembersChange(event) {
+        this.setState({members: event.target.value});
+    }
 
-    // handleSubmit(event) {
-    //     event.preventDefault();
-    //     this.props.fetchChannels(this.state).then(()=>this.props.history.push("/Channels"))
-    // }
+    handleSubmit(event) {
+        event.preventDefault();
+        <Link to='/Messages'></Link>
+        //this.props.fetchChannels(this.state).then(()=>this.props.history.push("/Channels"))
+    }
     
     render() {
         // Render nothing if the "show" prop is false
@@ -62,47 +69,96 @@ class Modal extends React.Component {
         const modalStyle = {
             backgroundColor: '#fff',
             borderRadius: 5,
-            maxWidth: 500,
-            minHeight: 300,
+            maxWidth: 800,
+            minHeight: 500,
             margin: '0 auto',
             padding: 30
         };
 
-        return (
-        <div className="backdrop" style={backdropStyle}>
-            <div className="modal" style={modalStyle}>
-                {this.props.children}
-                <h6>Channels are where your members communicate. They're best when organized around a topic - #general, #random, for example. </h6>
-            <form >
-                <div className="form-group row">
-                    <label className="col-2 col-form-label">Name:</label>
-                        <div className="col-12">
-                            <input type="text" placeholder="# e.g. general" className="name" value={this.state.name} onChange={this.handleNameChange} />
+        if(Channels) {
+            return (
+                <div className="backdrop" style={backdropStyle} onClick={this.props.onClose}>
+                    <div className="modal" style={modalStyle} onClick={this.handleOnClick}>
+                        {this.props.children}
+                        <h2>Create a channel </h2>
+                        <h4>Channels are where your members communicate. They're best when organized around a topic - #general or #random, for example. </h4>
+                    <form >
+                        <div className="form-group row">
+                            <label className="col-2 col-form-label">Name:
+                                <div className="col-10">
+                                    <input type="text" placeholder="# e.g. general" className="name" value={this.state.name} onChange={this.handleNameChange} />
+                                </div>
+                            </label>
+                            <label className="col-2 col-form-label">Purpose:</label>
+                                <div className="col-12">
+                                    <input type="text" placeholder="What the channel is about" className="purpose" value={this.state.purpose} onChange={this.handlePurposeChange} />
+                                </div>
+                            <label className="col-2 col-form-label">Add members:</label>
+                                <div className="col-12">
+                                    <select className="form-control mt-3 mb-2" value={this.state.members} onChange={this.handleMembersChange}>
+                                        <option className="members" value="none">None</option>
+                                        {
+                                            DUMMY.MESSAGES.map( message => {
+                                                let newMember = (
+                                                    <option className="members" value="message.username">{message.username}</option>
+                                                )
+    
+                                                return newMember
+                                            })
+                                        }
+                                    </select>
+                                </div>
                         </div>
-                    <label className="col-2 col-form-label">Purpose:</label>
-                        <div className="col-12">
-                            <input type="text" placeholder="What the channel is about" className="purpose" value={this.state.purpose} onChange={this.handlePurposeChange} />
-                        </div>
-                    <label className="col-2 col-form-label">Add members:</label>
-                        <div className="col-12">
-                            <select className="form-control mt-3 mb-2" value={this.state.members} onChange={this.handleMembersChange}>
-                                <option className="members" value="none">None</option>
-                                <option className="members" value="wes">Wes</option>
-                            </select>
-                        </div>
+                    </form>
+                    <div className="footer">
+                        <button className="" onClick={this.props.onClose}>
+                            Cancel
+                        </button>
+                        <button className="" onClick={this.handleSubmit}>
+                            Create Channel
+                        </button>
+                    </div>
+                    </div>
                 </div>
-            </form>
-            <div className="footer">
-                <button className="" onClick={this.props.onClose}>
-                    Cancel
-                </button>
-                <button className="" onClick={this.props.onClose}>
-                    Create Channel
-                </button>
-            </div>
-            </div>
-        </div>
-        );
+            );
+        } else {
+            return (
+                <div className="backdrop" style={backdropStyle} onClick={this.handleOnClick}>
+                    <div className="modal" style={modalStyle} onClick={this.handleOnClick}>
+                        {this.props.children}
+                        <h2>Direct Messages </h2>
+                        <h6>Select a member to begin a direct message with. </h6>
+                    <form >
+                        <div className="form-group row">
+                            <label className="col-2 col-form-label">Add members:</label>
+                                <div className="col-12">
+                                    <select className="form-control mt-3 mb-2" value={this.state.members} onChange={this.handleMembersChange}>
+                                        <option className="members" value="none">None</option>
+                                        {
+                                            DUMMY.MESSAGES.map( message => {
+                                                let newMember = (
+                                                    <option className="members" value="message.username">{message.username}</option>
+                                                )
+    
+                                                return newMember
+                                            })
+                                        }
+                                    </select>
+                                </div>
+                        </div>
+                    </form>
+                    <div className="footer">
+                        <button className="" onClick={this.props.onClose}>
+                            Cancel
+                        </button>
+                        <button className="" onClick={this.handleSubmit}>
+                            Go
+                        </button>
+                    </div>
+                    </div>
+                </div>
+            )
+        }
     }
 }
 
