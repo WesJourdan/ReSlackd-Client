@@ -22,22 +22,6 @@ class SingleMessage extends Component {
 		return date.toLocaleTimeString("en-us", options); 
 	};
 
-	// render() {
-	// 	return DUMMY.MESSAGES.map(	message => {
-	// 		let newMessage = (
-	// 			<div>
-	// 				<img src={message.imageURL}></img>
-	// 				{message.username}
-	// 				{message.text}
-	// 				{this.convertTime(message.timestamp)}
-	// 			</div>
-	// 		)
-
-	// 		return newMessage
-	// 	});
-	// };
-
-
 	render() {
 		return this.props.messageList.map((message, index) => {
 			let newMessage = (
