@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import PropTypes from 'prop-types';
@@ -49,7 +48,6 @@ class Modal extends Component {
     }
     handleSubmit(event) {
         event.preventDefault();
-        <Link to='/Messages'></Link>
         //this.props.fetchChannels(this.state).then(()=>this.props.history.push("/Channels"))
     }
     
@@ -102,6 +100,7 @@ class Modal extends Component {
                             <label className="col-2 col-form-label">Add members:</label>
                                 <div className="col-12">
                                     <select className="form-control mt-3 mb-2" value={this.state.members} onChange={this.handleMembersChange}>
+                                        <option className="members" value="none">None</option>
                                         {
                                             DUMMY.MESSAGES.map( message => {
                                                 let newMember = (
