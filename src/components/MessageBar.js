@@ -24,6 +24,7 @@ class MessageBar extends Component {
 
 	onSubmitMessage(event) {
 		event.preventDefault();
+		console.log(this.props)
 		// send the message to the server and/or socket
 		this.props.sendMessage(this.state.text, this.props.currentChannel)
 
