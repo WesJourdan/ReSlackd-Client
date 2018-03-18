@@ -1,8 +1,17 @@
 import React, { Component } from "react";
 import { connect } from 'react-redux';
-const DUMMY = require('../DUMMY_DATA');
+import { fetchMessageList } from '../actions';
+import { bindActionCreators } from "redux"
+
 
 class SingleMessage extends Component {
+	constructor(props) {
+		super(props);
+	}
+
+	componentWillMount() {
+		this.props.fetchMessageList();
+	  }
 
 	convertTime (timestamp) {
 		let date = new Date(timestamp);
@@ -13,24 +22,8 @@ class SingleMessage extends Component {
 		return date.toLocaleTimeString("en-us", options); 
 	};
 
-	render() {
-		return DUMMY.MESSAGES.map(	message => {
-			let newMessage = (
-				<div>
-					<img src={message.imageURL}></img>
-					{message.username}
-					{message.text}
-					{this.convertTime(message.timestamp)}
-				</div>
-			)
-
-			return newMessage
-		});
-	};
-
-
 	// render() {
-	// 	return this.props.messages.map((message, index) => {
+	// 	return DUMMY.MESSAGES.map(	message => {
 	// 		let newMessage = (
 	// 			<div>
 	// 				<img src={message.imageURL}></img>
@@ -43,10 +36,29 @@ class SingleMessage extends Component {
 	// 		return newMessage
 	// 	});
 	// };
+
+
+	render() {
+		return this.props.messageList.map((message, index) => {
+			let newMessage = (
+				<div>
+					<img src={message.imageURL} alt={message.username}></img>
+					{message.username}
+					{message.text}
+					{this.convertTime(message.timestamp)}
+				</div>
+			)
+			return newMessage
+		});
+	};
 };
 
-function mapStateToProps({ messages }) {
-	return { messages }
+function mapStateToProps( state ) {
+	return { messageList:state.messageList }
 };
 
-export default connect(mapStateToProps)(SingleMessage);
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ fetchMessageList:fetchMessageList }, dispatch);
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SingleMessage);
