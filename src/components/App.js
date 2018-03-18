@@ -5,6 +5,7 @@ import * as actions from '../actions';
 import './App.css';
 import Header from './Header';
 import MessageBoard from './MessageBoard';
+import DirectMessages from './DirectMessages'
 import Channels from './Channels';
 
   
@@ -19,6 +20,7 @@ class App extends Component {
             <Header />
             <Route exact path="/" />
             <Route exact path="/Messages" component={MessageBoard} />
+            <Route exact path="/DirectMessages" component={DirectMessages} />
             <Route path="/Channels" component={Channels} />
           </div>
         </BrowserRouter>

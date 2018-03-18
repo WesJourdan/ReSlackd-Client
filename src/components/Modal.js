@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Link } from 'react-router-dom';
-import ReactDOM from 'react-dom';
+import { Link } from 'react-router-dom';
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import PropTypes from 'prop-types';
@@ -9,14 +8,15 @@ import './App.css';
 import Channels from './Channels';
 const DUMMY = require('../DUMMY_DATA');
 
-class Modal extends React.Component {
+class Modal extends Component {
     constructor(props) {
         super(props)
     
         this.state = {
           name: '',
           purpose: '',
-          members: ''
+          members: '',
+          memberslist: [],
         }
         
         // apparently none of this works yet, so I will keep working on it until its fix, 
@@ -28,9 +28,6 @@ class Modal extends React.Component {
         this.handleOnClick = this.handleOnClick.bind(this);
     }
 
-    handleOnClick(event) {
-        event.stopPropagation();
-    }
     handleNameChange(event) {
         this.setState({name: event.target.value});
     }
@@ -40,8 +37,16 @@ class Modal extends React.Component {
     }
     handleMembersChange(event) {
         this.setState({members: event.target.value});
+        console.log(this.state.members);
+        this.setState({memberslist: this.state.memberslist.concat(this.state.members)});
+        console.log(this.state.memberslist);
+        
     }
 
+    //prevents calling onClose when clicking on the inner modal box.
+    handleOnClick(event) {
+        event.stopPropagation();
+    }
     handleSubmit(event) {
         event.preventDefault();
         <Link to='/Messages'></Link>
@@ -75,6 +80,7 @@ class Modal extends React.Component {
             padding: 30
         };
 
+        //TODO: need to find a way to know if this is called form channels component or DM.
         if(Channels) {
             return (
                 <div className="backdrop" style={backdropStyle} onClick={this.props.onClose}>
@@ -96,11 +102,10 @@ class Modal extends React.Component {
                             <label className="col-2 col-form-label">Add members:</label>
                                 <div className="col-12">
                                     <select className="form-control mt-3 mb-2" value={this.state.members} onChange={this.handleMembersChange}>
-                                        <option className="members" value="none">None</option>
                                         {
                                             DUMMY.MESSAGES.map( message => {
                                                 let newMember = (
-                                                    <option className="members" value="message.username">{message.username}</option>
+                                                    <option className="members" value={message.username}>{message.username}</option>
                                                 )
     
                                                 return newMember
@@ -137,7 +142,7 @@ class Modal extends React.Component {
                                         {
                                             DUMMY.MESSAGES.map( message => {
                                                 let newMember = (
-                                                    <option className="members" value="message.username">{message.username}</option>
+                                                    <option className="members" value={message.username}>{message.username}</option>
                                                 )
     
                                                 return newMember
