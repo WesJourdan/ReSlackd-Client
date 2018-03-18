@@ -22,12 +22,9 @@ class Header extends Component {
         return (
           <nav>
             <div className="nav-wrapper">
-              <Link
-                to="/"
-                className="left brand-logo"
-              >
+               <div className="left brand-logo">
                 ReSlackd
-              </Link>
+                </div>
               <ul className="right">
                 {this.renderContent()}
               </ul>

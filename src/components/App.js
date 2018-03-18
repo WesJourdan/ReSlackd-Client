@@ -15,15 +15,10 @@ class App extends Component {
   render() {
     return (
       <div className="container">
-        <BrowserRouter>
-          <div>
             <Header />
-            <Route exact path="/" />
-            <Route exact path="/Messages" component={MessageBoard} />
-            <Route exact path="/DirectMessages" component={DirectMessages} />
-            <Route path="/Channels" component={Channels} />
-          </div>
-        </BrowserRouter>
+            <Channels />
+            <DirectMessages />
+            <MessageBoard />
       </div>
     );
   }
