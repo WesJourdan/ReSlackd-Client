@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import PropTypes from 'prop-types';
-import { fetchChannels } from '../actions/index';
+import { fetchChannels, fetchUserList } from '../actions/index';
 import './App.css';
 import Channels from './Channels';
 const DUMMY = require('../DUMMY_DATA');
@@ -10,7 +10,7 @@ const DUMMY = require('../DUMMY_DATA');
 class Modal extends Component {
     constructor(props) {
         super(props)
-    
+
         this.state = {
             name: '',
             purpose: '',
@@ -21,14 +21,18 @@ class Modal extends Component {
             // membersValid: false,
             // formValid: false
         }
-        
-        // apparently none of this works yet, so I will keep working on it until its fix, 
+
+        // apparently none of this works yet, so I will keep working on it until its fix,
         // but at least you can see what I have working thus far.
 
         this.handleNameChange = this.handleNameChange.bind(this);
         this.handlePurposeChange = this.handlePurposeChange.bind(this);
         this.handleMembersChange = this.handleMembersChange.bind(this);
         this.handleOnClick = this.handleOnClick.bind(this);
+    }
+
+    componentWillMount() {
+      this.props.fetchUserList()
     }
 
     handleNameChange(event) {
@@ -56,11 +60,12 @@ class Modal extends Component {
     handleOnClick(event) {
         event.stopPropagation();
     }
+
     handleSubmit(event) {
         event.preventDefault();
         //this.props.fetchChannels(this.state).then(()=>this.props.history.push("/Channels"))
     }
-    
+
     render() {
         // Render nothing if the "show" prop is false
         if(!this.props.show) {
@@ -88,7 +93,6 @@ class Modal extends Component {
             padding: 30
         };
 
-        //TODO: need to find a way to know if this is called form channels component or DM.
         if(Channels) {
             return (
                 <div className="backdrop" style={backdropStyle} onClick={this.props.onClose}>
@@ -116,7 +120,7 @@ class Modal extends Component {
                                                 let newMember = (
                                                     <option className="members" value={message.username}>{message.username}</option>
                                                 )
-    
+
                                                 return newMember
                                             })
                                         }
@@ -153,7 +157,7 @@ class Modal extends Component {
                                                 let newMember = (
                                                     <option className="members" value={message.username}>{message.username}</option>
                                                 )
-    
+
                                                 return newMember
                                             })
                                         }
@@ -182,12 +186,12 @@ Modal.propTypes = {
   children: PropTypes.node
 };
 
-function mapStateToProps(channels) {
-    return { channels };
+function mapStateToProps(state) {
+    return { channels: state.channels, users: state.users };
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({ fetchChannels }, dispatch);
+    return bindActionCreators({ fetchChannels, fetchUserlist }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Modal);

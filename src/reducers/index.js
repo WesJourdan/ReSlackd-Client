@@ -10,7 +10,8 @@ const rootReducer = combineReducers({
     channels: channelsReducer,
     messageList: messageListReducer,
     directMessages: directMessagesReducer,
-    currentChannel: currentChannelReducer
+    currentChannel: currentChannelReducer,
+    users: usersReducer
 });
 
 export default rootReducer

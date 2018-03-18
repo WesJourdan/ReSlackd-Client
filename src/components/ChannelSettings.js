@@ -22,7 +22,7 @@ class ChannelSettings extends Component {
         </button>
 
         <Modal show={this.state.isOpen}
-          onClose={this.toggleModal}>
+          onClose={this.toggleModal} type={props.type}>
         </Modal>
       </div>
     );
