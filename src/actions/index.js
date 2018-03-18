@@ -48,9 +48,13 @@ export const fetchCurrentUser = () => async dispatch => {
 };
 
 export const fetchUserList = () => async dispatch => {
-  const res = await axios.get('/api/users');
+  //const res = await axios.get('/api/users');
+  let res = []
+  for (let i = 0; i<USERS.length; i++) {
+      res.push(USERS[i])
+  }
 
-  dispatch({ type: FETCH_USER_LIST, payload: res.data });
+  dispatch({ type: FETCH_USER_LIST, payload: res }); // change to res.data when api ready
 };
 
 export const sendMessage = (messageText, channelId) => async dispatch => {
