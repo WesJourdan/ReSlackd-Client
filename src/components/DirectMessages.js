@@ -7,6 +7,8 @@ const DUMMY = require('../DUMMY_DATA')
 class DirectMessages extends Component {
   constructor(props) {
     super(props);
+
+    this.handleClick = this.handleClick.bind(this);
   }
   /*  this class needs to map the messages array in our store and add the channel ID as a key
       on each result. Then we can add a click handler that dispatches the setCurrentChannel action 
@@ -25,7 +27,7 @@ class DirectMessages extends Component {
 
       if (channel.type === 'dm') {
         let newMessage = (
-          <div channelId={channel.channelId} key={channel.channelId} onClick={this.handleClick.bind(this)}>
+          <div channelId={channel.channelId} key={channel.channelId} onClick={this.handleClick}>
             {channel.title}
           </div>
         )

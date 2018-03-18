@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 import SingleMessage from './SingleMessage';
 import MessageBar from './MessageBar';
 

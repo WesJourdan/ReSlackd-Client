@@ -8,6 +8,8 @@ const DUMMY = require('../DUMMY_DATA');
 class Channels extends Component {
   constructor(props) {
     super(props);
+
+    this.handleClick = this.handleClick.bind(this);
   }
   /*  this class needs to map the channels array in our store and add the channel ID as a key
       on each result. Then we can add a click handler that dispatches the setCurrentChannel action 
@@ -23,7 +25,7 @@ class Channels extends Component {
     return DUMMY.CHANNEL_LIST.map(channel => {
       if (channel.type === 'channel') {
         let newChannel = (
-          <div channelId = {channel.channelId} key = {channel.channelId} onClick={this.handleClick.bind(this)}>
+          <div channelId = {channel.channelId} key = {channel.channelId} onClick={this.handleClick}>
             {channel.name}
           </div>
         )
