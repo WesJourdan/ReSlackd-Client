@@ -26,8 +26,14 @@ export const fetchDirectMessages = () => async dispatch => {
 };
 
 export const fetchMessageList = () => async dispatch => {
-  
-}
+  // const res = await axios.get(`/api/channel/:channelId`);
+  let res = []
+  for (let i = 0; i<MESSAGES.length; i++) {
+      res.push(MESSAGES[i])
+  }
+
+  dispatch({ type: FETCH_MESSAGE_LIST, payload: res }); // change to res.data when api ready
+};
 
 export const fetchCurrentChannel = (channelId) => async dispatch => {
   const res = await axios.get(`/api/user/channel/${channelId}`);

@@ -50,8 +50,8 @@ class MessageBar extends Component {
 	}
 }
 
-function mapStateToProps({ currentChannel }) {
-	return { currentChannel }
+function mapStateToProps( state ) {
+	return { currentChannel: state.currentChannel }
 };
 
 export default connect(mapStateToProps, actions)(MessageBar);
