@@ -29,16 +29,20 @@ class SingleMessage extends Component {
 	};
 
 
-// 	render() {
-// 		return this.props.messages.map((message, index) => {
-// 			let newMessage = (
-// 				<div>
-// 				</div>
-// 			)
-			
-// 			return newMessage
-// 		});
-// 	};
+	// render() {
+	// 	return this.props.messages.map((message, index) => {
+	// 		let newMessage = (
+	// 			<div>
+	// 				<img src={message.imageURL}></img>
+	// 				{message.username}
+	// 				{message.text}
+	// 				{this.convertTime(message.timestamp)}
+	// 			</div>
+	// 		)
+
+	// 		return newMessage
+	// 	});
+	// };
 };
 
 function mapStateToProps({ messages }) {
