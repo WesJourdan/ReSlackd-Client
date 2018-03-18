@@ -42,7 +42,7 @@ function mapStateToProps( state ) {
 };
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ fetchMessageList:fetchMessageList }, dispatch);
+  return bindActionCreators({ fetchMessageList }, dispatch);
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SingleMessage);

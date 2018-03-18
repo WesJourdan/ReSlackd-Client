@@ -4,8 +4,6 @@ import { bindActionCreators } from "redux";
 import PropTypes from 'prop-types';
 import { fetchUserList } from '../actions';
 import './App.css';
-import Channels from './Channels';
-const DUMMY = require('../DUMMY_DATA');
 
 class Modal extends Component {
   constructor(props) {
