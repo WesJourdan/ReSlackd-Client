@@ -1,16 +1,28 @@
 import axios from 'axios';
-import { FETCH_CHANNELS, FETCH_CURRENT_CHANNEL, FETCH_CURRENT_USER, FETCH_USER_LIST, FETCH_MESSAGE_LIST, SET_CURRENT_CHANNEL } from './types';
+import { MESSAGES, CHANNEL_LIST, CURRENT_USER, USERS } from "../DUMMY_DATA.js"
+import { FETCH_CHANNELS, FETCH_CURRENT_CHANNEL, FETCH_CURRENT_USER, FETCH_USER_LIST, FETCH_MESSAGE_LIST, SET_CURRENT_CHANNEL, FETCH_DIRECT_MESSAGES } from './types';
 
 export const fetchChannels = () => async dispatch => {
-  const res = await axios.get('/api/user/channels?channel');
-
-  dispatch({ type: FETCH_CHANNELS, payload: res.data });
+  // const res = await axios.get('/api/user/channels?channel');
+  let res = []
+  for (let i = 0; i<CHANNEL_LIST.length; i++) {
+    if (CHANNEL_LIST[i].type == "channel") {
+        res.push(CHANNEL_LIST[i])
+    }
+  }
+  dispatch({ type: FETCH_CHANNELS, payload: res }); // change to res.data when api ready
 };
 
-export const fetchMessageList = () => async dispatch => {
-  const res = await axios.get('api/user/channels?dm');
+export const fetchDirectMessages = () => async dispatch => {
+  // const res = await axios.get('api/user/channels?dm');
+  let res = []
+  for (let i = 0; i<CHANNEL_LIST.length; i++) {
+    if (CHANNEL_LIST[i].type == "dm") {
+      res.push(CHANNEL_LIST[i])
+    }
+  }
 
-  dispatch({ type: FETCH_MESSAGE_LIST, payload: res.data });
+  dispatch({ type: FETCH_DIRECT_MESSAGES, payload: res }); // change to res.data when api ready
 };
 
 export const fetchCurrentChannel = (channelId) => async dispatch => {
@@ -41,4 +53,3 @@ export const setCurrentChannel = channelId => dispatch => {
   console.log(channelId)
   dispatch({  type: SET_CURRENT_CHANNEL, payload: channelId })
 };
-
