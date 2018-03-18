@@ -12,10 +12,14 @@ class Modal extends Component {
         super(props)
     
         this.state = {
-          name: '',
-          purpose: '',
-          members: '',
-          memberslist: [],
+            name: '',
+            purpose: '',
+            members: '',
+            memberslist: [],
+            // formErrors: {name: '', members: ''},
+            // nameValid: false,
+            // membersValid: false,
+            // formValid: false
         }
         
         // apparently none of this works yet, so I will keep working on it until its fix, 
@@ -34,13 +38,19 @@ class Modal extends Component {
         console.log(event.target.value);
         this.setState({purpose: event.target.value});
     }
+
     handleMembersChange(event) {
-        this.setState({members: event.target.value});
-        console.log(this.state.members);
-        this.setState({memberslist: this.state.memberslist.concat(this.state.members)});
-        console.log(this.state.memberslist);
-        
-    }
+    //     this.setState({members: event.target.value});
+    //     componentDidUpdate(this.props, this.state.members) {
+    //         this.state.memberslist.map(username => {
+    //             if (this.state.members !== username.username) {
+    //                 this.setState({memberslist: this.state.memberslist.concat(this.state.members)});
+    //             } else {
+
+    //             };
+    //         });
+    //     };
+     };
 
     //prevents calling onClose when clicking on the inner modal box.
     handleOnClick(event) {

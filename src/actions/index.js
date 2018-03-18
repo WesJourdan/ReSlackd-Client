@@ -25,6 +25,10 @@ export const fetchDirectMessages = () => async dispatch => {
   dispatch({ type: FETCH_DIRECT_MESSAGES, payload: res }); // change to res.data when api ready
 };
 
+export const fetchMessageList = () => async dispatch => {
+  
+}
+
 export const fetchCurrentChannel = (channelId) => async dispatch => {
   const res = await axios.get(`/api/user/channel/${channelId}`);
 
