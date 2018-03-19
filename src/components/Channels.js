@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ChannelSettings from './ChannelSettings';
-import { fetchChannels, setCurrentChannel } from '../actions';
+import { fetchChannels, setCurrentChannel, fetchDirectMessages } from '../actions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from "redux"
 
@@ -17,43 +17,48 @@ class Channels extends Component {
   */
 
   componentWillMount() {
-    this.props.fetchChannels()
+    if (this.props.messageType === "channel") {
+      this.props.fetchChannels()
+    } else {
+      this.props.fetchDirectMessages()
+    }
   }
 
   handleClick(event) {
     console.log(this.props)
-  //  the syntax here is weird. I can't get access to the 'key' property of the div
+    //  the syntax here is weird. I can't get access to the 'key' property of the div
     let channelId = event.target.getAttribute('channel-id')
     this.props.setCurrentChannel(channelId)
   }
 
   render() {
+    const channelType = this.props.messageType === "channel" ? "Channels" : "Direct Messages"
+    const channelArray = this.props.messageType === "channel" ? this.props.channels : this.props.directMessages
     return (
-      <div>Channels
-        <ChannelSettings messageType="channel"/>
+      <div>{channelType}
+        <ChannelSettings messageType={this.props.messageType}/>
         <div>
-          {this.props.channels.map(channel => {
-            let newChannel = (
-              <div channel-id={channel.channelId} key = {channel.channelId} onClick={this.handleClick}>
+          {channelArray.map(channel => {
+            return (
+              <div channel-id={channel.cID} key = {channel.cID} onClick={this.handleClick}>
                 {channel.name}
               </div>
             )
-            return newChannel
           })
           }
         </div>
       </div>
     );
-    }
+  }
 
 }
 
 function mapStateToProps(state) {
-	return { channels:state.channels }
+  return { channels: state.channels, directMessages: state.directMessages }
 };
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ fetchChannels, setCurrentChannel}, dispatch);
+  return bindActionCreators({ fetchDirectMessages, fetchChannels, setCurrentChannel }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Channels);
