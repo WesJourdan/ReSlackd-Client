@@ -17,7 +17,7 @@ class MessageBar extends Component {
 
   componentWillMount() {
     this.props.fetchChannels()
-    this.props.setCurrentChannel(this.props.channels[0].cID,() => {})
+    this.props.setCurrentChannel(this.props.channels[0],() => {})
   }
 
 
@@ -33,7 +33,7 @@ class MessageBar extends Component {
 		event.preventDefault();
 		console.log(this.props)
 		// send the message to the server and/or socket
-		this.props.postMessage({text:this.state.text}, this.props.currentChannel)
+		this.props.postMessage({text:this.state.text}, this.props.currentChannel.cID)
 
 		this.setState({ text: '' });
 	}
