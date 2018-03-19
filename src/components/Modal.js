@@ -74,7 +74,20 @@ class Modal extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    this.props.createNewChannel(this.state)
+    const userList = this.state.membersList.map( member => {
+      let oneUser = this.props.users.find( user => {
+        return user.name == member
+      })
+      return oneUser.uID
+    })
+    const channelObject = {
+      name: this.state.name,
+      purpose: this.state.purpose,
+      type: this.props.messageType,
+      users: userList
+    }
+    console.log(channelObject)
+    this.props.createNewChannel(channelObject)
     //TODO add an action to post the new DM or channel to the database and then display the contents of the new DM/channel in the messages pane
   }
 

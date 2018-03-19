@@ -53,7 +53,7 @@ class App extends Component {
           sidebar={
             <div className='mr-4'>
               <Channels messageType='channel' />
-              <Channels messageType='directMessage' />
+              <Channels messageType='dm' />
             </div>
           }
           open={this.state.sidebarOpen}
@@ -66,7 +66,7 @@ class App extends Component {
             }
           }}
         >
-          
+
           <MessageBoard />
         </Sidebar>
       </div>
