@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import PropTypes from 'prop-types';
-import { fetchUserList } from '../actions';
+import { fetchUserList, createNewChannel } from '../actions';
 import './App.css';
 
 class Modal extends Component {
@@ -25,6 +25,8 @@ class Modal extends Component {
     this.handleMemberChange = this.handleMemberChange.bind(this);
     this.handleOnClick = this.handleOnClick.bind(this);
     this.handleAddUser = this.handleAddUser.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    
   }
 
   componentWillMount() {
@@ -57,6 +59,7 @@ class Modal extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
+    this.props.createNewChannel(this.state)
     //TODO add an action to post the new DM or channel to the database and then display the contents of the new DM/channel in the messages pane
   }
 
@@ -191,7 +194,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ fetchUserList }, dispatch);
+  return bindActionCreators({ fetchUserList, createNewChannel }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Modal);
