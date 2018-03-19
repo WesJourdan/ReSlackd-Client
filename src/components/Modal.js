@@ -4,12 +4,15 @@ import { bindActionCreators } from "redux";
 import PropTypes from 'prop-types';
 import { fetchUserList } from '../actions';
 import './App.css';
+import AriaModal from '../../node_modules/react-aria-modal'
+import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 
 class Modal extends Component {
   constructor(props) {
     super(props)
 
     this.state = {
+      modalActive: false,
       name: '',
       purpose: '',
       member: '',
@@ -27,7 +30,19 @@ class Modal extends Component {
     this.handleAddUser = this.handleAddUser.bind(this);
   }
 
-  componentWillMount() {
+  activateModal = () => {
+    this.setState({ modalActive: true });
+  };
+
+  deactivateModal = () => {
+    this.setState({ modalActive: false });
+  };
+
+  getApplicationNode = () => {
+    return document.getElementById('application');
+  };
+
+  componentDidMount() {
     this.props.fetchUserList()
   }
 
@@ -109,10 +124,63 @@ class Modal extends Component {
   }
 
   render() {
-    // Render nothing if the "show" prop is false
-    if (!this.props.show) {
-      return null;
-    }
+
+    // const AlternateLocationAriaModal = AriaModal.renderTo(
+    //   '#main'
+    // );
+
+    const modal = this.state.modalActive
+      ? <AriaModal
+      titleText="demo one"
+      onExit={this.deactivateModal}
+      getApplicationNode={this.getApplicationNode}
+      underlayStyle={{
+        background: '#fff'
+      }}
+      verticallyCenter={true}
+    >
+      <div id="demo-one-modal">
+        <div className="modal-body">
+        {this.renderType()}
+        <form>
+          <div>
+            {this.renderGroupFields()}
+            <label>Add members:</label>
+            <div>
+              <select value={this.state.members} onChange={this.handleMemberChange}>
+                <option value="none">None</option>
+                {
+                  this.props.users.map( (user) => {
+                    return (
+                      <option key={user.uID} className="members" value={user.name}>{user.name}</option>
+                    )
+                  })
+                }
+              </select>
+              <button onClick={this.handleAddUser} >+</button>
+            </div>
+          </div>
+        </form>
+        <div>Users to add:
+          {this.state.membersList.map( (member, index) => {
+            return (
+              <li key={index}>{member}</li>
+            )
+          })
+          }
+        </div>
+        <div className="footer">
+          <button className="" onClick={this.handleSubmit}>
+            Create
+          </button>
+          <button className="" onClick={this.deactivateModal}>
+            Cancel
+          </button>
+        </div>
+        </div>
+      </div>
+    </AriaModal>
+  : false;
 
     // The gray background
     const backdropStyle = {
@@ -136,46 +204,13 @@ class Modal extends Component {
     };
 
     return (
-      <div className="backdrop" style={backdropStyle} onClick={this.props.onClose}>
-        <div className="modal" style={modalStyle} onClick={this.handleOnClick}>
-          {this.renderType()}
-          <form>
-            <div>
-              {this.renderGroupFields()}
-              <label>Add members:</label>
-              <div>
-                <select value={this.state.members} onChange={this.handleMemberChange}>
-                  <option value="none">None</option>
-                  {
-                    this.props.users.map( (user) => {
-                      return (
-                        <option key={user.uID} className="members" value={user.name}>{user.name}</option>
-                      )
-                    })
-                  }
-                </select>
-                <button onClick={this.handleAddUser} >+</button>
-              </div>
-            </div>
-          </form>
-          <div>Users to add:
-            {this.state.membersList.map( (member, index) => {
-              return (
-                <li key={index}>{member}</li>
-              )
-            })
-            }
-          </div>
-          <div className="footer">
-            <button className="" onClick={this.props.onClose}>
-              Cancel
-            </button>
-            <button className="" onClick={this.handleSubmit}>
-              Create
-            </button>
-          </div>
-        </div>
+      <div>
+        <FontAwesomeIcon icon='plus' onClick={this.activateModal}>
+          activate modal
+        </FontAwesomeIcon>
+        {modal}
       </div>
+     
     );
   }
 }

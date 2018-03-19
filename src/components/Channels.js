@@ -3,7 +3,7 @@ import ChannelSettings from './ChannelSettings';
 import { fetchChannels, setCurrentChannel, fetchDirectMessages, fetchCurrentChannelMessages } from '../actions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from "redux"
-
+import Modal from './Modal'
 
 class Channels extends Component {
   constructor(props) {
@@ -38,8 +38,11 @@ class Channels extends Component {
     const channelType = this.props.messageType === "channel" ? "Channels" : "Direct Messages"
     const channelArray = this.props.messageType === "channel" ? this.props.channels : this.props.directMessages
     return (
-      <div>{channelType}
-        <ChannelSettings messageType={this.props.messageType}/>
+      <div>
+        <h5>
+          {channelType}
+          <span className="btn-link float-right" role="button"><Modal messageType={this.props.messageType}/></span>
+        </h5>
         <div>
           {channelArray.map(channel => {
             return (

@@ -11,6 +11,7 @@
     "bootstrap": "^4.0.0",
     "npm": "^5.7.1",
     "react": "^16.2.0",
+    "react-aria-modal": "^2.12.1",
     "react-dom": "^16.2.0",
     "react-redux": "^5.0.7",
     "react-router": "^4.2.0",
