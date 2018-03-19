@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ChannelSettings from './ChannelSettings';
 import { connect } from 'react-redux';
-import { fetchDirectMessages } from '../actions';
+import { fetchDirectMessages, setCurrentChannel } from '../actions';
 import { bindActionCreators } from "redux"
 
 class DirectMessages extends Component {
@@ -16,8 +16,9 @@ class DirectMessages extends Component {
   */
 
   handleClick(event) {
+    console.log(this.props)
     //  the syntax here is weird. I can't get access to the 'key' property of the div
-    let channelId = event.target.getAttribute('key')
+    let channelId = event.target.getAttribute('channel-id')
     this.props.setCurrentChannel(channelId)
   }
 
@@ -29,12 +30,12 @@ class DirectMessages extends Component {
 
   render() {
     return (
-      <div>Channels
+      <div>Direct Messages
         <ChannelSettings messageType="directMessage" />
         <div>
           {this.props.directMessages.map(channel => {
             let newChannel = (
-              <div key = {channel.channelId} onClick={this.handleClick}>
+              <div channel-id = {channel.channelId} key = {channel.channelId} onClick={this.handleClick}>
                 {channel.name}
               </div>
             )
@@ -53,7 +54,7 @@ function mapStateToProps(state) {
 };
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ fetchDirectMessages:fetchDirectMessages }, dispatch);
+  return bindActionCreators({ fetchDirectMessages, setCurrentChannel }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(DirectMessages);
