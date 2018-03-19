@@ -27,8 +27,9 @@ class Channels extends Component {
   handleClick(event) {
     //  the syntax here is weird. I can't get access to the 'key' property of the div
     let channelId = event.target.getAttribute('channel-id')
-    let currentChannel = this.props.channels.find( (channel) => {
-      return channel.cID = channelId
+    const channelArray = this.props.messageType === "channel" ? this.props.channels : this.props.directMessages
+    let currentChannel = channelArray.find( (channel) => {
+      return channel.cID == channelId
     })
     console.log(currentChannel)
     this.props.setCurrentChannel(currentChannel, () => {
