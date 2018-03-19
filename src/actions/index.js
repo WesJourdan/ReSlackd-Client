@@ -61,6 +61,5 @@ export const postMessage = (messageText, channelId) => async dispatch => {
 };
 
 export const setCurrentChannel = (channelId, callback) => dispatch => {
-  console.log(callback)
   dispatch({  type: SET_CURRENT_CHANNEL, payload: channelId }, callback())
 };
