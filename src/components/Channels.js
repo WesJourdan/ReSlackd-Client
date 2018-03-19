@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ChannelSettings from './ChannelSettings';
-import { fetchChannels } from '../actions';
+import { fetchChannels, setCurrentChannel } from '../actions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from "redux"
 
@@ -21,8 +21,9 @@ class Channels extends Component {
   }
 
   handleClick(event) {
+    console.log(this.props)
   //  the syntax here is weird. I can't get access to the 'key' property of the div
-    let channelId = event.target.getAttribute('key')
+    let channelId = event.target.getAttribute('channel-id')
     this.props.setCurrentChannel(channelId)
   }
 
@@ -33,7 +34,7 @@ class Channels extends Component {
         <div>
           {this.props.channels.map(channel => {
             let newChannel = (
-              <div key = {channel.channelId} onClick={this.handleClick}>
+              <div channel-id={channel.channelId} key = {channel.channelId} onClick={this.handleClick}>
                 {channel.name}
               </div>
             )
@@ -52,7 +53,7 @@ function mapStateToProps(state) {
 };
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ fetchChannels:fetchChannels }, dispatch);
+  return bindActionCreators({ fetchChannels, setCurrentChannel}, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Channels);
