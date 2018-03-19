@@ -1,41 +1,261 @@
 export const MESSAGES = [
-  { "name": "Isadore49", "uID": "747c3db5-15ac-4e16-a1eb-6f0f69485c95", "text": "Tempora tempora voluptatem velit ipsum et doloribus.", "timestamp": 1521291706742, "imageURL": "http://lorempixel.com/640/480" },
-  { "name": "Monserrat65", "uID": "7176f315-3333-4988-97e8-5594277fb2a0", "text": "Et aut nulla.", "timestamp": 1521226808569, "imageURL": "http://lorempixel.com/640/480" },
-  { "name": "Riley57", "uID": "2fd39c89-b81c-482f-8deb-cad9d6008f0b", "text": "Non necessitatibus consequatur et nemo.", "timestamp": 1521298911025, "imageURL": "http://lorempixel.com/640/480" },
-  { "name": "Ahmed23", "uID": "16cfe06c-49ce-4291-942f-7470e32516f4", "text": "Unde recusandae ducimus porro qui ipsa saepe minus.", "timestamp": 1521255160085, "imageURL": "http://lorempixel.com/640/480" },
-  { "name": "Virgil68", "uID": "c1187885-a86b-4570-a857-19b62813daaf", "text": "Aut voluptas sed voluptas ea ipsam occaecati expedita quo.", "timestamp": 1521276220750, "imageURL": "http://lorempixel.com/640/480" },
-  { "name": "Christine.Herzog", "uID": "0383d98c-7785-4e31-9d57-eb48b99c3ab2", "text": "Unde ducimus harum asperiores.", "timestamp": 1521254195067, "imageURL": "http://lorempixel.com/640/480" },
-  { "name": "Ralph16", "uID": "904c691b-783f-45d1-8b95-581fc7c85395", "text": "Voluptatem repellat possimus placeat quis ipsam aut.", "timestamp": 1521249398249, "imageURL": "http://lorempixel.com/640/480" },
-  { "name": "Onie_Reynolds60", "uID": "17b8b318-9a5f-4769-bb51-c93c4a62f541", "text": "Temporibus explicabo consequatur et a maxime dolor dolor.", "timestamp": 1521288179089, "imageURL": "http://lorempixel.com/640/480" },
-  { "name": "Nash_Russel", "uID": "846ac9eb-acc3-44e9-9368-f4b242c77f78", "text": "Laboriosam adipisci unde qui.", "timestamp": 1521260020596, "imageURL": "http://lorempixel.com/640/480" },
-  { "name": "Jabari_Yundt", "uID": "0b72e7cd-767b-445a-a06b-ccde7995fd6d", "text": "Temporibus fugiat minima earum aut magni quibusdam illum.", "timestamp": 1521241864582, "imageURL": "http://lorempixel.com/640/480" },
-  { "name": "Naomi8", "uID": "682fbadc-4731-47b8-b1c0-9d19b3ab2ec0", "text": "Asperiores fuga sunt ex animi aut iure quis.", "timestamp": 1521267920064, "imageURL": "http://lorempixel.com/640/480" },
-  { "name": "Ella_Considine", "uID": "bbc8fb17-3f9c-4ceb-9a13-89842fb91f75", "text": "Aut sed perspiciatis autem aut ut voluptatum perferendis sint.", "timestamp": 1521223808259, "imageURL": "http://lorempixel.com/640/480" },
-  { "name": "Dorian75", "uID": "e0147124-0e37-4168-9b12-6c763fc56932", "text": "Unde autem accusamus qui et.", "timestamp": 1521251002251, "imageURL": "http://lorempixel.com/640/480" }
+    {
+        "name": "Jayce Grant",
+        "uID": 52,
+        "text": "Omnis tenetur recusandae dicta.",
+        "timestamp": 1520422723705,
+        "imageURL": "https://vignette.wikia.nocookie.net/detectiveconan96/images/7/72/Generic_Male_Profile.jpg/revision/latest"
+    },
+    {
+        "name": "Eddie Luettgen",
+        "uID": 47,
+        "text": "Vitae incidunt alias eum incidunt atque iure praesentium voluptatem.",
+        "timestamp": 1517674416219,
+        "imageURL": "https://vignette.wikia.nocookie.net/detectiveconan96/images/7/72/Generic_Male_Profile.jpg/revision/latest"
+    },
+    {
+        "name": "Ellsworth Kreiger",
+        "uID": 46,
+        "text": "Repudiandae debitis tenetur omnis earum.",
+        "timestamp": 1514665673687,
+        "imageURL": "https://vignette.wikia.nocookie.net/detectiveconan96/images/7/72/Generic_Male_Profile.jpg/revision/latest"
+    },
+    {
+        "name": "Felix Beahan",
+        "uID": 57,
+        "text": "Impedit quod nobis voluptatem.",
+        "timestamp": 1513995477747,
+        "imageURL": "https://vignette.wikia.nocookie.net/detectiveconan96/images/7/72/Generic_Male_Profile.jpg/revision/latest"
+    },
+    {
+        "name": "Jeremy Adams",
+        "uID": 61,
+        "text": "Occaecati et dolorem rerum et qui quia aut ex eveniet.",
+        "timestamp": 1512965230288,
+        "imageURL": "https://vignette.wikia.nocookie.net/detectiveconan96/images/7/72/Generic_Male_Profile.jpg/revision/latest"
+    },
+    {
+        "name": "Clark Buckridge",
+        "uID": 54,
+        "text": "Excepturi quae ex qui.",
+        "timestamp": 1510530837236,
+        "imageURL": "https://vignette.wikia.nocookie.net/detectiveconan96/images/7/72/Generic_Male_Profile.jpg/revision/latest"
+    },
+    {
+        "name": "Jenifer Mohr",
+        "uID": 50,
+        "text": "Quisquam est est ex.",
+        "timestamp": 1508220552608,
+        "imageURL": "https://vignette.wikia.nocookie.net/detectiveconan96/images/7/72/Generic_Male_Profile.jpg/revision/latest"
+    },
+    {
+        "name": "Jeremy Adams",
+        "uID": 61,
+        "text": "Quos id adipisci delectus.",
+        "timestamp": 1508055754905,
+        "imageURL": "https://vignette.wikia.nocookie.net/detectiveconan96/images/7/72/Generic_Male_Profile.jpg/revision/latest"
+    },
+    {
+        "name": "Clark Buckridge",
+        "uID": 54,
+        "text": "Consequatur perspiciatis omnis consequuntur hic temporibus magnam et repellendus.",
+        "timestamp": 1506736444543,
+        "imageURL": "https://vignette.wikia.nocookie.net/detectiveconan96/images/7/72/Generic_Male_Profile.jpg/revision/latest"
+    },
+    {
+        "name": "Jermain Thiel",
+        "uID": 44,
+        "text": "Veritatis nulla expedita ut commodi corrupti eum fuga.",
+        "timestamp": 1504851356332,
+        "imageURL": "https://vignette.wikia.nocookie.net/detectiveconan96/images/7/72/Generic_Male_Profile.jpg/revision/latest"
+    },
+    {
+        "name": "Jermain Thiel",
+        "uID": 44,
+        "text": "Excepturi est harum eius maxime quasi consequatur in possimus et.",
+        "timestamp": 1503922618155,
+        "imageURL": "https://vignette.wikia.nocookie.net/detectiveconan96/images/7/72/Generic_Male_Profile.jpg/revision/latest"
+    },
+    {
+        "name": "Shad Ankunding",
+        "uID": 55,
+        "text": "Libero atque quia voluptas ducimus in aliquam tempore repudiandae ea.",
+        "timestamp": 1502485194560,
+        "imageURL": "https://vignette.wikia.nocookie.net/detectiveconan96/images/7/72/Generic_Male_Profile.jpg/revision/latest"
+    },
+    {
+        "name": "Clark Buckridge",
+        "uID": 54,
+        "text": "Dolore natus debitis vitae deserunt.",
+        "timestamp": 1501870979619,
+        "imageURL": "https://vignette.wikia.nocookie.net/detectiveconan96/images/7/72/Generic_Male_Profile.jpg/revision/latest"
+    },
+    {
+        "name": "Clark Buckridge",
+        "uID": 54,
+        "text": "Et cumque repudiandae molestiae nostrum quia.",
+        "timestamp": 1501839060586,
+        "imageURL": "https://vignette.wikia.nocookie.net/detectiveconan96/images/7/72/Generic_Male_Profile.jpg/revision/latest"
+    },
+    {
+        "name": "Ellsworth Kreiger",
+        "uID": 46,
+        "text": "Et rerum ea ut et.",
+        "timestamp": 1499832015870,
+        "imageURL": "https://vignette.wikia.nocookie.net/detectiveconan96/images/7/72/Generic_Male_Profile.jpg/revision/latest"
+    },
+    {
+        "name": "Jermain Thiel",
+        "uID": 44,
+        "text": "Harum vitae optio illum enim quidem.",
+        "timestamp": 1496596961548,
+        "imageURL": "https://vignette.wikia.nocookie.net/detectiveconan96/images/7/72/Generic_Male_Profile.jpg/revision/latest"
+    },
+    {
+        "name": "Clark Buckridge",
+        "uID": 54,
+        "text": "Tempore voluptas explicabo dolores.",
+        "timestamp": 1494373356045,
+        "imageURL": "https://vignette.wikia.nocookie.net/detectiveconan96/images/7/72/Generic_Male_Profile.jpg/revision/latest"
+    },
+    {
+        "name": "Jenifer Mohr",
+        "uID": 50,
+        "text": "Iure sapiente eveniet similique commodi exercitationem odio qui.",
+        "timestamp": 1493348573786,
+        "imageURL": "https://vignette.wikia.nocookie.net/detectiveconan96/images/7/72/Generic_Male_Profile.jpg/revision/latest"
+    },
+    {
+        "name": "Ellsworth Kreiger",
+        "uID": 46,
+        "text": "Porro voluptatum sint eos id neque eum hic.",
+        "timestamp": 1492895230973,
+        "imageURL": "https://vignette.wikia.nocookie.net/detectiveconan96/images/7/72/Generic_Male_Profile.jpg/revision/latest"
+    }
 ]
 
 export const CHANNEL_LIST = [
-  { "cID": "407cad0d-5acf-42fc-b572-8d30a07a7b01", "name": "Jewel", "type": "dm", "createdAt": 1513519669718 },
-  { "cID": "84b10f41-e9e2-4a80-a50c-f95fde005fdb", "name": "Jamaal", "type": "dm", "createdAt": 1521036665351 },
-  { "cID": "1d179470-a9d9-428d-84d2-0872cbba52f3", "name": "data-warehouse", "type": "channel", "createdAt": 1492365800991 },
-  { "cID": "1ff3c71e-c02d-48e6-90b8-6bf126e08d55", "name": "Angus", "type": "dm", "createdAt": 1510209065690 },
-  { "cID": "61735fea-d077-4a5f-a6f2-5561be2dc475", "name": "hardware", "type": "channel", "createdAt": 1493473134682 },
-  { "cID": "b2cb31cb-3fbe-488d-b1a7-3d2fe7bce118", "name": "interface", "type": "channel", "createdAt": 1509628096803 },
-  { "cID": "71d88f8e-25b5-49ef-99a6-99f6f7a0a3fc", "name": "moderator", "type": "channel", "createdAt": 1503800347705 },
-  { "cID": "b3370b9b-5794-4678-946c-77750096cebc", "name": "parallelism", "type": "channel", "createdAt": 1514516742533 },
-  { "cID": "256700e8-ccc7-4eed-92b7-f9cf4e678d23", "name": "Wyman", "type": "dm", "createdAt": 1520529661274 },
-  { "cID": "5e38c630-4455-4b48-9a82-901e1e78d81a", "name": "solution", "type": "channel", "createdAt": 1491442873041 },
-  { "cID": "10a9fe05-91d6-452c-ade2-53a0f931932e", "name": "projection", "type": "channel", "createdAt": 1508270734507 },
-  { "cID": "551ffda6-6410-47e0-965e-91dcd898961f", "name": "encryption", "type": "channel", "createdAt": 1493787524348 },
-  { "cID": "60b5ed33-fd44-4113-a9de-04642cdd9cf0", "name": "Grover", "type": "dm", "createdAt": 1499541755615 },
-  { "cID": "29a1650d-23b8-418e-aa62-5a55796a489c", "name": "Garland", "type": "dm", "createdAt": 1517816648771 },
-  { "cID": "cb4705d3-478d-4ad4-804b-90ad9ed985d2", "name": "definition", "type": "channel", "createdAt": 1515885253716 },
-  { "cID": "c1a1562f-bf9e-43b4-8058-1ce87527f8c3", "name": "portal", "type": "channel", "createdAt": 1520067668286 },
-  { "cID": "37a6d2f8-d91d-45f3-b70b-921b7db39cc3", "name": "Dianna", "type": "dm", "createdAt": 1512842646191 },
-  { "cID": "a27f179c-0ea6-41a2-8685-6390e61353ff", "name": "Clinton", "type": "dm", "createdAt": 1498627844517 },
-  { "cID": "8516c1bd-162f-47e4-9d76-92df361408e4", "name": "Bud", "type": "dm", "createdAt": 1506553729885 },
-  { "cID": "a38cd1c4-39c6-410a-a0f0-324183dd12ec", "name": "Dorian", "type": "dm", "createdAt": 1514947986226 }
-];
+    {
+        "cID": 45,
+        "name": "infomediaries",
+        "type": "channel"
+    },
+    {
+        "cID": 47,
+        "name": "initiatives",
+        "type": "channel"
+    },
+    {
+        "cID": 52,
+        "name": "niches",
+        "type": "channel"
+    },
+    {
+        "cID": 54,
+        "name": "solutions",
+        "type": "channel"
+    },
+    {
+        "cID": 57,
+        "name": "infomediaries",
+        "type": "channel"
+    },
+    {
+        "cID": 58,
+        "name": "paradigms",
+        "type": "channel"
+    },
+    {
+        "cID": 62,
+        "name": "metrics",
+        "type": "channel"
+    },
+    {
+        "cID": 64,
+        "name": "partnerships",
+        "type": "channel"
+    },
+    {
+        "cID": 67,
+        "name": "functionalities",
+        "type": "channel"
+    },
+    {
+        "cID": 68,
+        "name": "vortals",
+        "type": "channel"
+    },
+    {
+        "cID": 69,
+        "name": "mindshare",
+        "type": "channel"
+    },
+    {
+        "cID": 70,
+        "name": "e-markets",
+        "type": "channel"
+    },
+    {
+        "cID": 71,
+        "name": "web services",
+        "type": "channel"
+    },
+    {
+        "cID": 79,
+        "name": "Geoffrey Schmeler",
+        "type": "dm"
+    },
+    {
+        "cID": 80,
+        "name": "Jenifer Mohr",
+        "type": "dm"
+    },
+    {
+        "cID": 82,
+        "name": "Marjolaine Gutkowski",
+        "type": "dm"
+    },
+    {
+        "cID": 117,
+        "name": "Eddie Medhurst",
+        "type": "dm"
+    },
+    {
+        "cID": 121,
+        "name": "Stephon Bernhard",
+        "type": "dm"
+    },
+    {
+        "cID": 129,
+        "name": "Eddie Medhurst",
+        "type": "dm"
+    },
+    {
+        "cID": 135,
+        "name": "Stephon Bernhard",
+        "type": "dm"
+    },
+    {
+        "cID": 141,
+        "name": "Marjolaine Gutkowski",
+        "type": "dm"
+    },
+    {
+        "cID": 146,
+        "name": "Pink Kautzer",
+        "type": "dm"
+    },
+    {
+        "cID": 163,
+        "name": "Eddie Medhurst",
+        "type": "dm"
+    },
+    {
+        "cID": 172,
+        "name": "Emilio Bergstrom",
+        "type": "dm"
+    }
+]
 
 export const CURRENT_USER = { "uID": "94427ce7-f7cf-4904-86a5-367194e91420", "name": "Jermain Thiel", "imageURL": "http://lorempixel.com/640/480/people", "googleID": "d6a767a0-9ee3-4f17-bf57-fe7e692f854b", "createdAt": 1498372652254, "lastActiveAt": 1521234996020, "lastLoginAt": 1499682760019 }
 
