@@ -29,7 +29,7 @@ class DirectMessages extends Component {
 
   render() {
     return (
-      <div>Channels
+      <div>Direct Messages
         <ChannelSettings messageType="directMessage" />
         <div>
           {this.props.directMessages.map(channel => {
