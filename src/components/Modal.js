@@ -87,16 +87,20 @@ class Modal extends Component {
       case "channel":
         return (
           <div>
-            <label className="col-2 col-form-label">Name:
-              <div className="col-10">
-                <input type="text" placeholder="# e.g. general" className="name" value={this.state.name} onChange={this.handleNameChange} />
-              </div>
-            </label>
-            <label className="col-2 col-form-label">Purpose:
-              <div className="col-12">
-                <input type="text" placeholder="What the channel is about" className="purpose" value={this.state.purpose} onChange={this.handlePurposeChange} />
-              </div>
-            </label>
+            <div>
+              <label className="col-10 col-form-label">Name:
+                <div className="col-10">
+                  <input type="text" placeholder="# e.g. general" className="name" value={this.state.name} onChange={this.handleNameChange} />
+                </div>
+              </label>
+            </div>
+            <div>
+              <label className="col-10 col-form-label">Purpose:
+                <div className="col-10">
+                  <input type="text" placeholder="What the channel is about" className="purpose" value={this.state.purpose} onChange={this.handlePurposeChange} />
+                </div>
+              </label>
+            </div>
           </div>
         )
       default:
@@ -136,12 +140,12 @@ class Modal extends Component {
         <div className="modal" style={modalStyle} onClick={this.handleOnClick}>
           {this.renderType()}
           <form>
-            <div className="form-group row">
+            <div>
               {this.renderGroupFields()}
-              <label className="col-2 col-form-label">Add members:</label>
-              <div className="col-12">
-                <select className="form-control mt-3 mb-2" value={this.state.members} onChange={this.handleMemberChange}>
-                  <option className="members" value="none">None</option>
+              <label>Add members:</label>
+              <div>
+                <select value={this.state.members} onChange={this.handleMemberChange}>
+                  <option value="none">None</option>
                   {
                     this.props.users.map( (user) => {
                       return (
@@ -149,7 +153,8 @@ class Modal extends Component {
                       )
                     })
                   }
-                </select><button onClick={this.handleAddUser} >+</button>
+                </select>
+                <button onClick={this.handleAddUser} >+</button>
               </div>
             </div>
           </form>
