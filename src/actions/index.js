@@ -54,12 +54,13 @@ export const fetchUserList = () => async dispatch => {
   dispatch({ type: FETCH_USER_LIST, payload: res }); // change to res.data when api ready
 };
 
-export const sendMessage = (messageText, channelId) => async dispatch => {
+export const postMessage = (messageText, channelId) => async dispatch => {
   const res = await axios.post(`/api/channels/${channelId}`, messageText)
 
   dispatch({ type: POST_MESSAGE, payload: res.data })
 };
 
-export const setCurrentChannel = channelId => dispatch => {
-  dispatch({  type: SET_CURRENT_CHANNEL, payload: channelId })
+export const setCurrentChannel = (channelId, callback) => dispatch => {
+  console.log(callback)
+  dispatch({  type: SET_CURRENT_CHANNEL, payload: channelId }, callback())
 };
