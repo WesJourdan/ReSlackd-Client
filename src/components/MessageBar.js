@@ -3,23 +3,37 @@ import * as actions from '../actions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from "redux";
 import { postMessage, setCurrentChannel, fetchChannels } from '../actions';
+import io from 'socket.io-client';//for socket test
+
 
 class MessageBar extends Component {
 
 	constructor(props) {
 		super(props);
 		this.state = {
-			text: ''
+			text: '',
+
 		};
 		this.onInputChange = this.onInputChange.bind(this)
 
 	}
 
-  componentWillMount() {
-    this.props.fetchChannels()
-    this.props.setCurrentChannel(this.props.channels[0],() => {})
-  }
-
+	componentWillMount() {
+		this.props.fetchChannels()
+		this.props.setCurrentChannel(this.props.channels[0],() => {})
+	}
+	//socket testing data
+	componentDidMount(){
+		console.log('did mount');
+		this.handleMessageEvent();
+	}
+	handleMessageEvent(){
+		socket.on('chat message', (inboundMessage) => {
+			this.props.createMessage({room: this.props.room, newMessage: {user: JSON.parse(inboundMessage).user, message: JSON.parse(inboundMessage).message}}) 
+			console.log('received message', inboundMessage)
+		})
+	}
+	//end socket test
 
 	onInputChange(event) {
 		this.setState({ text: event.target.value });
