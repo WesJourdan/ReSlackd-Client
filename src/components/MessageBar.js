@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import * as actions from '../actions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from "redux";
-import { postMessage } from '../actions';
+import { postMessage, setCurrentChannel, fetchChannels } from '../actions';
 
 class MessageBar extends Component {
 
@@ -14,6 +14,11 @@ class MessageBar extends Component {
 		this.onInputChange = this.onInputChange.bind(this)
 
 	}
+
+  componentWillMount() {
+    this.props.fetchChannels()
+    this.props.setCurrentChannel(this.props.channels[0].cID,() => {})
+  }
 
 
 	onInputChange(event) {
@@ -28,7 +33,7 @@ class MessageBar extends Component {
 		event.preventDefault();
 		console.log(this.props)
 		// send the message to the server and/or socket
-		this.props.postMessage(this.state.text, this.props.currentChannel)
+		this.props.postMessage({text:this.state.text}, this.props.currentChannel)
 
 		this.setState({ text: '' });
 	}
@@ -53,7 +58,7 @@ class MessageBar extends Component {
 }
 
 function mapStateToProps( state ) {
-	return { currentChannel: state.currentChannel }
+	return { currentChannel: state.currentChannel, channels:state.channels }
 };
 
 function mapDispatchToProps(dispatch) {

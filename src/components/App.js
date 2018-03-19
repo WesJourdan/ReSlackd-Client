@@ -47,7 +47,7 @@ class App extends Component {
   render() {
 
     return (
-      <div className="">
+      <div>
         <Header />
         <Sidebar
           sidebar={
@@ -61,14 +61,12 @@ class App extends Component {
           onSetOpen={this.onSetSidebarOpen}
           shadow={false}
           styles={{
-            sidebar: {
-              top: '4rem'
-            },
-            content: {
+            root: {
               top: '4rem'
             }
           }}
         >
+          
           <MessageBoard />
         </Sidebar>
       </div>
