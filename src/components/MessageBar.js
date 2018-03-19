@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import * as actions from '../actions';
 import { connect } from 'react-redux';
+import { bindActionCreators } from "redux";
+import { sendMessage } from '../actions';
 
 class MessageBar extends Component {
 
@@ -53,6 +55,10 @@ class MessageBar extends Component {
 function mapStateToProps( state ) {
 	return { currentChannel: state.currentChannel }
 };
+
+function mapDispatchToProps(dispatch) {
+	return bindActionCreators({ sendMessage }, dispatch);
+}
 
 export default connect(mapStateToProps, actions)(MessageBar);
 
