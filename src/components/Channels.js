@@ -29,7 +29,7 @@ class Channels extends Component {
   render() {
     return (
       <div>Channels
-        <ChannelSettings />
+        <ChannelSettings messageType="channel"/>
         <div>
           {this.props.channels.map(channel => {
             let newChannel = (

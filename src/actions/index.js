@@ -6,7 +6,7 @@ export const fetchChannels = () => async dispatch => {
   // const res = await axios.get('/api/user/channels?channel');
   let res = []
   for (let i = 0; i<CHANNEL_LIST.length; i++) {
-    if (CHANNEL_LIST[i].type == "channel") {
+    if (CHANNEL_LIST[i].type === "channel") {
         res.push(CHANNEL_LIST[i])
     }
   }
@@ -17,7 +17,7 @@ export const fetchDirectMessages = () => async dispatch => {
   // const res = await axios.get('api/user/channels?dm');
   let res = []
   for (let i = 0; i<CHANNEL_LIST.length; i++) {
-    if (CHANNEL_LIST[i].type == "dm") {
+    if (CHANNEL_LIST[i].type === "dm") {
       res.push(CHANNEL_LIST[i])
     }
   }
@@ -27,10 +27,7 @@ export const fetchDirectMessages = () => async dispatch => {
 
 export const fetchMessageList = () => async dispatch => {
   // const res = await axios.get(`/api/channel/:channelId`);
-  let res = []
-  for (let i = 0; i<MESSAGES.length; i++) {
-      res.push(MESSAGES[i])
-  }
+  let res = MESSAGES
 
   dispatch({ type: FETCH_MESSAGE_LIST, payload: res }); // change to res.data when api ready
 };

@@ -19,14 +19,14 @@ class SingleMessage extends Component {
 			weekday: "long", year: "numeric", month: "short",
 			day: "numeric", hour: "2-digit", minute: "2-digit"
 		};
-		return date.toLocaleTimeString("en-us", options); 
+		return date.toLocaleTimeString("en-us", options);
 	};
 
 	render() {
 		return this.props.messageList.map((message, index) => {
 			let newMessage = (
-				<div>
-					<img src={message.imageURL} alt={message.username}></img>
+				<div key={index}>
+					<img src={message.imageURL} alt={message.username} className="icon"></img>
 					{message.username}
 					{message.text}
 					{this.convertTime(message.timestamp)}
@@ -42,7 +42,7 @@ function mapStateToProps( state ) {
 };
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ fetchMessageList:fetchMessageList }, dispatch);
+  return bindActionCreators({ fetchMessageList }, dispatch);
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SingleMessage);
