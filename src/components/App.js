@@ -8,13 +8,13 @@ import MessageBoard from './MessageBoard';
 import DirectMessages from './DirectMessages'
 import Channels from './Channels';
 
-  
+
 
 class App extends Component {
- 
+
   render() {
     return (
-      <div className="container">
+      <div className="">
             <Header />
             <Channels />
             <DirectMessages />
@@ -25,10 +25,3 @@ class App extends Component {
 }
 
 export default connect(null, actions)(App);
-
-
-
-
-
-
-

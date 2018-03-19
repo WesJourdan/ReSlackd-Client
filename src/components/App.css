@@ -6,3 +6,7 @@
 img {
     object-fit: cover;
 }
+
+.modal{
+  display:block;
+}
