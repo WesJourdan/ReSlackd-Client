@@ -21,6 +21,14 @@
     "redux-thunk": "^2.2.0",
     "socket.io": "^2.0.4"
   },
+  "proxy": {
+    "/auth/google": {
+      "target": "http://localhost:8080"
+    },
+    "/api/*": {
+      "target": "http://localhost:8080"
+    }
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",

@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import { connect } from 'react-redux';
 import { fetchMessageList } from '../actions';
-import { bindActionCreators } from "redux"
-
+import { bindActionCreators } from "redux";
 
 class SingleMessage extends Component {
 	constructor(props) {
