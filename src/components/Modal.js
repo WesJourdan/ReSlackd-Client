@@ -29,7 +29,7 @@ class Modal extends Component {
     this.handleOnClick = this.handleOnClick.bind(this);
     this.handleAddUser = this.handleAddUser.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    
+
   }
 
   activateModal = () => {
@@ -134,33 +134,33 @@ class Modal extends Component {
 
     const modal = this.state.modalActive
       ? <AriaModal
-      titleText="demo one"
-      onExit={this.deactivateModal}
-      getApplicationNode={this.getApplicationNode}
-      underlayStyle={{
-        background: '#fff'
-      }}
-      verticallyCenter={true}
-    >
-      <div id="demo-one-modal">
-        <div className="modal-body">
-        {this.renderType()}
-        <form>
-          <div>
-            {this.renderGroupFields()}
-            <label>Add members:</label>
-            <div>
-              <select value={this.state.members} onChange={this.handleMemberChange}>
-                <option value="none">None</option>
-                {
-                  this.props.users.map( (user) => {
-                    return (
-                      <option key={user.uID} className="members" value={user.name}>{user.name}</option>
-                    )
-                  })
-                }
-              </select>
-              <button onClick={this.handleAddUser} >+</button>
+        titleText="demo one"
+        onExit={this.deactivateModal}
+        getApplicationNode={this.getApplicationNode}
+        underlayStyle={{
+          background: '#fff'
+        }}
+        verticallyCenter={true}
+        >
+        <div id="demo-one-modal">
+          <div className="modal-body">
+            {this.renderType()}
+            <form>
+              <div>
+                {this.renderGroupFields()}
+                <label>Add members:</label>
+                <div>
+                  <select value={this.state.members} onChange={this.handleMemberChange}>
+                    <option value="none">None</option>
+                    {
+                      this.props.users.map( (user) => {
+                        return (
+                          <option key={user.uID} className="members" value={user.name}>{user.name}</option>
+                        )
+                      })
+                    }
+                  </select>
+                  <button onClick={this.handleAddUser} >+</button>
             </div>
           </div>
         </form>
@@ -213,7 +213,7 @@ class Modal extends Component {
         </FontAwesomeIcon>
         {modal}
       </div>
-     
+
     );
   }
 }
