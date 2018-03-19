@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import * as actions from '../actions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from "redux";
-import { sendMessage } from '../actions';
+import { postMessage } from '../actions';
 
 class MessageBar extends Component {
 
@@ -12,7 +12,7 @@ class MessageBar extends Component {
 			text: ''
 		};
 		this.onInputChange = this.onInputChange.bind(this)
-		
+
 	}
 
 
@@ -57,8 +57,7 @@ function mapStateToProps( state ) {
 };
 
 function mapDispatchToProps(dispatch) {
-	return bindActionCreators({ sendMessage }, dispatch);
+	return bindActionCreators({ postMessage }, dispatch);
 }
 
 export default connect(mapStateToProps, actions)(MessageBar);
-
