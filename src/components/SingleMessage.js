@@ -1,19 +1,29 @@
 import React, { Component } from "react";
 import { connect } from 'react-redux';
-import { fetchCurrentChannelMessages, setCurrentChannel } from '../actions';
+import { fetchCurrentChannelMessages, setCurrentChannel, socketMessage } from '../actions';
 import { bindActionCreators } from "redux";
+import io from 'socket.io-client';//for socket test
 
 class SingleMessage extends Component {
 	constructor(props) {
 		super(props);
+
+		this.socket = io();
 	}
-	//
+	//TODO: Should we put this here?
 	// componentDidMount() {
     // const lastChannel = JSON.parse(localStorage.getItem("currentChannel"))
     // this.props.setCurrentChannel(lastChannel, () => {
     //   this.props.fetchCurrentChannelMessages(lastChannel.cID);
     // })
 	//  }
+	componentDidMount(){
+		console.log(this.props);
+		this.socket.on('chat message', (inboundMessage) => {
+			this.props.socketMessage(inboundMessage) 
+			console.log('received message', inboundMessage)
+		})
+	}
 
 	convertTime (timestamp) {
 		let date = new Date(timestamp);
@@ -29,7 +39,7 @@ class SingleMessage extends Component {
 			let newMessage = (
 				<div key={index}>
 					<img src={message.imageURL} alt={message.username} className="icon"></img>
-					{message.username}
+					{message.name}
 					{message.text}
 					{this.convertTime(message.timestamp)}
 				</div>
@@ -44,7 +54,7 @@ function mapStateToProps( state ) {
 };
 
 function mapDispatchToProps(dispatch) {
-	return bindActionCreators({ fetchCurrentChannelMessages, setCurrentChannel }, dispatch);
+	return bindActionCreators({ fetchCurrentChannelMessages, setCurrentChannel, socketMessage }, dispatch);
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SingleMessage);
