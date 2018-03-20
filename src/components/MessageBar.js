@@ -22,7 +22,7 @@ class MessageBar extends Component {
 
 	componentWillMount() {
 		this.props.fetchChannels()
-		this.props.setCurrentChannel(this.props.channels[0],() => {})
+		// this.props.setCurrentChannel(this.props.channels[0],() => {})
 	}
 	//socket testing data
 	componentDidMount(){
