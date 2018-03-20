@@ -1,10 +1,10 @@
 import axios from 'axios';
 import { MESSAGES, CHANNEL_LIST, CURRENT_USER, USERS } from "../DUMMY_DATA.js"
-import { ADD_USER_TO_CHANNEL, FETCH_CHANNELS, FETCH_CURRENT_CHANNEL_MESSAGES, FETCH_CURRENT_USER, FETCH_USER_LIST, SET_CURRENT_CHANNEL, POST_MESSAGE, FETCH_DIRECT_MESSAGES, FETCH_MESSAGE_LIST } from './types';
+import { FETCH_CHANNELS, FETCH_CURRENT_CHANNEL_MESSAGES, FETCH_CURRENT_USER, FETCH_USER_LIST, SET_CURRENT_CHANNEL, POST_MESSAGE, FETCH_DIRECT_MESSAGES, FETCH_MESSAGE_LIST } from './types';
 
 export const fetchChannels = () => async dispatch => {
   const res = await axios.get('/api/user/channels?type=channel');
-  
+
   dispatch({ type: FETCH_CHANNELS, payload: res.data });
 };
 
@@ -56,20 +56,11 @@ export const postMessage = (messageText, channelId) => async dispatch => {
 };
 
 export const setCurrentChannel = (channel, callback) => dispatch => {
+  localStorage.setItem("currentChannel",JSON.stringify(channel))
   dispatch({  type: SET_CURRENT_CHANNEL, payload: channel }, callback())
 };
 
 export const createNewChannel = (newChannelData) => async dispatch => {
   const res = await axios.post(`/api/channels`, newChannelData)
-  console.log(res.data)
   dispatch({ type: SET_CURRENT_CHANNEL, payload: res.data.cID})
-}
-
-export const addUserToChannel = (channelId, userIds) => async dispatch => {
-  const res = await axios.post('/api/user/channels/add', {
-    users: userIds,
-    channel: channelId
-  })
-
-  dispatch({ type: ADD_USER_TO_CHANNEL, payload: res.data})
 }
