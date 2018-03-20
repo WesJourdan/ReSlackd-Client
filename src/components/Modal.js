@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import PropTypes from 'prop-types';
-import { fetchUserList, createNewChannel, fetchCurrentChannelMessages, setCurrentChannel } from '../actions';
+import { fetchUserList, createNewChannel, fetchCurrentChannelMessages, setCurrentChannel, fetchChannels, fetchDirectMessages } from '../actions';
 import './App.css';
 import AriaModal from '../../node_modules/react-aria-modal'
 import FontAwesomeIcon from '@fortawesome/react-fontawesome'
@@ -64,7 +64,7 @@ class Modal extends Component {
       console.log("none")
       return
     }
-
+  //adds a user to the userlist for channel/DM creation
     this.setState({ member: event.target.value }, () => {
       if (this.props.messageType === "channel") {
         const newList = this.state.membersList.concat([this.state.member])
@@ -77,6 +77,7 @@ class Modal extends Component {
     })
   }
 
+//deletes a user from the list of users to be added to a new channel
   handleDelete(event) {
     const newList = this.state.membersList.filter( (member) => {
       return member !== event.target.value
@@ -89,6 +90,7 @@ class Modal extends Component {
     event.stopPropagation();
   }
 
+//creates a channel or DM
   handleSubmit(event) {
     event.preventDefault();
     const userList = this.state.membersList.map( member => {
@@ -97,8 +99,9 @@ class Modal extends Component {
       })
       return oneUser.uID
     })
+    const channelName = this.state.name ? this.state.name : this.state.membersList[0]
     const channelObject = {
-      name: this.state.name,
+      name: channelName,
       purpose: this.state.purpose,
       type: this.props.messageType,
       users: userList
@@ -120,11 +123,12 @@ class Modal extends Component {
       }
     }
 
-    this.props.createNewChannel(channelObject).then(()=> {
-      this.props.fetchCurrentChannelMessages(this.props.currentChannel)
-      this.deactivateModal()
+    this.props.createNewChannel(channelObject).then((channel)=> {
+      fetchCurrentChannelMessages(channel.cID)
+      this.props.fetchChannels()
+      this.props.fetchDirectMessages()
     })
-
+    this.deactivateModal()
   }
 
   renderType() {
@@ -288,7 +292,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ fetchCurrentChannelMessages, fetchUserList, createNewChannel, setCurrentChannel }, dispatch);
+  return bindActionCreators({ fetchCurrentChannelMessages, fetchUserList, createNewChannel, setCurrentChannel, fetchChannels, fetchDirectMessages }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Modal);
