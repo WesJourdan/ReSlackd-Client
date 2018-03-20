@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import PropTypes from 'prop-types';
-import { fetchUserList, createNewChannel } from '../actions';
+import { fetchUserList, createNewChannel, fetchCurrentChannelMessages, setCurrentChannel } from '../actions';
 import './App.css';
 import AriaModal from '../../node_modules/react-aria-modal'
 import FontAwesomeIcon from '@fortawesome/react-fontawesome'
@@ -120,12 +120,11 @@ class Modal extends Component {
       }
     }
 
-    this.props.createNewChannel(channelObject).then((channel) => {
-      this.props.setCurrentChannel(channel, () => {
-        this.props.fetchCurrentChannelMessages(channel.cID)
-        this.deactivateModal()
-      })
+    this.props.createNewChannel(channelObject).then(()=> {
+      this.props.fetchCurrentChannelMessages(this.props.currentChannel)
+      this.deactivateModal()
     })
+
   }
 
   renderType() {
@@ -285,11 +284,11 @@ Modal.propTypes = {
 };
 
 function mapStateToProps(state) {
-  return { channels: state.channels, users: state.userList };
+  return { channels: state.channels, users: state.userList, currentChannel:state.currentChannel };
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ fetchUserList, createNewChannel }, dispatch);
+  return bindActionCreators({ fetchCurrentChannelMessages, fetchUserList, createNewChannel, setCurrentChannel }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Modal);
