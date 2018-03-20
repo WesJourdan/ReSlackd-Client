@@ -18,15 +18,13 @@ class MessageBar extends Component {
 		this.onInputChange = this.onInputChange.bind(this)
 		this.onSubmitMessage = this.onSubmitMessage.bind(this)
 		this.handleMessageEvent = this.handleMessageEvent.bind(this)
-
-		const socket = io();
+		this.socket = io();
 	}
-
 	componentWillMount() {
 		
 		if(!(this.state.connected)){
 			this.props.fetchChannels()
-			socket.emit('subscribe', {channel: this.props.channels})//not sure what our data looks like here
+			this.socket.emit('subscribe', {channel: this.props.channels})//not sure what our data looks like here
         		this.setState({connected: true})
 		}
 	}
@@ -36,7 +34,7 @@ class MessageBar extends Component {
 		this.handleMessageEvent();
 	}
 	handleMessageEvent(){
-		socket.on('chat message', (inboundMessage) => {
+		this.socket.on('chat message', (inboundMessage) => {
 			this.props.socketMessage(inboundMessage) 
 			console.log('received message', inboundMessage)
 		})
@@ -49,18 +47,17 @@ class MessageBar extends Component {
 		if (event.target.value !== '') {
 		// here is where we would broadcast to the socket that a user is typing a message
 		
-		//socket.emit('broadcast', 'hello friends!');
+		//this.socket.emit('broadcast', 'hello friends!');
 		}
 	}
 
 	onSubmitMessage(event) {
-		//var socket = io();
 		event.preventDefault();
 		console.log(this.props)
 		console.log(this.state.connected);
 		
 		this.props.postMessage({text:this.state.text}, this.props.currentChannel.cID)
-		socket.emit('chat message', { message: this.state.text, user: '123' })// send the message to the server and/or socket
+		this.socket.brodcast.emit('chat message', { message: this.state.text, user: '123' })// send the message to the server and/or socket
 		this.setState({ text: '' });
 	}
 

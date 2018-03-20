@@ -7,13 +7,13 @@ class SingleMessage extends Component {
 	constructor(props) {
 		super(props);
 	}
-
-	componentDidMount() {
-    const lastChannel = JSON.parse(localStorage.getItem("currentChannel"))
-    this.props.setCurrentChannel(lastChannel, () => {
-      this.props.fetchCurrentChannelMessages(lastChannel.cID);
-    })
-	 }
+	//
+	// componentDidMount() {
+    // const lastChannel = JSON.parse(localStorage.getItem("currentChannel"))
+    // this.props.setCurrentChannel(lastChannel, () => {
+    //   this.props.fetchCurrentChannelMessages(lastChannel.cID);
+    // })
+	//  }
 
 	convertTime (timestamp) {
 		let date = new Date(timestamp);
