@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { MESSAGES, CHANNEL_LIST, CURRENT_USER, USERS } from "../DUMMY_DATA.js"
-import { FETCH_CHANNELS, FETCH_CURRENT_CHANNEL_MESSAGES, FETCH_CURRENT_USER, FETCH_USER_LIST, SET_CURRENT_CHANNEL, POST_MESSAGE, FETCH_DIRECT_MESSAGES, FETCH_MESSAGE_LIST } from './types';
+import { SOCKET_MESSAGE, FETCH_CHANNELS, FETCH_CURRENT_CHANNEL_MESSAGES, FETCH_CURRENT_USER, FETCH_USER_LIST, SET_CURRENT_CHANNEL, POST_MESSAGE, FETCH_DIRECT_MESSAGES, FETCH_MESSAGE_LIST } from './types';
 
 export const fetchChannels = () => async dispatch => {
   const res = await axios.get('/api/user/channels?type=channel');
@@ -63,4 +63,9 @@ export const createNewChannel = (newChannelData) => async dispatch => {
   const res = await axios.post(`/api/channels`, newChannelData)
   console.log(res.data)
   dispatch({ type: SET_CURRENT_CHANNEL, payload: res.data.cID})
+};
+
+export const socketMessage = (inboundMessage) => dispatch => {
+  console.log(inboundMessage);
+  dispatch({type: SOCKET_MESSAGE, payload: inboundMessage})
 }
