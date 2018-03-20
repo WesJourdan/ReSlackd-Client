@@ -2,7 +2,7 @@ body {
   font-family: "Noto Sans", sans-serif;
 }
 
-.add-channel-icon, .add-icon:active {
+.add-channel-icon, .add-channel-icon:active {
   color: #9da7ab;
   cursor: pointer;
 }
@@ -39,7 +39,6 @@ img {
 
 .channel-item:hover {
   background-color: #1e2e35;
-  background-repeat: repeat-x;
 }
 
 .modal-header,
