@@ -17,27 +17,30 @@ class Modal extends Component {
       purpose: '',
       member: '',
       membersList: [],
-      // formErrors: {name: '', members: ''},
-      // nameValid: false,
-      // membersValid: false,
-      // formValid: false
     }
 
     this.handleNameChange = this.handleNameChange.bind(this);
     this.handlePurposeChange = this.handlePurposeChange.bind(this);
     this.handleMemberChange = this.handleMemberChange.bind(this);
     this.handleOnClick = this.handleOnClick.bind(this);
-    this.handleAddUser = this.handleAddUser.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-
+    this.renderMembers = this.renderMembers.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
   }
+
 
   activateModal = () => {
     this.setState({ modalActive: true });
   };
 
   deactivateModal = () => {
-    this.setState({ modalActive: false });
+    this.setState({
+      modalActive: false,
+      name: '',
+      purpose: '',
+      member: '',
+      membersList: [],
+    })
   };
 
   getApplicationNode = () => {
@@ -57,15 +60,29 @@ class Modal extends Component {
   }
 
   handleMemberChange(event) {
-    this.setState({ member: event.target.value })
+    if (event.target.value === "") {
+      console.log("none")
+      return
+    }
+
+    this.setState({ member: event.target.value }, () => {
+      if (this.props.messageType === "channel") {
+        const newList = this.state.membersList.concat([this.state.member])
+        this.setState({ membersList: newList })
+      }
+      else {
+        const newList = [this.state.member]
+        this.setState({ membersList: newList })
+      }
+    })
   }
 
-  handleAddUser(event) {
-    event.preventDefault();
-    const newList = this.state.membersList.concat([this.state.member])
+  handleDelete(event) {
+    const newList = this.state.membersList.filter( (member) => {
+      return member !== event.target.value
+    })
     this.setState({ membersList: newList })
-  };
-
+  }
 
   //prevents calling onClose when clicking on the inner modal box.
   handleOnClick(event) {
@@ -76,7 +93,7 @@ class Modal extends Component {
     event.preventDefault();
     const userList = this.state.membersList.map( member => {
       let oneUser = this.props.users.find( user => {
-        return user.name == member
+        return user.name === member
       })
       return oneUser.uID
     })
@@ -86,9 +103,29 @@ class Modal extends Component {
       type: this.props.messageType,
       users: userList
     }
-    console.log(channelObject)
-    this.props.createNewChannel(channelObject)
-    //TODO add an action to post the new DM or channel to the database and then display the contents of the new DM/channel in the messages pane
+
+    if (channelObject.type === "channel") {
+      if (channelObject.name === "") {
+          alert("Channel must have a name");
+          return false;
+      }
+      else if (!channelObject.users.length) {
+        alert("Please add at least one member");
+        return false;
+      }
+    } else {
+      if (!channelObject.users.length) {
+        alert("Please select a user to message");
+        return false;
+      }
+    }
+
+    this.props.createNewChannel(channelObject).then((channel) => {
+      this.props.setCurrentChannel(channel, () => {
+        this.props.fetchCurrentChannelMessages(channel.cID)
+        this.deactivateModal()
+      })
+    })
   }
 
   renderType() {
@@ -105,7 +142,7 @@ class Modal extends Component {
       default:
         return (
           <div>
-            <h2>Create a direct message</h2>
+            <h2>Create a direct message with another user</h2>
           </div>
         )
     }
@@ -119,16 +156,16 @@ class Modal extends Component {
         return (
           <div>
             <div>
-              <label className="col-10 col-form-label">Name:
-                <div className="col-10">
-                  <input type="text" placeholder="# e.g. general" className="name" value={this.state.name} onChange={this.handleNameChange} />
+              <label className="">Name:
+                <div className="">
+                  <input type="text" placeholder="# e.g. general" className="" value={this.state.name} onChange={this.handleNameChange} />
                 </div>
               </label>
             </div>
             <div>
-              <label className="col-10 col-form-label">Purpose:
-                <div className="col-10">
-                  <input type="text" placeholder="What the channel is about" className="purpose" value={this.state.purpose} onChange={this.handlePurposeChange} />
+              <label className="">Purpose:
+                <div className="">
+                  <input type="text" placeholder="What the channel is about" className="" value={this.state.purpose} onChange={this.handlePurposeChange} />
                 </div>
               </label>
             </div>
@@ -138,6 +175,24 @@ class Modal extends Component {
         return;
     }
   }
+
+  renderMembers() {
+    if (this.props.messageType === "channel") {
+      return(
+      <div>Users to add:
+        {this.state.membersList.map( (member, index) => {
+          return (
+            <li key={index}>{member}<button type="button" value={member} onClick={this.handleDelete}>remove</button></li>
+          )
+        })
+        }
+      </div>
+    )
+    } else {
+    return
+    }
+  }
+
 
   render() {
 
@@ -161,10 +216,10 @@ class Modal extends Component {
             <form>
               <div>
                 {this.renderGroupFields()}
-                <label>Add members:</label>
+                <label>Add member:</label>
                 <div>
                   <select value={this.state.members} onChange={this.handleMemberChange}>
-                    <option value="none">None</option>
+                    <option value="">None</option>
                     {
                       this.props.users.map( (user) => {
                         return (
@@ -173,28 +228,20 @@ class Modal extends Component {
                       })
                     }
                   </select>
-                  <button onClick={this.handleAddUser} >+</button>
+                </div>
+              </div>
+            </form>
+            {this.renderMembers()}
+              <div className="footer">
+              <button className="" onClick={this.handleSubmit}>
+                Create
+              </button>
+              <button className="" onClick={this.deactivateModal}>
+                Cancel
+              </button>
             </div>
           </div>
-        </form>
-        <div>Users to add:
-          {this.state.membersList.map( (member, index) => {
-            return (
-              <li key={index}>{member}</li>
-            )
-          })
-          }
         </div>
-        <div className="footer">
-          <button className="" onClick={this.handleSubmit}>
-            Create
-          </button>
-          <button className="" onClick={this.deactivateModal}>
-            Cancel
-          </button>
-        </div>
-        </div>
-      </div>
     </AriaModal>
   : false;
 
