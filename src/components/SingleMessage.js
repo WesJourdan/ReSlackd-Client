@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from 'react-redux';
-import { fetchCurrentChannelMessages } from '../actions';
+import { fetchCurrentChannelMessages, setCurrentChannel } from '../actions';
 import { bindActionCreators } from "redux";
 
 class SingleMessage extends Component {
@@ -8,9 +8,12 @@ class SingleMessage extends Component {
 		super(props);
 	}
 
-	componentWillMount() {
-		this.props.fetchCurrentChannelMessages();
-	  }
+	componentDidMount() {
+    const lastChannel = JSON.parse(localStorage.getItem("currentChannel"))
+    this.props.setCurrentChannel(lastChannel, () => {
+      this.props.fetchCurrentChannelMessages(lastChannel.cID);
+    })
+	 }
 
 	convertTime (timestamp) {
 		let date = new Date(timestamp);
@@ -37,11 +40,11 @@ class SingleMessage extends Component {
 };
 
 function mapStateToProps( state ) {
-	return { messageList:state.messageList }
+	return { messageList:state.messageList, currentChannel:state.currentChannel }
 };
 
 function mapDispatchToProps(dispatch) {
-	return bindActionCreators({ fetchCurrentChannelMessages }, dispatch);
+	return bindActionCreators({ fetchCurrentChannelMessages, setCurrentChannel }, dispatch);
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SingleMessage);
