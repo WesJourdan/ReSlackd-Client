@@ -44,7 +44,7 @@ class MessageBar extends Component {
 		if (event.target.value !== '') {
 		// here is where we would broadcast to the socket that a user is typing a message
 		var socket = io();
-		io().broadcast.emit('broadcast', 'hello friends!');
+		socket.emit('broadcast', 'hello friends!');
 		}
 	}
 
