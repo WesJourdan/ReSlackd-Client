@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from "redux";
 import { postMessage, setCurrentChannel, fetchChannels } from '../actions';
 import io from 'socket.io-client';//for socket test
+import socket from 'socket.io';//for socket test
 
 
 class MessageBar extends Component {
@@ -12,10 +13,11 @@ class MessageBar extends Component {
 		super(props);
 		this.state = {
 			text: '',
-
+			messages: props.messages
 		};
 		this.onInputChange = this.onInputChange.bind(this)
-
+		this.onSubmitMessage = this.onSubmitMessage.bind(this)
+		this.handleMessageEvent = this.handleMessageEvent.bind(this)
 	}
 
 	componentWillMount() {
@@ -28,8 +30,9 @@ class MessageBar extends Component {
 		this.handleMessageEvent();
 	}
 	handleMessageEvent(){
+		var socket = io();
 		socket.on('chat message', (inboundMessage) => {
-			this.props.createMessage({room: this.props.room, newMessage: {user: JSON.parse(inboundMessage).user, message: JSON.parse(inboundMessage).message}}) 
+			this.props.newMessage({user: 'test_user', message: inboundMessage}) 
 			console.log('received message', inboundMessage)
 		})
 	}
@@ -40,13 +43,16 @@ class MessageBar extends Component {
 
 		if (event.target.value !== '') {
 		// here is where we would broadcast to the socket that a user is typing a message
+		var socket = io();
+		io().broadcast.emit('broadcast', 'hello friends!');
 		}
 	}
 
 	onSubmitMessage(event) {
+		var socket = io();
 		event.preventDefault();
 		console.log(this.props)
-		// send the message to the server and/or socket
+		socket.emit('chat message', { message: this.state.input })// send the message to the server and/or socket
 		this.props.postMessage({text:this.state.text}, this.props.currentChannel.cID)
 
 		this.setState({ text: '' });
@@ -56,7 +62,7 @@ class MessageBar extends Component {
 		return (
 
 			<div>
-				<form onSubmit={this.onSubmitMessage.bind(this)}>
+				<form onSubmit={this.onSubmitMessage}>
 
 					<input
 						type="text"
@@ -72,7 +78,7 @@ class MessageBar extends Component {
 }
 
 function mapStateToProps( state ) {
-	return { currentChannel: state.currentChannel, channels:state.channels }
+	return { currentChannel: state.currentChannel, channels: state.channels }
 };
 
 function mapDispatchToProps(dispatch) {

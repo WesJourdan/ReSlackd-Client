@@ -20,7 +20,8 @@
     "react-sidebar": "^2.3.2",
     "redux": "^3.7.2",
     "redux-thunk": "^2.2.0",
-    "socket.io": "^2.0.4"
+    "socket.io": "^2.0.4",
+    "socket.io-client": "^2.0.4"
   },
   "proxy": {
     "/auth/google/": {
