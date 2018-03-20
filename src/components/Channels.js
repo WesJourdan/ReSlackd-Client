@@ -23,14 +23,6 @@ class Channels extends Component {
     }
   }
 
-  componentDidUpdate(previousProps) {
-    if (previousProps.channels !== this.props.channels) {
-      this.props.fetchChannels();
-    }
-    if (previousProps.directMessages !== this.props.directMessages) {
-      this.props.fetchDirectMessages();
-    }
-  }
 
   handleClick(event) {
     //  the syntax here is weird. I can't get access to the 'key' property of the div

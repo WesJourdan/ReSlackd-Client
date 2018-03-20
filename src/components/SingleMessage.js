@@ -31,7 +31,7 @@ class SingleMessage extends Component {
 			let newMessage = (
 				<div key={index}>
 					<img src={message.imageURL} alt={message.username} className="icon"></img>
-					{message.username}
+					{message.name}
 					{message.text}
 					{this.convertTime(message.timestamp)}
 				</div>
