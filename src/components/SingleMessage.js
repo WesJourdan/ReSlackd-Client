@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from 'react-redux';
-import { fetchMessageList } from '../actions';
+import { fetchCurrentChannelMessages } from '../actions';
 import { bindActionCreators } from "redux";
 
 class SingleMessage extends Component {
@@ -9,7 +9,7 @@ class SingleMessage extends Component {
 	}
 
 	componentWillMount() {
-		this.props.fetchMessageList();
+		this.props.fetchCurrentChannelMessages();
 	  }
 
 	convertTime (timestamp) {
@@ -41,7 +41,7 @@ function mapStateToProps( state ) {
 };
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ fetchMessageList }, dispatch);
+	return bindActionCreators({ fetchCurrentChannelMessages }, dispatch);
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SingleMessage);
