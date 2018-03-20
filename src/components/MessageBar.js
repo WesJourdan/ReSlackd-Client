@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from "redux";
 import { postMessage, setCurrentChannel, fetchChannels } from '../actions';
 import io from 'socket.io-client';//for socket test
-import socket from 'socket.io';//for socket test
+//import socket from 'socket.io';//for socket test
 
 
 class MessageBar extends Component {
@@ -13,7 +13,8 @@ class MessageBar extends Component {
 		super(props);
 		this.state = {
 			text: '',
-			messages: props.messages
+			messages: props.messages,
+			connected: false
 		};
 		this.onInputChange = this.onInputChange.bind(this)
 		this.onSubmitMessage = this.onSubmitMessage.bind(this)
@@ -21,7 +22,12 @@ class MessageBar extends Component {
 	}
 
 	componentWillMount() {
-		this.props.fetchChannels()
+		if(!(this.state.connected)){
+			this.props.fetchChannels()
+			socket.emit('subscribe', {channel: this.props.channels})//not sure what our data looks like here
+        		this.setState({connected: true})
+		}
+		
 		// this.props.setCurrentChannel(this.props.channels[0],() => {})
 	}
 	//socket testing data
@@ -30,8 +36,8 @@ class MessageBar extends Component {
 		this.handleMessageEvent();
 	}
 	handleMessageEvent(){
-		var socket = io();
-		socket.on('chat message', (inboundMessage) => {
+		//var socket = io();
+		io().on('chat message', (inboundMessage) => {
 			this.props.newMessage({user: 'test_user', message: inboundMessage}) 
 			console.log('received message', inboundMessage)
 		})
