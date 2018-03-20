@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import ChannelSettings from './ChannelSettings';
 import { fetchChannels, setCurrentChannel, fetchDirectMessages, fetchCurrentChannelMessages } from '../actions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from "redux"
@@ -41,15 +40,15 @@ class Channels extends Component {
     const channelType = this.props.messageType === "channel" ? "Channels" : "Direct Messages"
     const channelArray = this.props.messageType === "channel" ? this.props.channels : this.props.directMessages
     return (
-      <div>
-        <h5>
+      <div className="mb-3 channels">
+        <p>
           {channelType}
-          <span className="btn-link float-right" role="button"><Modal messageType={this.props.messageType}/></span>
-        </h5>
-        <div>
+          <span className="btn-link float-right ml-2" role="button"><Modal messageType={this.props.messageType}/></span>
+        </p>
+        <div className='pl-2'>
           {channelArray.map(channel => {
             return (
-              <div channel-id={channel.cID} key = {channel.cID} onClick={this.handleClick}>
+              <div className="channel-item" channel-id={channel.cID} key ={channel.cID} onClick={this.handleClick}>
                 {channel.name}
               </div>
             )
