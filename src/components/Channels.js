@@ -15,11 +15,20 @@ class Channels extends Component {
       passing in the channel ID.
   */
 
-  componentWillMount() {
+  componentDidMount() {
     if (this.props.messageType === "channel") {
       this.props.fetchChannels()
     } else {
       this.props.fetchDirectMessages()
+    }
+  }
+
+  componentDidUpdate(previousProps) {
+    if (previousProps.channels !== this.props.channels) {
+      this.props.fetchChannels();
+    }
+    if (previousProps.directMessages !== this.props.directMessages) {
+      this.props.fetchDirectMessages();
     }
   }
 
@@ -43,7 +52,7 @@ class Channels extends Component {
       <div className="mb-3 channels">
         <p>
           {channelType}
-          <span className="btn-link float-right ml-2" role="button"><Modal messageType={this.props.messageType}/></span>
+          <span className="add-channel-icon float-right ml-2" role="button"><Modal messageType={this.props.messageType}/></span>
         </p>
         <div className='pl-2'>
           {channelArray.map(channel => {

@@ -1,3 +1,4 @@
+export const ADD_USER_TO_CHANNEL = 'add_user_to_channel';
 export const FETCH_CHANNELS = 'fetch_channels';
 export const FETCH_CURRENT_CHANNEL_MESSAGES = 'fetch_current_channel_messages';
 export const FETCH_CURRENT_USER = 'fetch_current_user';

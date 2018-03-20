@@ -9,10 +9,12 @@ class SingleMessage extends Component {
 	}
 
 	componentDidMount() {
-    const lastChannel = JSON.parse(localStorage.getItem("currentChannel"))
-    this.props.setCurrentChannel(lastChannel, () => {
-      this.props.fetchCurrentChannelMessages(lastChannel.cID);
-    })
+		if (localStorage.getItem('currentChannel')) {
+			const lastChannel = JSON.parse(localStorage.getItem("currentChannel"))
+			this.props.setCurrentChannel(lastChannel, () => {
+				this.props.fetchCurrentChannelMessages(lastChannel.cID);
+			})
+		}
 	 }
 
 	convertTime (timestamp) {
