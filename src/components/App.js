@@ -51,7 +51,7 @@ class App extends Component {
         <Header />
         <Sidebar
           sidebar={
-            <div className='mr-4'>
+            <div className='mx-3 mt-2'>
               <Channels messageType='channel' />
               <Channels messageType='dm' />
             </div>
@@ -63,6 +63,9 @@ class App extends Component {
           styles={{
             root: {
               top: '4rem'
+            },
+            sidebar: {
+              backgroundColor: '#283e48'
             }
           }}
         >

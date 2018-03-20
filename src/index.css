@@ -1,3 +1,86 @@
 body {
-  font-family: "Rubik", sans-serif;
+  font-family: "Noto Sans", sans-serif;
+}
+
+.add-channel-icon, .add-icon:active {
+  color: #9da7ab;
+  cursor: pointer;
+}
+
+.add-channel-icon:hover {
+  color: #c4cacd;
+}
+
+
+.icon {
+  width: 30px;
+  height: 30px;
+}
+
+img {
+    object-fit: cover;
+}
+
+.channels {
+  color: #9da7ab;
+}
+
+.modal {
+  background: #fff;
+  outline: 0;
+  min-width: 250px;
+  max-width: 500px;
+  border-radius: 4px;
+}
+
+.channel-item {
+  cursor: pointer;
+}
+
+.channel-item:hover {
+  background-color: #1e2e35;
+  background-repeat: repeat-x;
+}
+
+.modal-header,
+.modal-body,
+.modal-footer {
+  padding: 0.5em 1.5em;
+}
+
+.modal-header {
+  border-bottom: 1px solid #eee;
+}
+
+.modal-title {
+  margin: 0;
+}
+
+.modal-footer {
+  border-top: 1px solid #eee;
+  text-align: right;
+}
+
+.modal--animated {
+  opacity: 0.3;
+  transform: scale(1.1) translateY(-10px);
+  -webkit-transform: scale(1.1) translateY(-10px);
+  transition: all 0.3s linear;
+  -webkit-transition: all 0.3s linear;
+}
+
+.modal--animated.has-entered {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+  -webkit-transform: scale(1) translateY(0);
+}
+
+.underlay {
+  background-color: rgba(0, 0, 0, 0);
+  transition: all 0.3s linear;
+  -webkit-transition: all 0.3s linear;
+}
+
+.underlay.has-entered {
+  background-color: rgba(0, 0, 0, 0.5);
 }
