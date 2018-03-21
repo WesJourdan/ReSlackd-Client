@@ -7,36 +7,16 @@ const socket = io('http://localhost:8080');
 
 class SingleMessage extends Component {
 	constructor(props) {
-		super(props);
+		super(props);	
+	}
 
-		this.state = {
-			message: ''
-		}
-		
-	}
-	updateMessageFromSockets(inboundMessage) {
-		this.setState({message: inboundMessage})
-	}
-	//TODO: Should we put this here?
-	// componentDidMount() {
-    // const lastChannel = JSON.parse(localStorage.getItem("currentChannel"))
-    // this.props.setCurrentChannel(lastChannel, () => {
-    //   this.props.fetchCurrentChannelMessages(lastChannel.cID);
-    // })
-	//  }
-	//TODO: remove this if the socket above works. trial placement between these two
-	// componentDidMount(){
-	// 	console.log(this.props);
-	// 	console.log('received message', inboundMessage)
-	// }
 	componentDidMount() {
-		
-
 		socket.on('receive message', (inboundMessage) => {
 			this.props.socketMessage(inboundMessage)
 			console.log('inbound received');	
 		})
 	}
+	
 	componentWillReceiveProps(nextProps) {
 		if(nextProps.currentChannel.cID !== this.props.currentChannel.cID){
 			console.log('joining room...')
@@ -46,14 +26,14 @@ class SingleMessage extends Component {
 	}
 	
 	componentWillMount() {
+
 		if (localStorage.getItem('currentChannel')) {
 			const lastChannel = JSON.parse(localStorage.getItem("currentChannel"))
 			this.props.setCurrentChannel(lastChannel, () => {
 				this.props.fetchCurrentChannelMessages(lastChannel.cID);
 			})
 		}
-	 }
-
+	}
 
 	convertTime (timestamp) {
 		let date = new Date(timestamp);

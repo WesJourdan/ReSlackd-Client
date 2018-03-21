@@ -11,50 +11,22 @@ class MessageBar extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			text: '',
-			messages: props.messages,
-			connected: false
+			text: ''
 		};
 
 		this.onInputChange = this.onInputChange.bind(this)
 		this.onSubmitMessage = this.onSubmitMessage.bind(this)
-		//this.socket = io();
 	}
-	//TODO: figure out if we want to keep the code below or move to another page
-	// componentWillMount() {
-		
-	// 	if(!(this.state.connected)){
-	// 		this.props.fetchChannels()
-	// 		socket.emit('subscribe', {channel: this.props.channels})//not sure what our data looks like here
-    //     		this.setState({connected: true})
-	// 	}
-	// }
-	//socket testing data
 	
-
-	//TODO: code to implement if we meet our mvp and can do extensions
-	// currentlyTyping() {
-	// 	this.setState({currentlyTyping: this.props.currentUser})
-	// }
 	onInputChange(event) {
 		this.setState({ text: event.target.value });
 
 		if (event.target.value !== '') {
-		// here is where we would broadcast to the socket that a user is typing a message
-		//socket.emit('broadcast', 'hello friends!');
+			// this is where we would emit a "user is typing" event.
 		}
 	}
 
-	// componentDidMount() {
-	// 	socket.on('receive message', (inboundMessage) => {
-	// 		this.props.socketMessage(inboundMessage)
-	// 		console.log('inbound received');	
-	// 	})
-	// }
-	
-
 	onSubmitMessage(event) {
-		// const socket = io(this.state.endpoint)
 		event.preventDefault();
 		const currentTime = new Date();
         const post = {
@@ -93,7 +65,7 @@ class MessageBar extends Component {
 }
 
 function mapStateToProps( state ) {
-	return { currentChannel: state.currentChannel, channels: state.channels }
+	return { currentChannel: state.currentChannel, channels: state.channels, user: state.auth }
 };
 
 function mapDispatchToProps(dispatch) {
