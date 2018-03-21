@@ -2,6 +2,10 @@ body {
   font-family: "Noto Sans", sans-serif;
 }
 
+a:hover {
+  text-decoration: none;
+}
+
 .add-channel-icon, .add-channel-icon:active {
   color: #9da7ab;
   cursor: pointer;
@@ -11,6 +15,26 @@ body {
   color: #c4cacd;
 }
 
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.Header-bar {
+  background-color: #77ba99;
+}
+
+.Header-bar-brand {
+  color: #283e48;
+  font-size: 1.5rem;
+}
+
+.Header-login, .Header-login:active, .Header-login:visited {
+  color: #283e48;
+}
+
+.Header-login:hover {
+  text-decoration: underline;
+}
 
 .icon {
   width: 30px;
