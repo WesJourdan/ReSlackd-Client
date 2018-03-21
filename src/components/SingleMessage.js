@@ -8,7 +8,7 @@ class SingleMessage extends Component {
 		super(props);
 	}
 
-	componentDidMount() {
+	componentWillMount() {
 		if (localStorage.getItem('currentChannel')) {
 			const lastChannel = JSON.parse(localStorage.getItem("currentChannel"))
 			this.props.setCurrentChannel(lastChannel, () => {

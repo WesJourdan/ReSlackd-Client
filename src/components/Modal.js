@@ -123,10 +123,10 @@ class Modal extends Component {
       }
     }
 
-    this.props.createNewChannel(channelObject).then((channel)=> {
-      fetchCurrentChannelMessages(channel.cID)
+    this.props.createNewChannel(channelObject).then((cID)=> {
       this.props.fetchChannels()
       this.props.fetchDirectMessages()
+      this.props.fetchCurrentChannelMessages(cID)
     })
     this.deactivateModal()
   }

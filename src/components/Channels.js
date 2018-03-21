@@ -26,8 +26,8 @@ class Channels extends Component {
     const currentChannel = channelArray.find( (channel) => {
       return channel.cID == channelId
     })
-    this.props.setCurrentChannel(currentChannel, () => {
-      this.props.fetchCurrentChannelMessages(currentChannel.cID)
+    this.props.setCurrentChannel(currentChannel, (cID) => {
+      this.props.fetchCurrentChannelMessages(cID)
     })
   }
 
@@ -53,7 +53,6 @@ class Channels extends Component {
       </div>
     );
   }
-
 }
 
 function mapStateToProps(state) {
