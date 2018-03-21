@@ -27,6 +27,7 @@ class App extends Component {
     }
   }
 
+
   onSetSidebarOpen = (open) => {
     this.setState({sidebarOpen: open});
   }
