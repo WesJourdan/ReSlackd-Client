@@ -56,11 +56,12 @@ export const postMessage = (messageText, channelId) => async dispatch => {
 };
 
 export const setCurrentChannel = (channel, callback) => dispatch => {
-  localStorage.setItem("currentChannel",JSON.stringify(channel))
   dispatch({  type: SET_CURRENT_CHANNEL, payload: channel }, callback())
+  return channel
 };
 
 export const createNewChannel = (newChannelData) => async dispatch => {
   const res = await axios.post(`/api/channels`, newChannelData)
-  dispatch({ type: SET_CURRENT_CHANNEL, payload: res.data.cID})
+  dispatch({ type: SET_CURRENT_CHANNEL, payload: res.data})
+  return res.data
 }
