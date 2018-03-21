@@ -13,12 +13,8 @@ class Channels extends Component {
 
     this.handleClick = this.handleClick.bind(this);
   }
-  /*  this class needs to map the channels array in our store and add the channel ID as a key
-      on each result. Then we can add a click handler that dispatches the setCurrentChannel action
-      passing in the channel ID.
-  */
 
-  componentWillMount() {
+  componentDidMount() {
     if (this.props.messageType === "channel") {
       this.props.fetchChannels()
     } else {
@@ -31,13 +27,12 @@ class Channels extends Component {
     if(!this.props.currentChannel == ''){//need to figure out how to call the current room
       socket.emit('leave room', {room: this.props})//TODO: adjust the info for room to be accurate
     }
-    let channelId = event.target.getAttribute('channel-id')
+    const channelId = event.target.getAttribute('channel-id')
     const channelArray = this.props.messageType === "channel" ? this.props.channels : this.props.directMessages
-    let currentChannel = channelArray.find( (channel) => {
+    const currentChannel = channelArray.find( (channel) => {
       return channel.cID == channelId
     })
-    console.log(currentChannel)
-    this.props.setCurrentChannel(currentChannel, () => {
+    this.props.setCurrentChannel(currentChannel, (cID) => {
       this.props.fetchCurrentChannelMessages(currentChannel.cID)
     })
     socket.emit('room', {room: currentChannel.cID})
@@ -50,7 +45,7 @@ class Channels extends Component {
       <div className="mb-3 channels">
         <p>
           {channelType}
-          <span className="btn-link float-right ml-2" role="button"><Modal messageType={this.props.messageType}/></span>
+          <span className="add-channel-icon float-right ml-2" role="button"><Modal messageType={this.props.messageType}/></span>
         </p>
         <div className='pl-2'>
           {channelArray.map(channel => {
@@ -65,7 +60,6 @@ class Channels extends Component {
       </div>
     );
   }
-
 }
 
 function mapStateToProps(state) {

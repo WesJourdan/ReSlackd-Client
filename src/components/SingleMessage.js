@@ -14,13 +14,9 @@ class SingleMessage extends Component {
 		}
 		socket.on('receive message', (inboundMessage) => {
 			this.props.socketMessage(inboundMessage)
-			console.log('inbound received');
-			
+			console.log('inbound received');	
 		})
-		//this.socket = io();
 	}
-
-
 	updateMessageFromSockets(inboundMessage) {
 		this.setState({message: inboundMessage})
 	}
@@ -36,6 +32,15 @@ class SingleMessage extends Component {
 	// 	console.log(this.props);
 	// 	console.log('received message', inboundMessage)
 	// }
+	componentWillMount() {
+		if (localStorage.getItem('currentChannel')) {
+			const lastChannel = JSON.parse(localStorage.getItem("currentChannel"))
+			this.props.setCurrentChannel(lastChannel, () => {
+				this.props.fetchCurrentChannelMessages(lastChannel.cID);
+			})
+		}
+	 }
+
 
 	convertTime (timestamp) {
 		let date = new Date(timestamp);

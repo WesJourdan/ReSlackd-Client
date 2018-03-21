@@ -4,7 +4,7 @@ import { SOCKET_MESSAGE, FETCH_CHANNELS, FETCH_CURRENT_CHANNEL_MESSAGES, FETCH_C
 
 export const fetchChannels = () => async dispatch => {
   const res = await axios.get('/api/user/channels?type=channel');
-  
+
   dispatch({ type: FETCH_CHANNELS, payload: res.data });
 };
 
@@ -57,15 +57,18 @@ export const postMessage = (messageText, channelId) => async dispatch => {
 
 export const setCurrentChannel = (channel, callback) => dispatch => {
   dispatch({  type: SET_CURRENT_CHANNEL, payload: channel }, callback())
+  return channel.cID
 };
 
 export const createNewChannel = (newChannelData) => async dispatch => {
   const res = await axios.post(`/api/channels`, newChannelData)
   console.log(res.data)
-  dispatch({ type: SET_CURRENT_CHANNEL, payload: res.data.cID})
-};
+  dispatch({ type: SET_CURRENT_CHANNEL, payload: res.data})
+  return res.data.cID
+}
 
 export const socketMessage = (inboundMessage) => dispatch => {
   console.log(inboundMessage);
   dispatch({type: SOCKET_MESSAGE, payload: inboundMessage})
+
 }
