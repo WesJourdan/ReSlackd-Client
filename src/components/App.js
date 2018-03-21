@@ -31,6 +31,10 @@ class App extends Component {
     this.setState({sidebarOpen: open});
   }
 
+  toggleSidebar = () => {
+    this.setState({sidebarDocked: !this.state.sidebarDocked})
+  }
+
   mediaQueryChanged = () => {
     this.setState({sidebarDocked: this.state.mediaQueryLimit.matches})
   }
@@ -48,12 +52,12 @@ class App extends Component {
 
     return (
       <div>
-        <Header />
+        <Header toggleSidebar={this.toggleSidebar} />
         <Sidebar
           sidebar={
             <div className='mx-3 mt-2'>
               <Channels messageType='channel' />
-              <Channels messageType='dm' />
+              <Channels messageType='DM' />
             </div>
           }
           open={this.state.sidebarOpen}
@@ -62,14 +66,13 @@ class App extends Component {
           shadow={false}
           styles={{
             root: {
-              top: '4rem'
+              top: '3.5rem'
             },
             sidebar: {
               backgroundColor: '#283e48'
             }
           }}
         >
-
           <MessageBoard />
         </Sidebar>
       </div>
