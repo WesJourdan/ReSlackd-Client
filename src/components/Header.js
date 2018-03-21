@@ -1,11 +1,19 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
+import { bindActionCreators } from "redux";
+import { fetchCurrentUser } from '../actions';
 
 class Header extends Component {
 
   constructor(props) {
     super(props)
+  }
+
+  componentWillMount() {
+    if (!this.props.auth) {
+      this.props.fetchCurrentUser()
+    }
   }
 
   renderContent() {
@@ -15,9 +23,9 @@ class Header extends Component {
       case false:
         return <a className='Header-login' href='/auth/google'>Login</a>;
       default:
-      return [
+        return (
         <a className='Header-login' href='/api/logout'>Logout</a>
-      ];
+      )
     }
   }
 
@@ -33,9 +41,13 @@ class Header extends Component {
     );
   }
 }
-    
+
 function mapStateToProps({ auth }) {
     return { auth };
 }
-    
-export default connect(mapStateToProps)(Header);
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ fetchCurrentUser  }, dispatch)
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);
