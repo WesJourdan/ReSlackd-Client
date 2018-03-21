@@ -27,7 +27,7 @@ class Channels extends Component {
       return channel.cID == channelId
     })
     this.props.setCurrentChannel(currentChannel, (cID) => {
-      this.props.fetchCurrentChannelMessages(cID)
+      this.props.fetchCurrentChannelMessages(currentChannel.cID)
     })
   }
 
