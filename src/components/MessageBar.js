@@ -3,6 +3,7 @@ import * as actions from '../actions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from "redux";
 import { postMessage, setCurrentChannel, fetchChannels } from '../actions';
+import TextareaAutosize from 'react-autosize-textarea';
 
 class MessageBar extends Component {
 
@@ -29,29 +30,31 @@ class MessageBar extends Component {
 		}
 	}
 
-	onSubmitMessage(event) {
-		event.preventDefault();
-		console.log(this.props)
-		// send the message to the server and/or socket
-		this.props.postMessage({text:this.state.text}, this.props.currentChannel.cID)
-
-		this.setState({ text: '' });
+	handleKeyPress(event) {
+		if (event.key === 'Enter') {
+			event.preventDefault();
+			this.props.postMessage({text:this.state.text}, this.props.currentChannel.cID)
+			this.setState({ text: '' });
+		}
 	}
+	
+		
+	
 
 	render() {
 		return (
-
-			<div>
-				<form onSubmit={this.onSubmitMessage.bind(this)}>
-
-					<input
+			<div className="container force-to-bottom">
+				<div className="form-group mx-2" onKeyPress={this.handleKeyPress.bind(this)}>
+					<TextareaAutosize
+						class="form-control"
+						maxRows={6}
 						type="text"
 						value={this.state.text}
 						placeholder="send a message"
 						onChange={this.onInputChange}
-					/>
-
-				</form>
+					>
+					</TextareaAutosize>
+				</div>
 			</div>
 		)
 	}

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { setCurrentChannel } from '../actions';
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import SingleMessage from './SingleMessage';
+import MapMessages from './MapMessages';
 import MessageBar from './MessageBar';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 
@@ -37,7 +37,7 @@ class MessageBoard extends Component {
 						</li>
 					</ul>
 				</nav>
-				<SingleMessage />
+				<MapMessages />
 				<MessageBar />
 			</div>
 		);

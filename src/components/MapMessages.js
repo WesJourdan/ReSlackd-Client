@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { fetchCurrentChannelMessages, setCurrentChannel } from '../actions';
 import { bindActionCreators } from "redux";
 
-class SingleMessage extends Component {
+class MapMessages extends Component {
 	constructor(props) {
 		super(props);
 	}
@@ -27,7 +27,7 @@ class SingleMessage extends Component {
 	};
 
 	render() {
-		return this.props.messageList.map((message, index) => {
+		return this.props.messageList.slice(0).reverse().map((message, index) => {
 			let newMessage = (
 				<div key={index}>
 					<img src={message.imageURL} alt={message.username} className="icon"></img>
@@ -49,4 +49,4 @@ function mapDispatchToProps(dispatch) {
 	return bindActionCreators({ fetchCurrentChannelMessages, setCurrentChannel }, dispatch);
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(SingleMessage);
+export default connect(mapStateToProps, mapDispatchToProps)(MapMessages);
