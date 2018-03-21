@@ -3,8 +3,7 @@ import { connect } from 'react-redux';
 import { fetchCurrentUser } from '../actions';
 import { bindActionCreators } from "redux";
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
-import { bindActionCreators } from "redux";
-import { fetchCurrentUser } from '../actions';
+
 
 class Header extends Component {
 
