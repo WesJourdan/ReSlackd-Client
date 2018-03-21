@@ -3,12 +3,26 @@ import { connect } from 'react-redux';
 import { fetchCurrentChannelMessages, setCurrentChannel, socketMessage } from '../actions';
 import { bindActionCreators } from "redux";
 import io from 'socket.io-client';//for socket test
+const socket = io();
 
 class SingleMessage extends Component {
 	constructor(props) {
 		super(props);
 
-		this.socket = io();
+		this.state = {
+			message: ''
+		}
+		socket.on('receive message', (inboundMessage) => {
+			this.props.socketMessage(inboundMessage)
+			console.log('inbound received');
+			
+		})
+		//this.socket = io();
+	}
+
+
+	updateMessageFromSockets(inboundMessage) {
+		this.setState({message: inboundMessage})
 	}
 	//TODO: Should we put this here?
 	// componentDidMount() {
@@ -17,13 +31,11 @@ class SingleMessage extends Component {
     //   this.props.fetchCurrentChannelMessages(lastChannel.cID);
     // })
 	//  }
-	componentDidMount(){
-		console.log(this.props);
-		this.socket.on('chat message', (inboundMessage) => {
-			this.props.socketMessage(inboundMessage) 
-			console.log('received message', inboundMessage)
-		})
-	}
+	//TODO: remove this if the socket above works. trial placement between these two
+	// componentDidMount(){
+	// 	console.log(this.props);
+	// 	console.log('received message', inboundMessage)
+	// }
 
 	convertTime (timestamp) {
 		let date = new Date(timestamp);

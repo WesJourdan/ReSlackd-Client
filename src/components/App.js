@@ -10,6 +10,9 @@ import fontawesome, { library } from '@fortawesome/fontawesome'
 import FontAwesomeIcon from '@fortawesome/react-fontawesome'
 import regular from '@fortawesome/fontawesome-free-regular'
 import solid from '@fortawesome/fontawesome-free-solid'
+import openSocket from 'socket.io-client';
+
+//const socket = openSocket('http://localhost:8080');
 
 fontawesome.library.add(regular, solid)
 
