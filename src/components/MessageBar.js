@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from "redux";
 import { postMessage, setCurrentChannel, fetchChannels } from '../actions';
 import io from 'socket.io-client';//for socket test
-const socket = io();
+const socket = io('http://localhost:8080');
 
 class MessageBar extends Component {
 
@@ -45,7 +45,16 @@ class MessageBar extends Component {
 		}
 	}
 
+	// componentDidMount() {
+	// 	socket.on('receive message', (inboundMessage) => {
+	// 		this.props.socketMessage(inboundMessage)
+	// 		console.log('inbound received');	
+	// 	})
+	// }
+	
+
 	onSubmitMessage(event) {
+		// const socket = io(this.state.endpoint)
 		event.preventDefault();
 		const currentTime = new Date();
         const post = {

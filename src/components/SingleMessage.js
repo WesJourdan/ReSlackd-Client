@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import { connect } from 'react-redux';
 import { fetchCurrentChannelMessages, setCurrentChannel, socketMessage } from '../actions';
 import { bindActionCreators } from "redux";
-import io from 'socket.io-client';//for socket test
-const socket = io();
+import io from 'socket.io-client';
+const socket = io('http://localhost:8080');
 
 class SingleMessage extends Component {
 	constructor(props) {
@@ -12,10 +12,7 @@ class SingleMessage extends Component {
 		this.state = {
 			message: ''
 		}
-		socket.on('receive message', (inboundMessage) => {
-			this.props.socketMessage(inboundMessage)
-			console.log('inbound received');	
-		})
+		
 	}
 	updateMessageFromSockets(inboundMessage) {
 		this.setState({message: inboundMessage})
@@ -32,6 +29,22 @@ class SingleMessage extends Component {
 	// 	console.log(this.props);
 	// 	console.log('received message', inboundMessage)
 	// }
+	componentDidMount() {
+		
+
+		socket.on('receive message', (inboundMessage) => {
+			this.props.socketMessage(inboundMessage)
+			console.log('inbound received');	
+		})
+	}
+	componentWillReceiveProps(nextProps) {
+		if(nextProps.currentChannel.cID !== this.props.currentChannel.cID){
+			console.log('joining room...')
+			socket.emit('leave room', {room: this.props.currentChannel.cID});
+			socket.emit('room', {room: nextProps.currentChannel.cID});
+		}	
+	}
+	
 	componentWillMount() {
 		if (localStorage.getItem('currentChannel')) {
 			const lastChannel = JSON.parse(localStorage.getItem("currentChannel"))
