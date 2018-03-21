@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { fetchCurrentUser } from '../actions';
+import { bindActionCreators } from "redux";
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 
 class Header extends Component {
@@ -8,6 +10,9 @@ class Header extends Component {
     super(props)
   }
 
+  componentDidMount () {
+    this.props.fetchCurrentUser()
+  }
   renderContent() {
     switch (this.props.auth) {
       case null:
@@ -37,5 +42,9 @@ class Header extends Component {
 function mapStateToProps({ auth }) {
     return { auth };
 }
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ fetchCurrentUser }, dispatch);
+}
     
-export default connect(mapStateToProps)(Header);
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

@@ -3,8 +3,7 @@ import { fetchChannels, setCurrentChannel, fetchDirectMessages, fetchCurrentChan
 import { connect } from 'react-redux';
 import { bindActionCreators } from "redux";
 import Modal from './Modal';
-import io from 'socket.io-client';//for socket test
-const socket = io();
+
 
 
 class Channels extends Component {
@@ -23,10 +22,6 @@ class Channels extends Component {
   }
  
   handleClick(event) {
-    //  the syntax here is weird. I can't get access to the 'key' property of the div
-    // if(!this.props.currentChannel == ''){//need to figure out how to call the current room
-    //   socket.emit('leave room', {room: this.props})//TODO: adjust the info for room to be accurate
-    // }
     const channelId = event.target.getAttribute('channel-id')
     const channelArray = this.props.messageType === "channel" ? this.props.channels : this.props.directMessages
     const currentChannel = channelArray.find( (channel) => {

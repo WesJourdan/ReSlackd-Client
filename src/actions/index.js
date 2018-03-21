@@ -35,7 +35,7 @@ export const fetchCurrentChannelMessages = (channelId) => async dispatch => {
 
 export const fetchCurrentUser = () => async dispatch => {
   const res = await axios.get('/api/current-user');
-
+  console.log('current user ', res.data)
   dispatch({ type: FETCH_CURRENT_USER, payload: res.data });
 };
 

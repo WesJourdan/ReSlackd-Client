@@ -29,16 +29,16 @@ class MessageBar extends Component {
 	onSubmitMessage(event) {
 		event.preventDefault();
 		const currentTime = new Date();
-        const post = {
-            cID: this.props.currentChannel.cID,
-            uID: '123',//TODO:find id of current user from the store
-            text: this.state.text,
+		const post = {
+			cID: this.props.currentChannel.cID,
+			uID: this.props.auth[0].uID,//TODO:find id of current user from the store
+			text: this.state.text,
 			timestamp: currentTime.getTime(),
-			name: 'name', //TODO: find name of current user
-			img: 'url', //TODO: get url for profile pic
-            enabled: true
-		  }
-		console.log(post);
+			name: this.props.auth[0].name, //TODO: find name of current user
+			imageURL: this.props.auth[0].imageURL, //TODO: get url for profile pic
+			enabled: true
+		}
+		console.log('auth ', this.props.auth);
 		  
 		this.props.postMessage({text:this.state.text}, this.props.currentChannel.cID)
 		socket.emit('chat message', post )// TODO: add 
@@ -65,7 +65,7 @@ class MessageBar extends Component {
 }
 
 function mapStateToProps( state ) {
-	return { currentChannel: state.currentChannel, channels: state.channels, user: state.auth }
+	return { currentChannel: state.currentChannel, channels: state.channels, auth: state.auth }
 };
 
 function mapDispatchToProps(dispatch) {
