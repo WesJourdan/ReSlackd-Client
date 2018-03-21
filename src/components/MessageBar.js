@@ -3,6 +3,8 @@ import * as actions from '../actions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from "redux";
 import { postMessage, setCurrentChannel, fetchChannels } from '../actions';
+import io from 'socket.io-client';//for socket test
+const socket = io('http://localhost:8080');
 
 class MessageBar extends Component {
 
@@ -11,30 +13,35 @@ class MessageBar extends Component {
 		this.state = {
 			text: ''
 		};
+
 		this.onInputChange = this.onInputChange.bind(this)
-
+		this.onSubmitMessage = this.onSubmitMessage.bind(this)
 	}
-
-  componentWillMount() {
-    this.props.fetchChannels()
-    // this.props.setCurrentChannel(this.props.channels[0],() => {})
-  }
-
-
+	
 	onInputChange(event) {
 		this.setState({ text: event.target.value });
 
 		if (event.target.value !== '') {
-		// here is where we would broadcast to the socket that a user is typing a message
+			// this is where we would emit a "user is typing" event.
 		}
 	}
 
 	onSubmitMessage(event) {
 		event.preventDefault();
-		console.log(this.props)
-		// send the message to the server and/or socket
+		const currentTime = new Date();
+		const post = {
+			cID: this.props.currentChannel.cID,
+			uID: this.props.auth[0].uID,//TODO:find id of current user from the store
+			text: this.state.text,
+			timestamp: currentTime.getTime(),
+			name: this.props.auth[0].name, //TODO: find name of current user
+			imageURL: this.props.auth[0].imageURL, //TODO: get url for profile pic
+			enabled: true
+		}
+		console.log('auth ', this.props.auth);
+		  
 		this.props.postMessage({text:this.state.text}, this.props.currentChannel.cID)
-
+		socket.emit('chat message', post )// TODO: add 
 		this.setState({ text: '' });
 	}
 
@@ -42,7 +49,7 @@ class MessageBar extends Component {
 		return (
 
 			<div>
-				<form onSubmit={this.onSubmitMessage.bind(this)}>
+				<form onSubmit={this.onSubmitMessage}>
 
 					<input
 						type="text"
@@ -58,7 +65,7 @@ class MessageBar extends Component {
 }
 
 function mapStateToProps( state ) {
-	return { currentChannel: state.currentChannel, channels:state.channels }
+	return { currentChannel: state.currentChannel, channels: state.channels, auth: state.auth }
 };
 
 function mapDispatchToProps(dispatch) {

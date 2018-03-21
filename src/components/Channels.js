@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { fetchChannels, setCurrentChannel, fetchDirectMessages, fetchCurrentChannelMessages } from '../actions';
 import { connect } from 'react-redux';
-import { bindActionCreators } from "redux"
-import Modal from './Modal'
+import { bindActionCreators } from "redux";
+import Modal from './Modal';
+
+
 
 class Channels extends Component {
   constructor(props) {
@@ -18,9 +20,8 @@ class Channels extends Component {
       this.props.fetchDirectMessages()
     }
   }
-
+ 
   handleClick(event) {
-    //  the syntax here is weird. I can't get access to the 'key' property of the div
     const channelId = event.target.getAttribute('channel-id')
     const channelArray = this.props.messageType === "channel" ? this.props.channels : this.props.directMessages
     const currentChannel = channelArray.find( (channel) => {
