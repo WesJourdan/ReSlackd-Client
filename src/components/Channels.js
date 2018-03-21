@@ -7,8 +7,6 @@ import Modal from './Modal'
 class Channels extends Component {
   constructor(props) {
     super(props);
-
-    this.handleClick = this.handleClick.bind(this);
   }
   /*  this class needs to map the channels array in our store and add the channel ID as a key
       on each result. Then we can add a click handler that dispatches the setCurrentChannel action
@@ -24,12 +22,12 @@ class Channels extends Component {
   }
 
 
-  handleClick(event) {
+  handleClick = (event) => {
     //  the syntax here is weird. I can't get access to the 'key' property of the div
     let channelId = event.target.getAttribute('channel-id')
     const channelArray = this.props.messageType === "channel" ? this.props.channels : this.props.directMessages
     let currentChannel = channelArray.find( (channel) => {
-      return channel.cID == channelId
+      return channel.cID === channelId
     })
     console.log(currentChannel)
     this.props.setCurrentChannel(currentChannel, () => {
@@ -42,20 +40,18 @@ class Channels extends Component {
     const channelArray = this.props.messageType === "channel" ? this.props.channels : this.props.directMessages
     return (
       <div className="mb-3 channels">
-        <p>
+        <div className='mx-3'>
           {channelType}
-          <span className="add-channel-icon float-right ml-2" role="button"><Modal messageType={this.props.messageType}/></span>
-        </p>
-        <div className='pl-2'>
-          {channelArray.map(channel => {
-            return (
-              <div className="channel-item" channel-id={channel.cID} key ={channel.cID} onClick={this.handleClick}>
-                {channel.name}
-              </div>
-            )
-          })
-          }
+          <span className="add-channel-icon float-right ml-4" role="button"><Modal messageType={this.props.messageType}/></span>
         </div>
+        {channelArray.map(channel => {
+          return (
+            <div className="channel-item ml-5" channel-id={channel.cID} key ={channel.cID} onClick={this.handleClick}>
+              {channel.name}
+            </div>
+          )
+        })
+        }
       </div>
     );
   }
