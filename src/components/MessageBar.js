@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from "redux";
 import { postMessage, setCurrentChannel, fetchChannels } from '../actions';
 import TextareaAutosize from 'react-autosize-textarea';
+import io from 'socket.io-client';//for socket test
+const socket = io('http://localhost:8080');
 
 class MessageBar extends Component {
 
@@ -12,34 +14,38 @@ class MessageBar extends Component {
 		this.state = {
 			text: ''
 		};
+
 		this.onInputChange = this.onInputChange.bind(this)
-
+		this.onSubmitMessage = this.onSubmitMessage.bind(this)
 	}
-
-  componentWillMount() {
-    this.props.fetchChannels()
-    // this.props.setCurrentChannel(this.props.channels[0],() => {})
-  }
-
-
+	
 	onInputChange(event) {
 		this.setState({ text: event.target.value });
 
 		if (event.target.value !== '') {
-		// here is where we would broadcast to the socket that a user is typing a message
+			// this is where we would emit a "user is typing" event.
 		}
 	}
 
 	handleKeyPress(event) {
 		if (event.key === 'Enter') {
 			event.preventDefault();
+
+			const currentTime = new Date();
+			const post = {
+				cID: this.props.currentChannel.cID,
+				uID: this.props.auth[0].uID,
+				text: this.state.text,
+				timestamp: currentTime.getTime(),
+				name: this.props.auth[0].name, 
+				imageURL: this.props.auth[0].imageURL,
+				enabled: true
+			}
 			this.props.postMessage({text:this.state.text}, this.props.currentChannel.cID)
+			socket.emit('chat message', post )
 			this.setState({ text: '' });
 		}
 	}
-	
-		
-	
 
 	render() {
 		return (
@@ -59,7 +65,7 @@ class MessageBar extends Component {
 }
 
 function mapStateToProps( state ) {
-	return { currentChannel: state.currentChannel, channels:state.channels }
+	return { currentChannel: state.currentChannel, channels: state.channels, auth: state.auth }
 };
 
 function mapDispatchToProps(dispatch) {

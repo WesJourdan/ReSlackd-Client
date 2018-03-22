@@ -1,12 +1,16 @@
 import React, { Component } from 'react';
 import { fetchChannels, setCurrentChannel, fetchDirectMessages, fetchCurrentChannelMessages } from '../actions';
 import { connect } from 'react-redux';
-import { bindActionCreators } from "redux"
-import Modal from './Modal'
+import { bindActionCreators } from "redux";
+import Modal from './Modal';
+
+
 
 class Channels extends Component {
   constructor(props) {
     super(props);
+
+    this.state = { activeIndex: null};
 
     this.handleClick = this.handleClick.bind(this);
   }
@@ -20,7 +24,6 @@ class Channels extends Component {
   }
 
   handleClick(event) {
-    //  the syntax here is weird. I can't get access to the 'key' property of the div
     const channelId = event.target.getAttribute('channel-id')
     const channelArray = this.props.messageType === "channel" ? this.props.channels : this.props.directMessages
     const currentChannel = channelArray.find( (channel) => {
@@ -28,7 +31,10 @@ class Channels extends Component {
     })
     this.props.setCurrentChannel(currentChannel, (cID) => {
       this.props.fetchCurrentChannelMessages(currentChannel.cID)
+      this.setState({activeIndex: parseInt(channelId,10)})
     })
+
+
   }
 
   render() {
@@ -41,9 +47,10 @@ class Channels extends Component {
           <span className="add-channel-icon float-right ml-2" role="button"><Modal messageType={this.props.messageType}/></span>
         </p>
         <div className='pl-2'>
-          {channelArray.map(channel => {
+          {channelArray.map( (channel,index) => {
+            const activeChannel = this.state.activeIndex === channel.cID && this.props.currentChannel.type === this.props.messageType ? "channel-item active" : "channel-item"
             return (
-              <div className="channel-item" channel-id={channel.cID} key ={channel.cID} onClick={this.handleClick}>
+              <div className={activeChannel} channel-id={channel.cID} key ={channel.cID} onClick={this.handleClick}>
                 {channel.name}
               </div>
             )
@@ -56,7 +63,7 @@ class Channels extends Component {
 }
 
 function mapStateToProps(state) {
-  return { channels: state.channels, directMessages: state.directMessages }
+  return { channels: state.channels, directMessages: state.directMessages, currentChannel:state.currentChannel }
 };
 
 function mapDispatchToProps(dispatch) {

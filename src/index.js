@@ -13,7 +13,7 @@ import App from './components/App';
 
 const store = createStore(rootReducers, {}, applyMiddleware(reduxThunk));
 
-window.axios = axios;
+
 
 ReactDOM.render(
   <Provider store={store}><App /></Provider>,
