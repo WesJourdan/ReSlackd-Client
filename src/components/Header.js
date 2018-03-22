@@ -47,9 +47,6 @@ function mapStateToProps({ auth }) {
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({ fetchCurrentUser }, dispatch);
 }
-<<<<<<< HEAD
     
-=======
 
->>>>>>> 6d359824fb2cbf0ea838705806c1dbf77926cb71
 export default connect(mapStateToProps, mapDispatchToProps)(Header);

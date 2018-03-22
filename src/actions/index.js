@@ -1,14 +1,15 @@
 import axios from 'axios';
 import { MESSAGES, CHANNEL_LIST, CURRENT_USER, USERS } from "../DUMMY_DATA.js"
 import { SOCKET_MESSAGE, ADD_USER_TO_CHANNEL, FETCH_CHANNELS, FETCH_CURRENT_CHANNEL_MESSAGES, FETCH_CURRENT_USER, FETCH_USER_LIST, SET_CURRENT_CHANNEL, POST_MESSAGE, FETCH_DIRECT_MESSAGES, FETCH_MESSAGE_LIST } from './types';
-<<<<<<< HEAD
-=======
 
->>>>>>> 6d359824fb2cbf0ea838705806c1dbf77926cb71
 
 export const fetchChannels = () => async dispatch => {
   const res = await axios.get('/api/user/channels?type=channel');
-
+  res.data.map( channel => {
+    //initialize notification counter to 0.
+    channel.unread = 0
+  })
+  console.log(res)
   dispatch({ type: FETCH_CHANNELS, payload: res.data });
 };
 
@@ -79,4 +80,10 @@ export const socketMessage = (inboundMessage) => dispatch => {
 export const addUserToChannel = (channelId,users) => async dispatch => {
   const res = await axios.post(`/api/user/channels/add`, {users:users, channel:channelId})
   dispatch({  type: ADD_USER_TO_CHANNEL, payload: res.data })
+};
+
+export const setNotification = (channels, channelType) => dispatch => {
+  console.log("set notification", channels)
+  const actionType = channelType === 'channel' ? FETCH_CHANNELS : FETCH_DIRECT_MESSAGES;
+  dispatch({ type: actionType, payload: channels })
 };
