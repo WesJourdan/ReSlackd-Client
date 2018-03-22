@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { fetchChannels, setCurrentChannel, fetchDirectMessages, fetchCurrentChannelMessages } from '../actions';
+import { fetchChannels, setCurrentChannel, fetchDirectMessages, fetchCurrentChannelMessages, fetchCurrentChannelUsers } from '../actions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from "redux";
 import Modal from './Modal';
@@ -10,7 +10,7 @@ class Channels extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { activeIndex: null};
+    this.state = { activeIndex: null };
 
     this.handleClick = this.handleClick.bind(this);
     this.unreadMessageCount = this.unreadMessageCount.bind(this);
@@ -27,12 +27,13 @@ class Channels extends Component {
   handleClick(event) {
     const channelId = event.target.getAttribute('channel-id')
     const channelArray = this.props.messageType === "channel" ? this.props.channels : this.props.directMessages
-    const currentChannel = channelArray.find( (channel) => {
+    const currentChannel = channelArray.find((channel) => {
       return channel.cID == channelId
     })
     this.props.setCurrentChannel(currentChannel, (cID) => {
       this.props.fetchCurrentChannelMessages(currentChannel.cID)
-      this.setState({activeIndex: parseInt(channelId,10)})
+      this.props.fetchCurrentChannelUsers(currentChannel.cID)
+      this.setState({ activeIndex: parseInt(channelId, 10) })
     })
   }
 
@@ -67,11 +68,11 @@ class Channels extends Component {
 }
 
 function mapStateToProps(state) {
-  return { channels: state.channels, directMessages: state.directMessages, currentChannel:state.currentChannel }
+  return { channels: state.channels, directMessages: state.directMessages, currentChannel: state.currentChannel, usersInChannel: state.channelUsers }
 };
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ fetchDirectMessages, fetchChannels, setCurrentChannel, fetchCurrentChannelMessages }, dispatch);
+  return bindActionCreators({ fetchCurrentChannelUsers, fetchDirectMessages, fetchChannels, setCurrentChannel, fetchCurrentChannelMessages }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Channels);
