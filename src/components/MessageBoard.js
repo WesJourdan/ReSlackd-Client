@@ -121,7 +121,7 @@ class MessageBoard extends Component {
     else {
       return (
         <div className="messageboard jumbotron text-center">
-          <div d-flex justify-content-center >
+          <div className="d-flex justify-content-center" >
             <h1 className="display-4">Welcome to ReSlackd!</h1>
             <p className="lead">Login to view and send messages to other users.</p>
             <hr className="my-4" />
