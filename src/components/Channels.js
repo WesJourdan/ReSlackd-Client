@@ -6,8 +6,6 @@ import Modal from './Modal';
 import io from 'socket.io-client';
 const socket = io('http://localhost:8080');
 
-
-
 class Channels extends Component {
   constructor(props) {
     super(props);
@@ -91,10 +89,10 @@ class Channels extends Component {
     const channelArray = this.props.messageType === "channel" ? this.props.channels : this.props.directMessages
     return (
       <div className="mb-3 channels">
-        <p>
+        <div>
           {channelType}
           <span className="add-channel-icon float-right ml-2" role="button"><Modal messageType={this.props.messageType}/></span>
-        </p>
+        </div>
         <div className='pl-2'>
           {channelArray.map( (channel,index) => {
             const activeChannel = this.state.activeIndex === channel.cID && this.props.currentChannel.type === this.props.messageType ? "channel-item active" : "channel-item"
