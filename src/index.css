@@ -135,3 +135,13 @@ img {
   color: #283e48;
   text-decoration: none;
 }
+
+.messageboard {
+  height: 100%;
+  width: 100%
+}
+
+.login-button {
+  background-color: #77ba99;
+  color: #283e48;
+}
