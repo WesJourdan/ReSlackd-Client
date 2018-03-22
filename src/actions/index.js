@@ -3,26 +3,33 @@ import { MESSAGES, CHANNEL_LIST, CURRENT_USER, USERS } from "../DUMMY_DATA.js"
 import { SOCKET_MESSAGE, ADD_USER_TO_CHANNEL, FETCH_CHANNELS, FETCH_CURRENT_CHANNEL_MESSAGES, FETCH_CURRENT_USER, FETCH_USER_LIST, SET_CURRENT_CHANNEL, POST_MESSAGE, FETCH_DIRECT_MESSAGES, FETCH_MESSAGE_LIST } from './types';
 
 
-export const fetchChannels = () => async dispatch => {
+export const fetchChannels = (lastActive) => async dispatch => {
   const res = await axios.get('/api/user/channels?type=channel');
-  res.data.map( channel => {
-    //initialize notification counter to 0.
-    channel.unread = 0
+  res.data.map( async channel => {
+    channel.unread = 0;
+    const messages = await axios.get(`/api/channels/${channel.cID}`);
+    messages.data.map( message => {
+      if (message.timestamp > lastActive) {
+        channel.unread += 1
+      }
+    })
   })
-  console.log(res)
+
   dispatch({ type: FETCH_CHANNELS, payload: res.data });
 };
 
-export const fetchDirectMessages = () => async dispatch => {
+export const fetchDirectMessages = (lastActive) => async dispatch => {
   const res = await axios.get('api/user/channels?type=dm');
-  // let res = []
-  // for (let i = 0; i<CHANNEL_LIST.length; i++) {
-  //   if (CHANNEL_LIST[i].type === "dm") {
-  //     res.push(CHANNEL_LIST[i])
-  //   }
-  // }
-
-  dispatch({ type: FETCH_DIRECT_MESSAGES, payload: res.data }); // change to res.data when api ready
+  res.data.map(async channel => {
+    channel.unread = 0;
+    const messages = await axios.get(`/api/channels/${channel.cID}`);
+    messages.data.map(message => {
+      if (message.timestamp > lastActive) {
+        channel.unread += 1
+      }
+    })
+  })
+  dispatch({ type: FETCH_DIRECT_MESSAGES, payload: res.data }); 
 };
 
 export const fetchMessageList = () => async dispatch => {
@@ -85,5 +92,6 @@ export const addUserToChannel = (channelId,users) => async dispatch => {
 export const setNotification = (channels, channelType) => dispatch => {
   console.log("set notification", channels)
   const actionType = channelType === 'channel' ? FETCH_CHANNELS : FETCH_DIRECT_MESSAGES;
+  console.log('actionType', actionType)
   dispatch({ type: actionType, payload: channels })
 };

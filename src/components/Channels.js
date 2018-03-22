@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { fetchChannels, setCurrentChannel, fetchDirectMessages, fetchCurrentChannelMessages, setNotification } from '../actions';
+import { fetchChannels, setCurrentChannel, fetchDirectMessages, fetchCurrentChannelMessages, setNotification, fetchCurrentUser } from '../actions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from "redux";
 import Modal from './Modal';
@@ -13,29 +13,36 @@ class Channels extends Component {
     super(props);
 
     this.handleClick = this.handleClick.bind(this);
+
+    this.state = {
+      update: true
+    }
   }
 
-  componentDidMount() {
+  componentDidMount() {    
+    // const lastActive = this.props.auth.lastActiveAt;
+    const lastActive = 1521479507
     if (this.props.messageType === "channel") {
-      this.props.fetchChannels()
+      this.props.fetchChannels(lastActive)
     } else {
-      this.props.fetchDirectMessages()
+      this.props.fetchDirectMessages(lastActive)
     }
-    
+
     socket.on('receive message', (inboundMessage) => {
       const channels = this.props.messageType === "channel" ? this.props.channels : this.props.directMessages
       channels.map( channel => {
-        if (channel.cID == inboundMessage.cID) {
+        if (channel.cID == inboundMessage.cID && channel.cID !== this.props.currentChannel.cID) {
           channel.unread += 1
-          console.log(channel)
-          setNotification(channels, this.props.messageType)
+          console.log('channel', channel)
+          console.log('inboundMessage', inboundMessage)
+          this.props.setNotification(channels, this.props.messageType)
+          
         }
+        this.setState({ update: !this.state.update })
       })
-      
-
-      //dispatch an action here to update the channels/DMs notifications in the store
       console.log('Notification!', inboundMessage);
     })
+    this.setState({ update: !this.state.update })
   }
 
   componentWillReceiveProps(nextProps) {
@@ -63,11 +70,14 @@ class Channels extends Component {
   }
  
   handleClick(event) {
+
     const channelId = event.target.getAttribute('channel-id')
     const channelArray = this.props.messageType === "channel" ? this.props.channels : this.props.directMessages
     const currentChannel = channelArray.find( (channel) => {
       return channel.cID == channelId
     })
+    // We need to set unread notification to 0 on click.
+    currentChannel.unread = 0;
     this.props.setCurrentChannel(currentChannel, (cID) => {
       this.props.fetchCurrentChannelMessages(currentChannel.cID)
     })
@@ -87,7 +97,7 @@ class Channels extends Component {
             return (
               <div className="channel-item" channel-id={channel.cID} key ={channel.cID} onClick={this.handleClick}>
                 {channel.name}
-                {channel.unread > 0 ? channel.unread : ''}
+                {channel.unread > 0 ? channel.unread : null }
               </div>
             )
           })
@@ -99,11 +109,11 @@ class Channels extends Component {
 }
 
 function mapStateToProps(state) {
-  return { channels: state.channels, directMessages: state.directMessages, currentChannel: state.currentChannel }
+  return { channels: state.channels, directMessages: state.directMessages, currentChannel: state.currentChannel, auth: state.auth}
 };
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ fetchDirectMessages, fetchChannels, setCurrentChannel, fetchCurrentChannelMessages, setNotification }, dispatch);
+  return bindActionCreators({ fetchDirectMessages, fetchChannels, setCurrentChannel, fetchCurrentChannelMessages, setNotification, fetchCurrentUser }, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Channels);

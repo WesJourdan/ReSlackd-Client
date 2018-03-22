@@ -38,7 +38,6 @@ class MessageBar extends Component {
 			imageURL: this.props.auth[0].imageURL, //TODO: get url for profile pic
 			enabled: true
 		}
-		console.log('auth ', this.props.auth);
 		  
 		this.props.postMessage({text:this.state.text}, this.props.currentChannel.cID)
 		socket.emit('chat message', post )// TODO: add 
