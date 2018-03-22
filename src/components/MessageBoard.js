@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { setCurrentChannel, addUserToChannel } from '../actions';
+import { fetchChannels, setCurrentChannel, addUserToChannel, removeSelfFromChannel, fetchCurrentChannelMessages, fetchCurrentChannelUsers } from '../actions';
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import SingleMessage from './SingleMessage';
@@ -11,13 +11,18 @@ class MessageBoard extends Component {
     super(props);
 
     this.state = {
-      memberToAdd: ""
+      memberToAdd: "",
+      update: true
     }
 
     this.renderChannelName=this.renderChannelName.bind(this)
     this.handleMemberChange=this.handleMemberChange.bind(this)
     this.addUser=this.addUser.bind(this)
-    this.removeUser=this.removeUser.bind(this)
+    this.removeSelf=this.removeSelf.bind(this)
+  }
+
+  componentDidMount() {
+    this.props.fetchCurrentChannelUsers(this.props.currentChannel.cID)
   }
 
   addUser() {
@@ -27,13 +32,19 @@ class MessageBoard extends Component {
     const userToAdd = this.props.users.find( (user) => {
       return user.name == this.state.memberToAdd
     })
-    console.log(this.props.currentChannel.cID,[userToAdd])
-    this.props.addUserToChannel(this.props.currentChannel.cID,[userToAdd.uID])
+    this.props.addUserToChannel(this.props.currentChannel.cID,[userToAdd.uID]).then(res => {
+      this.props.fetchCurrentChannelUsers(this.props.currentChannel.cID)
+    })
   }
 
-  removeUser() {
-    // this.props.removeUserFromChannel(this.props.currentChannel.cID,this.props.auth)
-    console.log(this.props.auth)
+  removeSelf() {
+    this.props.removeSelfFromChannel(this.props.currentChannel.cID).then( res => {
+      this.props.fetchChannels()
+      this.props.setCurrentChannel(this.props.channels[0], () => {
+        this.props.fetchCurrentChannelMessages(this.props.channels[0].cID)
+        this.props.fetchCurrentChannelUsers(this.props.channels[0].cID)
+      })
+    })
   }
 
   handleMemberChange(event) {
@@ -73,8 +84,19 @@ class MessageBoard extends Component {
           <span className='nav-link'><a onClick={this.addUser} href="#">Invite a new member <FontAwesomeIcon icon='user-plus' /></a></span>
         </li>
         <li className='nav-item'>
-          <span className='nav-link'><a onClick={this.removeUser} href="#">Leave this channel <FontAwesomeIcon icon='user-times' /></a></span>
-          </li>
+          <span className='nav-link'><a onClick={this.removeSelf} href="#">Leave this channel <FontAwesomeIcon icon='user-times' /></a></span>
+        </li>
+        <div>
+          <ul><strong>Channel Members:</strong>
+            {
+              this.props.channelUsers.map( (user) => {
+                return (
+                  <li key={user.uID} className="users">{user.user}</li>
+                )
+              })
+            }
+          </ul>
+        </div>
       </ul>
     )
   }
@@ -86,7 +108,7 @@ class MessageBoard extends Component {
 				<nav className='navbar navbar-expand-lg navbar-light bg-light'>
 					<span className='navbar-brand'>{this.renderChannelName()}</span>
           {this.renderGroupFields()}
-				</nav>
+        </nav>
 				<SingleMessage />
 				<MessageBar />
 			</div>
@@ -96,11 +118,11 @@ class MessageBoard extends Component {
 };
 
 function mapStateToProps( state ) {
-	return { currentChannel:state.currentChannel, users:state.userList, currentUser:state.auth }
+	return { currentChannel:state.currentChannel, users:state.userList, currentUser:state.auth, channels:state.channels, channelUsers:state.channelUsers}
 };
 
 function mapDispatchToProps(dispatch) {
-	return bindActionCreators({ setCurrentChannel, addUserToChannel }, dispatch);
+	return bindActionCreators({ fetchChannels, setCurrentChannel, addUserToChannel, removeSelfFromChannel, fetchCurrentChannelMessages, fetchCurrentChannelUsers }, dispatch);
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(MessageBoard);
