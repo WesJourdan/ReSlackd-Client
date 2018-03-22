@@ -11,8 +11,10 @@ class Header extends Component {
   }
 
   componentDidMount () {
-    this.props.fetchCurrentUser()
+    this.props.fetchCurrentUser().then(res => {
+    })
   }
+
   renderContent() {
     switch (this.props.auth) {
       case null:
@@ -30,8 +32,8 @@ class Header extends Component {
     return (
       <div className='container-fluid'>
         <div className='Header-bar row text-center'>
-          <div className='col-2 py-3'><FontAwesomeIcon icon='bars' color='#283e48' className='cursor-pointer' size='lg' onClick={this.props.toggleSidebar} /></div>
-          <div className='col-8 mt-2'><strong class='Header-bar-brand'>ReSlackd</strong></div>
+          <div className='col-2 py-3 cursor-pointer'><FontAwesomeIcon icon='bars' color='#283e48' size='lg' onClick={this.props.toggleSidebar} /></div>
+          <div className='col-8 mt-2 Header-bar-brand'>ReSlackd</div>
           <div className='col-2 py-3'>{this.renderContent()}</div>
         </div>
       </div>

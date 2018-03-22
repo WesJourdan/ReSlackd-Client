@@ -117,3 +117,15 @@ img {
   background-color: #77ba99;
   color: #1e2e35
 }
+
+.Modal-text {
+  color: #283e48
+}
+
+.modal-input {
+  width: 150%
+}
+
+.modal-delete {
+  font-size: 18px
+}
