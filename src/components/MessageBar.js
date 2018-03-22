@@ -41,6 +41,7 @@ class MessageBar extends Component {
 		  
 		this.props.postMessage({text:this.state.text}, this.props.currentChannel.cID)
 		socket.emit('chat message', post )// TODO: add 
+		console.log('chat message emitted')
 		this.setState({ text: '' });
 	}
 

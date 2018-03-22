@@ -43,6 +43,7 @@ class App extends Component {
   componentWillMount() {
     mediaQueryLimit.addListener(this.mediaQueryChanged);
     this.setState({mediaQueryLimit, sidebarDocked: mediaQueryLimit.matches})
+    
   }
 
   componentWillUnmount() {
@@ -58,7 +59,7 @@ class App extends Component {
           sidebar={
             <div className='mx-3 mt-2'>
               <Channels messageType='channel' />
-              <Channels messageType='DM' />
+              <Channels messageType='dm' />
             </div>
           }
           open={this.state.sidebarOpen}
