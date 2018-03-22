@@ -42,7 +42,6 @@ export const fetchCurrentChannelUsers = (channelId) => async dispatch => {
 
 export const fetchCurrentUser = () => async dispatch => {
   const res = await axios.get('/api/current-user');
-  console.log('current user ', res.data)
   dispatch({ type: FETCH_CURRENT_USER, payload: res.data });
 };
 
@@ -69,7 +68,6 @@ export const setCurrentChannel = (channel, callback) => dispatch => {
 
 export const createNewChannel = (newChannelData) => async dispatch => {
   const res = await axios.post(`/api/channels`, newChannelData)
-  console.log(res.data)
   dispatch({ type: SET_CURRENT_CHANNEL, payload: res.data})
   return res.data.cID
 }
