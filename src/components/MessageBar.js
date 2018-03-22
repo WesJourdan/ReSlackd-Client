@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from "redux";
 import { postMessage, setCurrentChannel, fetchChannels } from '../actions';
 import TextareaAutosize from 'react-autosize-textarea';
-import io from 'socket.io-client';//for socket test
+import io from 'socket.io-client';
 const socket = io('http://localhost:8080');
 
 class MessageBar extends Component {
@@ -43,12 +43,15 @@ class MessageBar extends Component {
 			this.props.postMessage({text:this.state.text}, this.props.currentChannel.cID)
 			socket.emit('chat message', post )
 			this.setState({ text: '' });
+			//const scrollToBottom = document.getElementById("card").scrollIntoView(false, {behavior: 'smooth', block: 'end'});;
+			//scrollToBottom.scrollTop = scrollToBottom.scrollHeight;
 		}
 	}
 
 	render() {
 		return (
-				<div className="form-group  ml-1 mx-2 mt-5 mb-2 force-to-bottom" onKeyPress={this.handleKeyPress.bind(this)}>
+			<div className="card" id="message-bar">
+				<div className="form-group  ml-1 pt-2" onKeyPress={this.handleKeyPress.bind(this)}>
 					<TextareaAutosize
 						className="form-control"
 						maxRows={6}
@@ -59,6 +62,7 @@ class MessageBar extends Component {
 					>
 					</TextareaAutosize>
 				</div>
+			</div>
 		)
 	}
 }

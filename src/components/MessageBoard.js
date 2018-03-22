@@ -17,7 +17,8 @@ class MessageBoard extends Component {
     this.renderChannelName=this.renderChannelName.bind(this)
     this.handleMemberChange=this.handleMemberChange.bind(this)
     this.addUser=this.addUser.bind(this)
-    this.removeUser=this.removeUser.bind(this)
+	this.removeUser=this.removeUser.bind(this)
+
   }
 
   addUser() {
@@ -40,7 +41,6 @@ class MessageBoard extends Component {
     this.setState({ memberToAdd: event.target.value })
 
   }
-
   renderChannelName() {
     const channelType = this.props.currentChannel.type
     if (channelType === "dm" || channelType === "DM") {
@@ -87,10 +87,10 @@ class MessageBoard extends Component {
 					<span className='navbar-brand'>{this.renderChannelName()}</span>
           {this.renderGroupFields()}
 				</nav>
-				<div className='above-message-bar'>
+				<div className='mb-5'>
 					<MapMessages />
 				</div>
-				<div className='force-to-bottom relative-to-messages'>
+				<div className="force-to-bottom">
 					<MessageBar />
 				</div>
 			</div>

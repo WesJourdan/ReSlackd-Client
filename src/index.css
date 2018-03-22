@@ -120,31 +120,17 @@ img {
 
 /*added by justin for pushing message bar to bottom of page*/
 .force-to-bottom {
-  position: absolute;
-  bottom: 3%;
+  position: fixed;
+  bottom: 0%;
   width: 98%;
 }
-.relative-to-messages {
+/* .relative-to-messages {
   position: relative;
-}
-.above-message-bar {
+} */
+/* .above-message-bar {
   position: relative;
   top: 5%;
   width: 100%;
-}
-/* #chatbox
-{
-    overflow:   none;
-    position:   relative;
-    width:      100%;
-    height:     400px;
-}
-#chatmessages
-{
-    overflow:   auto;
-    position:   absolute;
-    bottom:     0;
-    max-height: 400px;
 } */
 
 .form-control:focus {
@@ -155,6 +141,9 @@ img {
   -webkit-box-shadow: 0 0 0 0.1rem #a2ceb8;
   box-shadow: 0 0 0 0.2rem #8abea4; 
 }
-.card {
-  background-color: #d0fce6;
+#card {
+  background-color: #eef7f2;
+}
+#message-bar {
+  height: 50px;
 }

@@ -45,17 +45,15 @@ class MapMessages extends Component {
 	};
 
 	render() {
-		return this.props.messageList.slice(0).reverse().map((message, index) => {
-	//TODO: Ashleys code below. Discuss the best option.
-    // const reverseSortMessageList = this.props.messageList.slice(0).sort( (a,b) => {
-    //   return a.timestamp-b.timestamp
-    // })
-    // console.log(reverseSortMessageList)
-	// 	return reverseSortMessageList.map((message, index) => {
+		const reverseSortMessageList = this.props.messageList.slice(0).sort( (a,b) => {
+			return a.timestamp-b.timestamp
+		})
+		console.log(reverseSortMessageList)
+		return reverseSortMessageList.map((message, index) => {
 			let newMessage = (
 				<div key={index}>
-					<div className="card mb-1 ml-2 mx-1">
-						<div className="card-text pl-2 pt-3"><img src={message.imageURL} alt={message.username} className="icon ml-2 mr-2"></img>{message.name}{this.convertTime(message.timestamp)}<p className="ml-5">{message.text}</p></div>		
+					<div className="card border-0 mb-1 ml-2 mx-1" id="card">
+						<div className="card-text pl-2 pt-3"><img src={message.imageURL} alt={message.username} className="icon ml-2 mr-2"></img><strong>{message.name}</strong><span className="float-right">{this.convertTime(message.timestamp)}</span><p className="ml-5">{message.text}</p></div>		
 					</div>
 			  	</div>
 			)
