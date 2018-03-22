@@ -8,3 +8,5 @@ export const SET_CURRENT_CHANNEL = 'set_current_channel';
 export const FETCH_DIRECT_MESSAGES = 'fetch_direct_messages';
 export const POST_MESSAGE = 'post_message';
 export const SOCKET_MESSAGE = 'socket_message';
+export const FETCH_CURRENT_CHANNEL_USERS = 'fetch_current_channel_users'
+export const REMOVE_SELF_FROM_CHANNEL = 'remove_self_from_channel'

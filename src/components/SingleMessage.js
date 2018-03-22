@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from 'react-redux';
-import { fetchCurrentChannelMessages, setCurrentChannel, socketMessage } from '../actions';
+import { fetchCurrentChannelMessages, setCurrentChannel, socketMessage, fetchCurrentChannelUsers } from '../actions';
 import { bindActionCreators } from "redux";
 import io from 'socket.io-client';
 const socket = io('http://localhost:8080');
@@ -30,10 +30,12 @@ class SingleMessage extends Component {
 		if (localStorage.getItem('currentChannel')) {
 			const lastChannel = JSON.parse(localStorage.getItem("currentChannel"))
 			this.props.setCurrentChannel(lastChannel, () => {
-				this.props.fetchCurrentChannelMessages(lastChannel.cID);
-			})
-		}
+				this.props.fetchCurrentChannelMessages(lastChannel.cID).then(res => {
+          this.props.fetchCurrentChannelUsers(lastChannel.cID)
+      })
+		})
 	}
+}
 
 	convertTime (timestamp) {
 		let date = new Date(timestamp);
@@ -67,7 +69,7 @@ function mapStateToProps( state ) {
 };
 
 function mapDispatchToProps(dispatch) {
-	return bindActionCreators({ fetchCurrentChannelMessages, setCurrentChannel, socketMessage }, dispatch);
+	return bindActionCreators({ fetchCurrentChannelMessages, setCurrentChannel, socketMessage, fetchCurrentChannelUsers }, dispatch);
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SingleMessage);
