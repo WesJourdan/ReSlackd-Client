@@ -7,24 +7,24 @@ const socket = io('http://localhost:8080');
 
 class SingleMessage extends Component {
 	constructor(props) {
-		super(props);	
+		super(props);
 	}
 
 	componentDidMount() {
 		socket.on('receive message', (inboundMessage) => {
 			this.props.socketMessage(inboundMessage)
-			console.log('inbound received');	
+			console.log('inbound received');
 		})
 	}
-	
+
 	componentWillReceiveProps(nextProps) {
 		if(nextProps.currentChannel.cID !== this.props.currentChannel.cID){
 			console.log('joining room...')
 			socket.emit('leave room', {room: this.props.currentChannel.cID});
 			socket.emit('room', {room: nextProps.currentChannel.cID});
-		}	
+		}
 	}
-	
+
 	componentWillMount() {
 
 		if (localStorage.getItem('currentChannel')) {
@@ -45,7 +45,11 @@ class SingleMessage extends Component {
 	};
 
 	render() {
-		return this.props.messageList.map((message, index) => {
+    const reverseSortMessageList = this.props.messageList.slice(0).sort( (a,b) => {
+      return a.timestamp-b.timestamp
+    })
+    console.log(reverseSortMessageList)
+		return reverseSortMessageList.map((message, index) => {
 			let newMessage = (
 				<div key={index}>
 					<img src={message.imageURL} alt={message.username} className="icon"></img>
