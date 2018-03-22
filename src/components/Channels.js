@@ -45,15 +45,6 @@ class Channels extends Component {
           {channelType}
           <span className="add-channel-icon float-right ml-4" role="button"><Modal messageType={this.props.messageType}/></span>
         </div>
-          {channelArray.map( (channel,index) => {
-            const activeChannel = this.state.activeIndex === channel.cID && this.props.currentChannel.type === this.props.messageType ? "channel-item active" : "channel-item"
-            return (
-              <div className={activeChannel} channel-id={channel.cID} key ={channel.cID} onClick={this.handleClick}>
-                {channel.name}
-              </div>
-            )
-          })
-          }
         {channelArray.map( (channel, index) => {
           const activeChannel = this.state.activeIndex === channel.cID && this.props.currentChannel.type === this.props.messageType ? "channel-item active" : "channel-item"
           return (
