@@ -11,8 +11,10 @@ class Header extends Component {
   }
 
   componentDidMount () {
-    this.props.fetchCurrentUser()
+    this.props.fetchCurrentUser().then(res => {
+    })
   }
+
   renderContent() {
     switch (this.props.auth) {
       case null:

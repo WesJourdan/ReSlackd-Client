@@ -43,7 +43,8 @@ class App extends Component {
   componentWillMount() {
     mediaQueryLimit.addListener(this.mediaQueryChanged);
     this.setState({mediaQueryLimit, sidebarDocked: mediaQueryLimit.matches})
-    
+
+
   }
 
   componentWillUnmount() {

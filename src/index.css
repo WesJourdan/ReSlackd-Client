@@ -119,5 +119,19 @@ img {
 
 .active {
   background-color: #77ba99;
-  color: #1e2e35
+  color: #1e2e35;
+}
+
+.Modal-text {
+  color: #283e48;
+}
+
+.modal-input {
+  width: 150%;
+}
+
+.modal-delete, .modal-delete:hover, .modal-delete:active {
+  font-size: 18px;
+  color: #283e48;
+  text-decoration: none;
 }
