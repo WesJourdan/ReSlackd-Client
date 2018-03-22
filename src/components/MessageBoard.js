@@ -15,17 +15,17 @@ class MessageBoard extends Component {
       update: true
     }
 
-    this.renderChannelName=this.renderChannelName.bind(this)
-    this.handleMemberChange=this.handleMemberChange.bind(this)
-    this.addUser=this.addUser.bind(this)
-    this.removeSelf=this.removeSelf.bind(this)
+    // this.renderChannelName=this.renderChannelName.bind(this)
+    // this.handleMemberChange=this.handleMemberChange.bind(this)
+    // this.addUser=this.addUser.bind(this)
+    // this.removeSelf=this.removeSelf.bind(this)
   }
 
-  componentDidMount() {
+  componentDidMount = () => {
     this.props.fetchCurrentChannelUsers(this.props.currentChannel.cID)
   }
 
-  addUser() {
+  addUser = () => {
     if (this.state.memberToAdd === "") {
       return
     }
@@ -37,7 +37,7 @@ class MessageBoard extends Component {
     })
   }
 
-  removeSelf() {
+  removeSelf = () => {
     this.props.removeSelfFromChannel(this.props.currentChannel.cID).then( res => {
       this.props.fetchChannels()
       this.props.setCurrentChannel(this.props.channels[0], () => {
@@ -47,12 +47,12 @@ class MessageBoard extends Component {
     })
   }
 
-  handleMemberChange(event) {
+  handleMemberChange = (event) => {
     this.setState({ memberToAdd: event.target.value })
 
   }
 
-  renderChannelName() {
+  renderChannelName = () => {
     const channelType = this.props.currentChannel.type
     if (channelType === "dm" || channelType === "DM") {
       return <div>Message with {this.props.currentChannel.name}</div>
@@ -61,7 +61,7 @@ class MessageBoard extends Component {
     }
   }
 
-  renderGroupFields() {
+  renderGroupFields = () => {
     const channelType = this.props.currentChannel.type
     if (channelType === "channel") {
     return (
@@ -102,23 +102,48 @@ class MessageBoard extends Component {
   }
 }
 
-	render() {
-		return (
-			<div>
-				<nav className='navbar navbar-expand-lg navbar-light bg-light'>
-					<span className='navbar-brand'>{this.renderChannelName()}</span>
-          {this.renderGroupFields()}
-        </nav>
-				<SingleMessage />
-				<MessageBar />
-			</div>
-		);
+	loginRender = () => {
+    if (this.props.auth) {
+      return (
+        <div>
+          <nav className='navbar navbar-expand-lg navbar-light bg-light'>
+            <span className='navbar-brand'>{this.renderChannelName()}</span>
+            {this.renderGroupFields()}
+          </nav>
+          <SingleMessage />
+          <MessageBar />
+        </div>
+      );
+    }
+    else {
+      return (
+        <div className="messageboard jumbotron text-center">
+          <div d-flex justify-content-center >
+            <h1 className="display-4">Welcome to ReSlackd!</h1>
+            <p className="lead">Login to view and send messages to other users.</p>
+            <hr className="my-4" />
+            <p className="lead text-center">
+              <a className="login-button btn btn-lg" href="/auth/google" role="button">Login</a>
+            </p>
+          </div>
+        </div>
+      )
+    }
+
 	};
+
+  render() {
+    return(
+      <div className="d-flex justify-content-center messageboard">
+        {this.loginRender()}
+      </div>
+  )
+  }
 
 };
 
 function mapStateToProps( state ) {
-	return { currentChannel:state.currentChannel, users:state.userList, currentUser:state.auth, channels:state.channels, channelUsers:state.channelUsers}
+	return { auth:state.auth, currentChannel:state.currentChannel, users:state.userList, currentUser:state.auth, channels:state.channels, channelUsers:state.channelUsers}
 };
 
 function mapDispatchToProps(dispatch) {
