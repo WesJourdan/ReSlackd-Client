@@ -14,11 +14,6 @@ class MessageBoard extends Component {
       memberToAdd: "",
       update: true
     }
-
-    // this.renderChannelName=this.renderChannelName.bind(this)
-    // this.handleMemberChange=this.handleMemberChange.bind(this)
-    // this.addUser=this.addUser.bind(this)
-    // this.removeSelf=this.removeSelf.bind(this)
   }
 
   componentDidMount = () => {
@@ -67,36 +62,44 @@ class MessageBoard extends Component {
     return (
       <ul className='navbar-nav'>
         <li className='nav-item'>
-          <span className='nav-link'>
-            <select value={this.state.memberToAdd} onChange={this.handleMemberChange}>
-              <option value="">None</option>
+          <details className='mr-4'>
+            <summary><strong>Menu</strong></summary>
+            <li className='nav-item'>
+              <span className='nav-link'>
+                <select value={this.state.memberToAdd} onChange={this.handleMemberChange}>
+                  <option value="">None</option>
+                  {
+                    this.props.users.map( (user) => {
+                      return (
+                        <option key={user.uID} className="members" value={user.name}>{user.name}</option>
+                      )
+                    })
+                  }
+                </select>
+              </span>
+            </li>
+            <li className='nav-item'>
+              <span className='nav-link'><a onClick={this.addUser} href="#">Invite a new member <FontAwesomeIcon icon='user-plus' /></a></span>
+            </li>
+            <li className='nav-item'>
+              <span className='nav-link'><a onClick={this.removeSelf} href="#">Leave this channel <FontAwesomeIcon icon='user-times' /></a></span>
+            </li>
+          </details>
+        </li>
+        <li className='nav-item'>
+          <details>
+            <summary><strong>Channel Members</strong></summary>
+            <ul>
               {
-                this.props.users.map( (user) => {
+                this.props.channelUsers.map( (user) => {
                   return (
-                    <option key={user.uID} className="members" value={user.name}>{user.name}</option>
+                    <li key={user.uID} className="users">{user.user}</li>
                   )
                 })
               }
-            </select>
-          </span>
+            </ul>
+          </details>
         </li>
-        <li className='nav-item'>
-          <span className='nav-link'><a onClick={this.addUser} href="#">Invite a new member <FontAwesomeIcon icon='user-plus' /></a></span>
-        </li>
-        <li className='nav-item'>
-          <span className='nav-link'><a onClick={this.removeSelf} href="#">Leave this channel <FontAwesomeIcon icon='user-times' /></a></span>
-        </li>
-        <div>
-          <ul><strong>Channel Members:</strong>
-            {
-              this.props.channelUsers.map( (user) => {
-                return (
-                  <li key={user.uID} className="users">{user.user}</li>
-                )
-              })
-            }
-          </ul>
-        </div>
       </ul>
     )
   }

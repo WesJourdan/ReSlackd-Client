@@ -3,6 +3,7 @@ import { fetchChannels, setCurrentChannel, fetchDirectMessages, fetchCurrentChan
 import { connect } from 'react-redux';
 import { bindActionCreators } from "redux";
 import Modal from './Modal';
+import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import io from 'socket.io-client';
 const socket = io('http://localhost:8080');
 
@@ -87,23 +88,24 @@ class Channels extends Component {
   render() {
     const channelType = this.props.messageType === "channel" ? "Channels" : "Direct Messages"
     const channelArray = this.props.messageType === "channel" ? this.props.channels : this.props.directMessages
+    const channelIcon = channelType === "Channels" ? "comments" : "user"
     return (
       <div className="mb-3 channels">
-        <div>
+        <div className='mx-3'>
           {channelType}
-          <span className="add-channel-icon float-right ml-2" role="button"><Modal messageType={this.props.messageType}/></span>
+          <span className="add-channel-icon float-right ml-4" role="button"><Modal messageType={this.props.messageType}/></span>
         </div>
-        <div className='pl-2'>
-          {channelArray.map( (channel,index) => {
-            const activeChannel = this.state.activeIndex === channel.cID && this.props.currentChannel.type === this.props.messageType ? "channel-item active" : "channel-item"
-            return (
-              <div className={activeChannel} channel-id={channel.cID} key={channel.cID} onClick={this.handleClick}>
-                {channel.name}<span className="badge ml-1 badge-pill badge-danger">{channel.unread > 0 ? channel.unread : null}</span> 
-              </div>
-            )
-          })
-          }
-        </div>
+        {channelArray.map( (channel, index) => {
+          const activeChannel = this.state.activeIndex === channel.cID && this.props.currentChannel.type === this.props.messageType ? "channel-item active" : "channel-item"
+          return (
+            <div className={`${activeChannel} channel-item pl-4 pr-3`} channel-id={channel.cID} key={channel.cID} onClick={this.handleClick}>
+              <FontAwesomeIcon className='Channels-channel-item-icon' icon={['fas', channelIcon]} size='xs' />
+              {channel.name}
+              <span className="badge ml-1 badge-pill badge-danger">{channel.unread > 0 ? channel.unread : null}</span>
+            </div>
+          )
+        })
+        }
       </div>
     );
   }

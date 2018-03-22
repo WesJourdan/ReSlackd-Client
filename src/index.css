@@ -49,6 +49,10 @@ img {
   color: #9da7ab;
 }
 
+.Channels-channel-item-icon {
+  margin: 0 0.4rem 0.1rem 0;
+}
+
 .modal {
   background: #fff;
   outline: 0;
@@ -115,19 +119,21 @@ img {
 
 .active {
   background-color: #77ba99;
-  color: #1e2e35
+  color: #1e2e35;
 }
 
 .Modal-text {
-  color: #283e48
+  color: #283e48;
 }
 
 .modal-input {
-  width: 150%
+  width: 150%;
 }
 
-.modal-delete {
-  font-size: 18px
+.modal-delete, .modal-delete:hover, .modal-delete:active {
+  font-size: 18px;
+  color: #283e48;
+  text-decoration: none;
 }
 
 .messageboard {

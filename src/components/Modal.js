@@ -185,7 +185,7 @@ class Modal extends Component {
       <div>Users to add:
         {this.state.membersList.map( (member, index) => {
           return (
-            <li className="modal-list" key={index}> {member} <button className="modal-delete" type="button" value={member} onClick={this.handleDelete}>&times;</button></li>
+            <li className="modal-list" key={index}> {member} <button className="modal-delete Modal-text btn btn-link" type="button" value={member} onClick={this.handleDelete}>&times;</button></li>
           )
         })
         }
@@ -231,8 +231,8 @@ class Modal extends Component {
               </div>
             </form>
             {this.renderMembers()}
-            <div className="footer flex">
-              <button className="btn" onClick={this.handleSubmit}>
+            <div className="footer flex mt-2">
+              <button className="btn mr-1" onClick={this.handleSubmit}>
                 Create
               </button>
               <button className="btn" onClick={this.deactivateModal}>
