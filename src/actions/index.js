@@ -3,29 +3,24 @@ import { MESSAGES, CHANNEL_LIST, CURRENT_USER, USERS } from "../DUMMY_DATA.js"
 import { SOCKET_MESSAGE, ADD_USER_TO_CHANNEL, FETCH_CHANNELS, FETCH_CURRENT_CHANNEL_MESSAGES, FETCH_CURRENT_USER, FETCH_USER_LIST, SET_CURRENT_CHANNEL, POST_MESSAGE, FETCH_DIRECT_MESSAGES, FETCH_MESSAGE_LIST, FETCH_CURRENT_CHANNEL_USERS, REMOVE_SELF_FROM_CHANNEL } from './types';
 
 
-export const fetchChannels = () => async dispatch => {
+export const fetchChannels = (lastActive) => async dispatch => {
   const res = await axios.get('/api/user/channels?type=channel');
+  // The below block is a way to handle notifications on the front end. 
+  // it wil be unecessary if the back end changes the way they are serving this data.
+  res.data.map( channel => {
+    channel.unread = 0;
+  })
 
   dispatch({ type: FETCH_CHANNELS, payload: res.data });
 };
 
-export const fetchDirectMessages = () => async dispatch => {
+export const fetchDirectMessages = (lastActive) => async dispatch => {
   const res = await axios.get('api/user/channels?type=dm');
-  // let res = []
-  // for (let i = 0; i<CHANNEL_LIST.length; i++) {
-  //   if (CHANNEL_LIST[i].type === "dm") {
-  //     res.push(CHANNEL_LIST[i])
-  //   }
-  // }
+  res.data.map(channel => {
+    channel.unread = 0;
+  })
 
-  dispatch({ type: FETCH_DIRECT_MESSAGES, payload: res.data }); // change to res.data when api ready
-};
-
-export const fetchMessageList = () => async dispatch => {
-  let res = MESSAGES
-  // const res = await axios.get(`/api/channel/:channelId`);
-
-  dispatch({ type: FETCH_MESSAGE_LIST, payload: res }); // change to res.data when api ready
+  dispatch({ type: FETCH_DIRECT_MESSAGES, payload: res.data }); 
 };
 
 export const fetchCurrentChannelMessages = (channelId) => async dispatch => {
@@ -47,10 +42,6 @@ export const fetchCurrentUser = () => async dispatch => {
 
 export const fetchUserList = () => async dispatch => {
   const res = await axios.get('/api/users');
-  // let res = []
-  // for (let i = 0; i<USERS.length; i++) {
-  //     res.push(USERS[i])
-  // }
 
   dispatch({ type: FETCH_USER_LIST, payload: res.data }); // change to res.data when api ready
 };
@@ -73,7 +64,7 @@ export const createNewChannel = (newChannelData) => async dispatch => {
 }
 
 export const socketMessage = (inboundMessage) => dispatch => {
-  console.log(inboundMessage);
+
   dispatch({type: SOCKET_MESSAGE, payload: inboundMessage})
 
 }
@@ -82,7 +73,15 @@ export const addUserToChannel = (channelId,users) => async dispatch => {
   dispatch({  type: ADD_USER_TO_CHANNEL, payload: res.data })
 };
 
+export const setNotification = (channels, channelType) => dispatch => {
+  console.log("set notification", channels)
+  const actionType = channelType === 'channel' ? FETCH_CHANNELS : FETCH_DIRECT_MESSAGES;
+  console.log('actionType', actionType)
+  dispatch({ type: actionType, payload: channels })
+};
+
 export const removeSelfFromChannel = (channelId) => async dispatch => {
   const res = await axios.put(`/api/user/channels`, {channel:channelId})
   dispatch({  type: REMOVE_SELF_FROM_CHANNEL, payload: res.data })
 };
+

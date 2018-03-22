@@ -4,6 +4,7 @@ import { fetchCurrentUser } from '../actions';
 import { bindActionCreators } from "redux";
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 
+
 class Header extends Component {
 
   constructor(props) {
@@ -48,5 +49,6 @@ function mapStateToProps({ auth }) {
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({ fetchCurrentUser }, dispatch);
 }
+    
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header);
