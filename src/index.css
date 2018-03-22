@@ -129,3 +129,13 @@ img {
 .modal-delete {
   font-size: 18px
 }
+
+.messageboard {
+  height: 100%;
+  width: 100%
+}
+
+.login-button {
+  background-color: #77ba99;
+  color: #283e48;
+}
