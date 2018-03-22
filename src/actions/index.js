@@ -5,7 +5,7 @@ import { SOCKET_MESSAGE, ADD_USER_TO_CHANNEL, FETCH_CHANNELS, FETCH_CURRENT_CHAN
 
 export const fetchChannels = (lastActive) => async dispatch => {
   const res = await axios.get('/api/user/channels?type=channel');
-  // The below block is a way to handle notifications on the front end. 
+  // The below block is a way to handle notifications on the front end.
   // it wil be unecessary if the back end changes the way they are serving this data.
   res.data.map( channel => {
     channel.unread = 0;
@@ -15,12 +15,12 @@ export const fetchChannels = (lastActive) => async dispatch => {
 };
 
 export const fetchDirectMessages = (lastActive) => async dispatch => {
-  const res = await axios.get('api/user/channels?type=dm');
+  const res = await axios.get('/api/user/channels?type=dm');
   res.data.map(channel => {
     channel.unread = 0;
   })
 
-  dispatch({ type: FETCH_DIRECT_MESSAGES, payload: res.data }); 
+  dispatch({ type: FETCH_DIRECT_MESSAGES, payload: res.data });
 };
 
 export const fetchCurrentChannelMessages = (channelId) => async dispatch => {
@@ -84,4 +84,3 @@ export const removeSelfFromChannel = (channelId) => async dispatch => {
   const res = await axios.put(`/api/user/channels`, {channel:channelId})
   dispatch({  type: REMOVE_SELF_FROM_CHANNEL, payload: res.data })
 };
-

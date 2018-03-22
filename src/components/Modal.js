@@ -126,7 +126,7 @@ class Modal extends Component {
     this.props.createNewChannel(channelObject).then((cID)=> {
       this.props.fetchChannels()
       this.props.fetchDirectMessages()
-      this.props.fetchCurrentChannelMessages(cID)
+      this.props.fetchCurrentChannelMessages(this.props.channels[0].cID)
     })
     this.deactivateModal()
   }
@@ -256,7 +256,7 @@ class Modal extends Component {
 }
 
 function mapStateToProps(state) {
-  return { auth:state.auth, channels: state.channels, users: state.userList, currentChannel:state.currentChannel };
+  return { auth:state.auth, channels: state.channels, users: state.userList, currentChannel: state.currentChannel };
 }
 
 function mapDispatchToProps(dispatch) {
