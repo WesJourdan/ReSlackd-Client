@@ -107,3 +107,13 @@ img {
 .underlay.has-entered {
   background-color: rgba(0, 0, 0, 0.5);
 }
+
+.active:hover {
+  background-color: #77ba99;
+  color: #1e2e35
+}
+
+.active {
+  background-color: #77ba99;
+  color: #1e2e35
+}
