@@ -124,15 +124,6 @@ img {
   bottom: 0%;
   width: 98%;
 }
-/* .relative-to-messages {
-  position: relative;
-} */
-/* .above-message-bar {
-  position: relative;
-  top: 5%;
-  width: 100%;
-} */
-
 .form-control:focus {
   color: #293e47;
   background-color: #fff;

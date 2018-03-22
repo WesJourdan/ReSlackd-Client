@@ -43,8 +43,6 @@ class MessageBar extends Component {
 			this.props.postMessage({text:this.state.text}, this.props.currentChannel.cID)
 			socket.emit('chat message', post )
 			this.setState({ text: '' });
-			//const scrollToBottom = document.getElementById("card").scrollIntoView(false, {behavior: 'smooth', block: 'end'});;
-			//scrollToBottom.scrollTop = scrollToBottom.scrollHeight;
 		}
 	}
 
