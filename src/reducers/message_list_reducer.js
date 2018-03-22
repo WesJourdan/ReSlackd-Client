@@ -5,7 +5,12 @@ export default function (state = [], action) {
 		case FETCH_MESSAGE_LIST:
 			return action.payload;
 		case FETCH_CURRENT_CHANNEL_MESSAGES:
-			return action.payload;
+      if (action.payload) {
+        return action.payload;
+      }
+      else {
+        return state
+      }
 		case SOCKET_MESSAGE:
 			return [...state, action.payload];
 		default:
