@@ -27,6 +27,7 @@ class App extends Component {
     }
   }
 
+
   onSetSidebarOpen = (open) => {
     this.setState({sidebarOpen: open});
   }
@@ -57,7 +58,7 @@ class App extends Component {
           sidebar={
             <div className='mt-2'>
               <Channels messageType='channel' />
-              <Channels messageType='DM' />
+              <Channels messageType='dm' />
             </div>
           }
           open={this.state.sidebarOpen}

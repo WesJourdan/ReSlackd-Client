@@ -8,11 +8,11 @@ import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 class Channels extends Component {
   constructor(props) {
     super(props);
+
+    this.state = { activeIndex: null};
+
+    this.handleClick = this.handleClick.bind(this);
   }
-  /*  this class needs to map the channels array in our store and add the channel ID as a key
-      on each result. Then we can add a click handler that dispatches the setCurrentChannel action
-      passing in the channel ID.
-  */
 
   componentDidMount() {
     if (this.props.messageType === "channel") {
@@ -22,18 +22,18 @@ class Channels extends Component {
     }
   }
 
-
-  handleClick = (event) => {
-    //  the syntax here is weird. I can't get access to the 'key' property of the div
-    let channelId = event.target.getAttribute('channel-id')
+  handleClick(event) {
+    const channelId = event.target.getAttribute('channel-id')
     const channelArray = this.props.messageType === "channel" ? this.props.channels : this.props.directMessages
-    let currentChannel = channelArray.find( (channel) => {
+    const currentChannel = channelArray.find( (channel) => {
       return channel.cID == channelId
     })
-    console.log(currentChannel)
-    this.props.setCurrentChannel(currentChannel, () => {
+    this.props.setCurrentChannel(currentChannel, (cID) => {
       this.props.fetchCurrentChannelMessages(currentChannel.cID)
+      this.setState({activeIndex: parseInt(channelId,10)})
     })
+
+
   }
 
   render() {
@@ -46,9 +46,19 @@ class Channels extends Component {
           {channelType}
           <span className="add-channel-icon float-right ml-4" role="button"><Modal messageType={this.props.messageType}/></span>
         </div>
-        {channelArray.map(channel => {
+          {channelArray.map( (channel,index) => {
+            const activeChannel = this.state.activeIndex === channel.cID && this.props.currentChannel.type === this.props.messageType ? "channel-item active" : "channel-item"
+            return (
+              <div className={activeChannel} channel-id={channel.cID} key ={channel.cID} onClick={this.handleClick}>
+                {channel.name}
+              </div>
+            )
+          })
+          }
+        {channelArray.map( (channel, index) => {
+          const activeChannel = this.state.activeIndex === channel.cID && this.props.currentChannel.type === this.props.messageType ? "channel-item active" : "channel-item"
           return (
-            <div className="channel-item pl-4 pr-3" channel-id={channel.cID} key={channel.cID} onClick={this.handleClick}>
+            <div className={`${activeChannel} channel-item pl-4 pr-3`} channel-id={channel.cID} key={channel.cID} onClick={this.handleClick}>
               <FontAwesomeIcon className='Channels-channel-item-icon' icon={['fas', channelIcon]} size='xs' />
               {channel.name}
             </div>
@@ -58,11 +68,10 @@ class Channels extends Component {
       </div>
     );
   }
-
 }
 
 function mapStateToProps(state) {
-  return { channels: state.channels, directMessages: state.directMessages }
+  return { channels: state.channels, directMessages: state.directMessages, currentChannel:state.currentChannel }
 };
 
 function mapDispatchToProps(dispatch) {

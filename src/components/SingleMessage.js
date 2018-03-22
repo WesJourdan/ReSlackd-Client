@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import { connect } from 'react-redux';
-import { fetchCurrentChannelMessages, setCurrentChannel } from '../actions';
+import { fetchCurrentChannelMessages, setCurrentChannel, socketMessage } from '../actions';
 import { bindActionCreators } from "redux";
+import io from 'socket.io-client';
+const socket = io('http://localhost:8080');
 
 class SingleMessage extends Component {
 	constructor(props) {
@@ -9,13 +11,29 @@ class SingleMessage extends Component {
 	}
 
 	componentDidMount() {
+		socket.on('receive message', (inboundMessage) => {
+			this.props.socketMessage(inboundMessage)
+			console.log('inbound received');
+		})
+	}
+
+	componentWillReceiveProps(nextProps) {
+		if(nextProps.currentChannel.cID !== this.props.currentChannel.cID){
+			console.log('joining room...')
+			socket.emit('leave room', {room: this.props.currentChannel.cID});
+			socket.emit('room', {room: nextProps.currentChannel.cID});
+		}
+	}
+
+	componentWillMount() {
+
 		if (localStorage.getItem('currentChannel')) {
 			const lastChannel = JSON.parse(localStorage.getItem("currentChannel"))
 			this.props.setCurrentChannel(lastChannel, () => {
 				this.props.fetchCurrentChannelMessages(lastChannel.cID);
 			})
 		}
-	 }
+	}
 
 	convertTime (timestamp) {
 		let date = new Date(timestamp);
@@ -27,7 +45,11 @@ class SingleMessage extends Component {
 	};
 
 	render() {
-		return this.props.messageList.map((message, index) => {
+    const reverseSortMessageList = this.props.messageList.slice(0).sort( (a,b) => {
+      return a.timestamp-b.timestamp
+    })
+    console.log(reverseSortMessageList)
+		return reverseSortMessageList.map((message, index) => {
 			let newMessage = (
 				<div key={index}>
 					<img src={message.imageURL} alt={message.username} className="icon"></img>
@@ -46,7 +68,7 @@ function mapStateToProps( state ) {
 };
 
 function mapDispatchToProps(dispatch) {
-	return bindActionCreators({ fetchCurrentChannelMessages, setCurrentChannel }, dispatch);
+	return bindActionCreators({ fetchCurrentChannelMessages, setCurrentChannel, socketMessage }, dispatch);
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SingleMessage);
