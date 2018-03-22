@@ -241,12 +241,12 @@ class Modal extends Component {
             </div>
           </div>
         </div>
-    </AriaModal>
+      </AriaModal>
   : false;
 
     return (
       <div>
-        <FontAwesomeIcon icon='plus' onClick={this.activateModal}>
+        <FontAwesomeIcon icon='plus' onClick={this.props.auth ? this.activateModal : null}>
           activate modal
         </FontAwesomeIcon>
         {modal}
@@ -256,7 +256,7 @@ class Modal extends Component {
 }
 
 function mapStateToProps(state) {
-  return { channels: state.channels, users: state.userList, currentChannel:state.currentChannel };
+  return { auth:state.auth, channels: state.channels, users: state.userList, currentChannel:state.currentChannel };
 }
 
 function mapDispatchToProps(dispatch) {

@@ -129,17 +129,15 @@ class MessageBoard extends Component {
         </div>
       )
     }
-
 	};
 
   render() {
     return(
-      <div className="d-flex justify-content-center messageboard">
+      <div className="">
         {this.loginRender()}
       </div>
-  )
+    )
   }
-
 };
 
 function mapStateToProps( state ) {
