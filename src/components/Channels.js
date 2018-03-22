@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { fetchChannels, setCurrentChannel, fetchDirectMessages, fetchCurrentChannelMessages } from '../actions';
 import { connect } from 'react-redux';
-import { bindActionCreators } from "redux"
-import Modal from './Modal'
+import { bindActionCreators } from "redux";
+import Modal from './Modal';
+import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 
 class Channels extends Component {
   constructor(props) {
@@ -27,7 +28,7 @@ class Channels extends Component {
     let channelId = event.target.getAttribute('channel-id')
     const channelArray = this.props.messageType === "channel" ? this.props.channels : this.props.directMessages
     let currentChannel = channelArray.find( (channel) => {
-      return channel.cID === channelId
+      return channel.cID == channelId
     })
     console.log(currentChannel)
     this.props.setCurrentChannel(currentChannel, () => {
@@ -38,6 +39,7 @@ class Channels extends Component {
   render() {
     const channelType = this.props.messageType === "channel" ? "Channels" : "Direct Messages"
     const channelArray = this.props.messageType === "channel" ? this.props.channels : this.props.directMessages
+    const channelIcon = channelType === "Channels" ? "comments" : "user"
     return (
       <div className="mb-3 channels">
         <div className='mx-3'>
@@ -46,7 +48,8 @@ class Channels extends Component {
         </div>
         {channelArray.map(channel => {
           return (
-            <div className="channel-item ml-5" channel-id={channel.cID} key ={channel.cID} onClick={this.handleClick}>
+            <div className="channel-item pl-4 pr-3" channel-id={channel.cID} key={channel.cID} onClick={this.handleClick}>
+              <FontAwesomeIcon className='Channels-channel-item-icon' icon={['fas', channelIcon]} size='xs' />
               {channel.name}
             </div>
           )

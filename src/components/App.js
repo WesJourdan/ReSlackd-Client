@@ -57,7 +57,7 @@ class App extends Component {
           sidebar={
             <div className='mt-2'>
               <Channels messageType='channel' />
-              <Channels messageType='dm' />
+              <Channels messageType='DM' />
             </div>
           }
           open={this.state.sidebarOpen}

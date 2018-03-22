@@ -49,6 +49,10 @@ img {
   color: #9da7ab;
 }
 
+.Channels-channel-item-icon {
+  margin: 0 0.4rem 0.1rem 0;
+}
+
 .modal {
   background: #fff;
   outline: 0;
