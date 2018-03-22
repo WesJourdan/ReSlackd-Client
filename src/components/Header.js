@@ -32,9 +32,9 @@ class Header extends Component {
     return (
       <div className='container-fluid'>
         <div className='Header-bar row text-center'>
-          <div className='col-2 py-3 cursor-pointer'><FontAwesomeIcon icon='bars' color='#283e48' size='lg' onClick={this.props.toggleSidebar} /></div>
-          <div className='col-8 mt-2 Header-bar-brand'>ReSlackd</div>
-          <div className='col-2 py-3'>{this.renderContent()}</div>
+          <div className='col-3 py-3 cursor-pointer'><FontAwesomeIcon icon='bars' color='#283e48' size='lg' onClick={this.props.toggleSidebar} /></div>
+          <div className='col-6 mt-2 Header-bar-brand'>ReSlackd</div>
+          <div className='col-3 py-3'>{this.renderContent()}</div>
         </div>
       </div>
     );
