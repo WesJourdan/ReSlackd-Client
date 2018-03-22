@@ -48,7 +48,6 @@ class SingleMessage extends Component {
     const reverseSortMessageList = this.props.messageList.slice(0).sort( (a,b) => {
       return a.timestamp-b.timestamp
     })
-    console.log(reverseSortMessageList)
 		return reverseSortMessageList.map((message, index) => {
 			let newMessage = (
 				<div key={index}>
