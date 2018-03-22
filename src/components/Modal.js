@@ -161,14 +161,14 @@ class Modal extends Component {
             <div>
               <label className="">Name:
                 <div className="">
-                  <input type="text" placeholder="# e.g. general" className="" value={this.state.name} onChange={this.handleNameChange} />
+                  <input type="text" placeholder="# e.g. general" className="input-group-text modal-input" value={this.state.name} onChange={this.handleNameChange} />
                 </div>
               </label>
             </div>
             <div>
               <label className="">Purpose:
                 <div className="">
-                  <input type="text" placeholder="What the channel is about" className="" value={this.state.purpose} onChange={this.handlePurposeChange} />
+                  <input type="text" placeholder="What the channel is about" className="input-group-text modal-input" value={this.state.purpose} onChange={this.handlePurposeChange} />
                 </div>
               </label>
             </div>
@@ -185,7 +185,7 @@ class Modal extends Component {
       <div>Users to add:
         {this.state.membersList.map( (member, index) => {
           return (
-            <li key={index}>{member}<button type="button" value={member} onClick={this.handleDelete}>remove</button></li>
+            <li className="modal-list" key={index}> {member} <button className="modal-delete" type="button" value={member} onClick={this.handleDelete}>&times;</button></li>
           )
         })
         }
@@ -199,10 +199,6 @@ class Modal extends Component {
 
   render() {
 
-    // const AlternateLocationAriaModal = AriaModal.renderTo(
-    //   '#main'
-    // );
-
     const modal = this.state.modalActive
       ? <AriaModal
         titleText="demo one"
@@ -214,14 +210,14 @@ class Modal extends Component {
         verticallyCenter={true}
         >
         <div id="demo-one-modal">
-          <div className="modal-body">
+          <div className="modal-body Header-bar Modal-text">
             {this.renderType()}
             <form>
               <div>
                 {this.renderGroupFields()}
                 <label>Add member:</label>
                 <div>
-                  <select value={this.state.members} onChange={this.handleMemberChange}>
+                  <select className="custom-select" value={this.state.members} onChange={this.handleMemberChange}>
                     <option value="">None</option>
                     {
                       this.props.users.map( (user) => {
@@ -235,11 +231,11 @@ class Modal extends Component {
               </div>
             </form>
             {this.renderMembers()}
-              <div className="footer">
-              <button className="" onClick={this.handleSubmit}>
+            <div className="footer flex">
+              <button className="btn" onClick={this.handleSubmit}>
                 Create
               </button>
-              <button className="" onClick={this.deactivateModal}>
+              <button className="btn" onClick={this.deactivateModal}>
                 Cancel
               </button>
             </div>
@@ -248,27 +244,6 @@ class Modal extends Component {
     </AriaModal>
   : false;
 
-    // The gray background
-    const backdropStyle = {
-      position: 'fixed',
-      top: 0,
-      bottom: 0,
-      left: 0,
-      right: 0,
-      backgroundColor: 'rgba(0,0,0,0.3)',
-      padding: 50
-    };
-
-    // The modal "window"
-    const modalStyle = {
-      backgroundColor: '#fff',
-      borderRadius: 5,
-      maxWidth: 800,
-      minHeight: 500,
-      margin: '0 auto',
-      padding: 30
-    };
-
     return (
       <div>
         <FontAwesomeIcon icon='plus' onClick={this.activateModal}>
@@ -276,16 +251,9 @@ class Modal extends Component {
         </FontAwesomeIcon>
         {modal}
       </div>
-
     );
   }
 }
-
-Modal.propTypes = {
-  onClose: PropTypes.func.isRequired,
-  show: PropTypes.bool,
-  children: PropTypes.node
-};
 
 function mapStateToProps(state) {
   return { channels: state.channels, users: state.userList, currentChannel:state.currentChannel };
