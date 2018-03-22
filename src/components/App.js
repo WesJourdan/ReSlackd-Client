@@ -58,7 +58,7 @@ class App extends Component {
         <Header toggleSidebar={this.toggleSidebar} />
         <Sidebar
           sidebar={
-            <div className='mx-3 mt-2'>
+            <div className='mt-2'>
               <Channels messageType='channel' />
               <Channels messageType='dm' />
             </div>
