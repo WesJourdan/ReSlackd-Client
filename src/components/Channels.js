@@ -13,6 +13,7 @@ class Channels extends Component {
     this.state = { activeIndex: null};
 
     this.handleClick = this.handleClick.bind(this);
+    this.unreadMessageCount = this.unreadMessageCount.bind(this);
   }
 
   componentDidMount() {
@@ -33,8 +34,11 @@ class Channels extends Component {
       this.props.fetchCurrentChannelMessages(currentChannel.cID)
       this.setState({activeIndex: parseInt(channelId,10)})
     })
+  }
 
-
+  unreadMessageCount() {
+    const unreadCount = 1;
+    return unreadCount;
   }
 
   render() {
@@ -51,7 +55,7 @@ class Channels extends Component {
             const activeChannel = this.state.activeIndex === channel.cID && this.props.currentChannel.type === this.props.messageType ? "channel-item active" : "channel-item"
             return (
               <div className={activeChannel} channel-id={channel.cID} key ={channel.cID} onClick={this.handleClick}>
-                {channel.name}
+                {channel.name}<span className="badge badge-pill badge-danger">{this.unreadMessageCount()}</span>  {/*make this span display # of unread messages*/}
               </div>
             )
           })

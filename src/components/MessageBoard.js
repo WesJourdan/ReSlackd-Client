@@ -87,8 +87,12 @@ class MessageBoard extends Component {
 					<span className='navbar-brand'>{this.renderChannelName()}</span>
           {this.renderGroupFields()}
 				</nav>
-				<MapMessages />
-				<MessageBar />
+				<div className='above-message-bar'>
+					<MapMessages />
+				</div>
+				<div className='force-to-bottom relative-to-messages'>
+					<MessageBar />
+				</div>
 			</div>
 		);
 	};

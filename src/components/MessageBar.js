@@ -16,7 +16,6 @@ class MessageBar extends Component {
 		};
 
 		this.onInputChange = this.onInputChange.bind(this)
-		this.onSubmitMessage = this.onSubmitMessage.bind(this)
 	}
 	
 	onInputChange(event) {
@@ -49,9 +48,9 @@ class MessageBar extends Component {
 
 	render() {
 		return (
-				<div className="form-group mx-2 mt-3 mb-2 force-to-bottom" onKeyPress={this.handleKeyPress.bind(this)}>
+				<div className="form-group  ml-1 mx-2 mt-5 mb-2 force-to-bottom" onKeyPress={this.handleKeyPress.bind(this)}>
 					<TextareaAutosize
-						class="form-control"
+						className="form-control"
 						maxRows={6}
 						type="text"
 						value={this.state.text}

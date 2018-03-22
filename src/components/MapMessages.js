@@ -54,11 +54,10 @@ class MapMessages extends Component {
 	// 	return reverseSortMessageList.map((message, index) => {
 			let newMessage = (
 				<div key={index}>
-					<img src={message.imageURL} alt={message.username} className="icon"></img>
-					{message.name}
-					{message.text}
-					{this.convertTime(message.timestamp)}
-				</div>
+					<div className="card mb-1 ml-2 mx-1">
+						<div className="card-text pl-2 pt-3"><img src={message.imageURL} alt={message.username} className="icon ml-2 mr-2"></img>{message.name}{this.convertTime(message.timestamp)}<p className="ml-5">{message.text}</p></div>		
+					</div>
+			  	</div>
 			)
 			return newMessage
 		});
