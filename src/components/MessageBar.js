@@ -43,8 +43,7 @@ class MessageBar extends Component {
 
 	render() {
 		return (
-			<div className="container force-to-bottom">
-				<div className="form-group mx-2" onKeyPress={this.handleKeyPress.bind(this)}>
+				<div className="form-group mx-2 mt-3 mb-2 force-to-bottom" onKeyPress={this.handleKeyPress.bind(this)}>
 					<TextareaAutosize
 						class="form-control"
 						maxRows={6}
@@ -55,7 +54,6 @@ class MessageBar extends Component {
 					>
 					</TextareaAutosize>
 				</div>
-			</div>
 		)
 	}
 }
