@@ -4,7 +4,9 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from "redux";
 import { postMessage, setCurrentChannel, fetchChannels } from '../actions';
 import io from 'socket.io-client';//for socket test
+import TextareaAutosize from 'react-autosize-textarea';
 const socket = io('http://localhost:8080');
+
 
 class MessageBar extends Component {
 
@@ -17,7 +19,7 @@ class MessageBar extends Component {
 		this.onInputChange = this.onInputChange.bind(this)
 		this.onSubmitMessage = this.onSubmitMessage.bind(this)
 	}
-	
+
 	onInputChange(event) {
 		this.setState({ text: event.target.value });
 
@@ -25,6 +27,27 @@ class MessageBar extends Component {
 			// this is where we would emit a "user is typing" event.
 		}
 	}
+
+  handleKeyPress = (event) => {
+		if (event.key === 'Enter') {
+			event.preventDefault();
+
+			const currentTime = new Date();
+			const post = {
+				cID: this.props.currentChannel.cID,
+				uID: this.props.auth[0].uID,
+				text: this.state.text,
+				timestamp: currentTime.getTime(),
+				name: this.props.auth[0].name,
+				imageURL: this.props.auth[0].imageURL,
+				enabled: true
+			}
+			this.props.postMessage({text:this.state.text}, this.props.currentChannel.cID)
+			socket.emit('chat message', post )
+			this.setState({ text: '' });
+		}
+	}
+
 
 	onSubmitMessage(event) {
 		event.preventDefault();
@@ -38,27 +61,26 @@ class MessageBar extends Component {
 			imageURL: this.props.auth[0].imageURL, //TODO: get url for profile pic
 			enabled: true
 		}
-		console.log('auth ', this.props.auth);
-		  
+
 		this.props.postMessage({text:this.state.text}, this.props.currentChannel.cID)
-		socket.emit('chat message', post )// TODO: add 
+		socket.emit('chat message', post )
 		this.setState({ text: '' });
 	}
 
-	render() {
+  render() {
 		return (
-
-			<div>
-				<form onSubmit={this.onSubmitMessage}>
-
-					<input
+			<div className="card" id="message-bar">
+				<div className="form-group  ml-1 pt-2" onKeyPress={this.handleKeyPress.bind(this)}>
+					<TextareaAutosize
+						className="form-control"
+						maxRows={6}
 						type="text"
 						value={this.state.text}
 						placeholder="send a message"
 						onChange={this.onInputChange}
-					/>
-
-				</form>
+					>
+					</TextareaAutosize>
+				</div>
 			</div>
 		)
 	}

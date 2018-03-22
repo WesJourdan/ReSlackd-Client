@@ -46,23 +46,23 @@ class SingleMessage extends Component {
 		return date.toLocaleTimeString("en-us", options);
 	};
 
-	render() {
+  render() {
     const reverseSortMessageList = this.props.messageList.slice(0).sort( (a,b) => {
       return a.timestamp-b.timestamp
     })
 		return reverseSortMessageList.map((message, index) => {
 			let newMessage = (
 				<div key={index}>
-					<img src={message.imageURL} alt={message.username} className="icon"></img>
-					{message.name}
-					{message.text}
-					{this.convertTime(message.timestamp)}
-				</div>
+					<div className="card border-0 mb-1 ml-2 mx-1" id="card">
+						<div className="card-text pl-2 pt-3"><img src={message.imageURL} alt={message.username} className="icon ml-2 mr-2"></img><strong>{message.name}</strong><span className="float-right">{this.convertTime(message.timestamp)}</span><p className="ml-5">{message.text}</p></div>
+					</div>
+			  	</div>
 			)
 			return newMessage
 		});
 	};
-};
+}
+
 
 function mapStateToProps( state ) {
 	return { messageList:state.messageList, currentChannel:state.currentChannel }

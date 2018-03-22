@@ -145,3 +145,26 @@ img {
   background-color: #77ba99;
   color: #283e48;
 }
+
+.force-to-bottom {
+  position: fixed;
+  bottom: 0%;
+  width: 98%;
+}
+
+.form-control:focus {
+  color: #293e47;
+  background-color: #fff;
+  border-color: #afccbe;
+  outline: 0;
+  -webkit-box-shadow: 0 0 0 0.1rem #a2ceb8;
+  box-shadow: 0 0 0 0.2rem #8abea4;
+}
+
+#card {
+  background-color: #eef7f2;
+}
+
+#message-bar {
+  height: 50px;
+}
